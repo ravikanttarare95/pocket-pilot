@@ -1,6 +1,7 @@
 import React from "react";
 import HeroImg from "./assets/hero-img.png";
 import FEATURES from "./configs/features";
+import FeaturesCard from "./components/FeaturesCard";
 
 function App() {
   return (
@@ -46,14 +47,7 @@ function App() {
         {/* Features Flex Layout */}
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
           {FEATURES.map((feature, idx) => (
-            <div
-              key={idx}
-              className="bg-white w-full sm:w-[250px] md:w-72 rounded-2xl shadow-md p-4 sm:p-5 border-t-4 border-rose-500 hover:shadow-xl hover:-translate-y-2 hover:scale-105 duration-300"
-            >
-              <p className="text-slate-800 font-medium text-base sm:text-lg md:text-xl">
-                {feature}
-              </p>
-            </div>
+            <FeaturesCard feature={feature} key={idx} />
           ))}
         </div>
       </section>
