@@ -1,11 +1,15 @@
-import React from "react";
-import AosInitializer from "./components/AosInitializer";
-import HeroImg from "./assets/hero-img.png";
-import FEATURES from "./configs/features";
-import FeaturesCard from "./components/FeaturesCard";
-import Button from "./components/Button";
+import { useNavigate } from "react-router";
+import AosInitializer from "../components/AosInitializer";
+import HeroImg from "./../assets/hero-img.png";
+import FEATURES from "../configs/features";
+import FeaturesCard from "../components/FeaturesCard";
+import Button from "../components/Button";
 
 function App() {
+  const navigate = useNavigate();
+  const hangleNavigation = (path) => {
+    navigate(path);
+  };
   return (
     <div className="min-h-screen flex flex-col text-slate-900 font-serif items-center">
       <AosInitializer />
@@ -74,12 +78,7 @@ function App() {
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
           {FEATURES.map(
             ({ featureText, featureIcon: FeatureIcon, colorObj }, idx) => (
-              <div
-                key={idx}
-                data-aos="zoom-in-up"
-                data-aos-delay={idx * 100}
-                data-aos-duration="800"
-              >
+              <div key={idx} data-aos="zoom-in-up">
                 <FeaturesCard
                   colorObj={colorObj}
                   featureText={featureText}
@@ -92,11 +91,7 @@ function App() {
       </section>
 
       {/* CTA Section */}
-      <section
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        className="text-center py-8 sm:py-10 px-4"
-      >
+      <section className="text-center py-8 sm:py-10 px-4">
         <h3
           data-aos="fade-up"
           className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-slate-800"
@@ -112,7 +107,13 @@ function App() {
           Join thousands who’ve simplified their personal budgeting with Pocket
           Pilot. No ads. No hidden fees. Just clarity and control.
         </p>
-        <Button btnTitle="Start Free" />
+
+        <Button
+          btnTitle="Start Free"
+          onBtnClick={() => {
+            hangleNavigation("/sign_up");
+          }}
+        />
       </section>
     </div>
   );
