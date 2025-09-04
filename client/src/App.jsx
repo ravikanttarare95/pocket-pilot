@@ -47,9 +47,16 @@ function App() {
 
         {/* Features Flex Layout */}
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
-          {FEATURES.map((feature, idx) => (
-            <FeaturesCard feature={feature} key={idx} />
-          ))}
+          {FEATURES.map(
+            ({ featureText, featureIcon: FeatureIcon, colorObj }, idx) => (
+              <FeaturesCard
+                key={idx}
+                colorObj={colorObj}
+                featureText={featureText}
+                featureIcon={<FeatureIcon className="w-6 h-6" />}
+              />
+            )
+          )}
         </div>
       </section>
 
