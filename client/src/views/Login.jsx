@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Button from "./../components/Button";
 import Input from "./../components/Input";
-import EyePassword from "./../components/EyePassword";
+import PasswordInput from "./../components/PasswordInput";
 
 const Login = () => {
-  const [inputType, setInputType] = useState("password");
   return (
     <div className="flex items-center justify-center min-h-screen p-6">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
@@ -30,16 +29,7 @@ const Login = () => {
             >
               Password
             </label>
-            <div className="relative">
-              <Input type={inputType} id="password" placeholder="••••••••" />
-
-              <div className="absolute right-0 top-1/2 -translate-1/2 cursor-pointer w-fit opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <EyePassword
-                  inputType={inputType}
-                  setInputType={setInputType}
-                />
-              </div>
-            </div>
+            <PasswordInput id={"password"} placeholder="••••••••" />
           </div>
 
           <Button type="submit" btnTitle={"Login"} customStyle={"w-full"} />
