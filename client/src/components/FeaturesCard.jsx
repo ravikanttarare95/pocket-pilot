@@ -2,8 +2,8 @@ import React from "react";
 
 function FeaturesCard({ featureText, featureIcon, colorObj }) {
   return (
-    <div 
-      tabIndex={0} //VERY IMPORTANT
+    <div
+      tabIndex={0} //VERY IMPORTANT --> makes the element focusable
       className={` group bg-white w-full sm:w-[300px] md:w-[350px] rounded-2xl shadow-md p-5 border-t-3 ${colorObj.border} hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 flex items-center gap-4`}
     >
       <div

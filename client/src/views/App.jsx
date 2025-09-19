@@ -4,6 +4,7 @@ import HeroImg from "./../assets/hero-img.png";
 import FEATURES from "../configs/features";
 import FeaturesCard from "../components/FeaturesCard";
 import Button from "../components/Button";
+import Navbar from "./../components/Navbar";
 
 function App() {
   const navigate = useNavigate();
@@ -11,9 +12,9 @@ function App() {
     navigate(path);
   };
   return (
-    <div className="min-h-screen flex flex-col text-slate-900 font-serif items-center">
+    <div className="min-h-screen flex flex-col text-slate-900 font-serif ">
       <AosInitializer />
-
+      <Navbar />
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto text-center py-8 sm:py-10 px-4 sm:px-6 flex-1">
         <div
@@ -31,7 +32,7 @@ function App() {
           data-aos="fade-up"
           data-aos-delay="200"
           data-aos-duration="800"
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-slate-800 leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-slate-900 leading-tight"
           style={{ fontFamily: '"Cormorant Upright", cursive' }}
         >
           Take Control of Your Finances
@@ -40,7 +41,7 @@ function App() {
           data-aos="fade-up"
           data-aos-delay="400"
           data-aos-duration="800"
-          className="text-base sm:text-lg md:text-xl text-slate-600 mx-auto leading-relaxed max-w-3xl"
+          className="text-base sm:text-lg md:text-xl text-slate-700 mx-auto leading-relaxed max-w-3xl"
         >
           Pocket Pilot helps you budget smarter, spend wiser, and save more with
           a beautifully simple finance dashboard.
@@ -48,45 +49,47 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        className="bg-gradient-to-br from-white to-slate-100 max-w-7xl mx-4 sm:mx-5 rounded-2xl shadow-lg py-8 sm:py-10 my-8 sm:my-10 px-4 sm:px-8 text-center"
-      >
-        {/* Section Heading */}
-        <h3
-          data-aos="flip-up"
-          data-aos-delay="100"
-          className="text-2xl sm:text-3xl md:text-4xl text-cyan-600 font-semibold mb-6 sm:mb-8"
-          style={{ fontFamily: '"Cormorant Upright", cursive' }}
-        >
-          What Makes Pocket Pilot Different?
-        </h3>
-
-        {/* Section Description */}
-        <p
+      <section className="">
+        <div
           data-aos="fade-up"
-          data-aos-delay="200"
-          className="text-slate-600 mx-auto mb-10 sm:mb-14 text-base sm:text-lg md:text-xl leading-relaxed"
+          data-aos-duration="1000"
+          className="mx-auto bg-gradient-to-br from-white to-white-100 max-w-7xl rounded-2xl shadow-lg py-8 sm:py-10 my-8 sm:my-10 px-4 sm:px-8 text-center"
         >
-          Designed for real people, Pocket Pilot gives you full control of your
-          money through simple tools and intelligent features - all in one
-          secure place.
-        </p>
+          {/* Section Heading */}
+          <h3
+            data-aos="flip-up"
+            data-aos-delay="100"
+            className="text-2xl sm:text-3xl md:text-4xl text-cyan-600 font-semibold mb-6 sm:mb-8"
+            style={{ fontFamily: '"Cormorant Upright", cursive' }}
+          >
+            What Makes Pocket Pilot Different?
+          </h3>
 
-        {/* Features Flex Layout */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
-          {FEATURES.map(
-            ({ featureText, featureIcon: FeatureIcon, colorObj }, idx) => (
-              <div key={idx} data-aos="zoom-in-up">
-                <FeaturesCard
-                  colorObj={colorObj}
-                  featureText={featureText}
-                  featureIcon={<FeatureIcon className="w-6 h-6" />}
-                />
-              </div>
-            )
-          )}
+          {/* Section Description */}
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-slate-700 mx-auto mb-10 sm:mb-14 text-base sm:text-lg md:text-xl leading-relaxed"
+          >
+            Designed for real people, Pocket Pilot gives you full control of
+            your money through simple tools and intelligent features - all in
+            one secure place.
+          </p>
+
+          {/* Features Flex Layout */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
+            {FEATURES.map(
+              ({ featureText, featureIcon: FeatureIcon, colorObj }, idx) => (
+                <div key={idx} data-aos="zoom-in">
+                  <FeaturesCard
+                    colorObj={colorObj}
+                    featureText={featureText}
+                    featureIcon={<FeatureIcon className="w-6 h-6" />}
+                  />
+                </div>
+              )
+            )}
+          </div>
         </div>
       </section>
 
@@ -94,15 +97,15 @@ function App() {
       <section className="text-center py-8 sm:py-10 px-4">
         <h3
           data-aos="fade-up"
-          className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-slate-800"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-slate-900"
           style={{ fontFamily: '"Cormorant Upright", cursive' }}
         >
           Your Financial Journey Starts Now
         </h3>
         <p
-          data-aos="fade-up"
+          data-aos="zoom-in"
           data-aos-delay="200"
-          className="mx-auto mb-6 sm:mb-10 text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed"
+          className="mx-auto mb-6 sm:mb-10 text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed"
         >
           Join thousands who’ve simplified their personal budgeting with Pocket
           Pilot. No ads. No hidden fees. Just clarity and control.
