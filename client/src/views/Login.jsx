@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./../components/Button";
 import Input from "./../components/Input";
-import { Eye, EyeOff } from "lucide-react";
+import EyePassword from "./../components/EyePassword";
 
 const Login = () => {
   const [inputType, setInputType] = useState("password");
@@ -34,19 +34,10 @@ const Login = () => {
               <Input type={inputType} id="password" placeholder="••••••••" />
 
               <div className="absolute right-0 top-1/2 -translate-1/2 cursor-pointer w-fit opacity-60 hover:opacity-100 transition-opacity duration-300">
-                {inputType === "password" ? (
-                  <Eye
-                    onClick={() => {
-                      setInputType("text");
-                    }}
-                  />
-                ) : (
-                  <EyeOff
-                    onClick={() => {
-                      setInputType("password");
-                    }}
-                  />
-                )}
+                <EyePassword
+                  inputType={inputType}
+                  setInputType={setInputType}
+                />
               </div>
             </div>
           </div>
