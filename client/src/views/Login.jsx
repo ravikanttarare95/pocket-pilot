@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "./../components/Button";
 import Input from "./../components/Input";
 import PasswordInput from "./../components/PasswordInput";
+import Label from "./../components/Label";
 
 const Login = () => {
   return (
@@ -13,22 +14,12 @@ const Login = () => {
 
         <form className="space-y-5">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600 mb-1"
-            >
-              Email Address
-            </label>
+            <Label htmlFor="email" labelTitle={"Email Address"} />
             <Input type="email" id="email" placeholder="abcd123@gmail.com" />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600 mb-1"
-            >
-              Password
-            </label>
+            <Label htmlFor="password" labelTitle={"Password"} />
             <PasswordInput id={"password"} placeholder="••••••••" />
           </div>
 
