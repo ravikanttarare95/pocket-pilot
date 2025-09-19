@@ -114,7 +114,7 @@ function App() {
         <Button
           btnTitle="Start Free"
           onBtnClick={() => {
-            hangleNavigation("/sign_up");
+            hangleNavigation("/login");
           }}
         />
       </section>

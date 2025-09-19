@@ -14,12 +14,16 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-100 bg-slate-900 text-white shadow-md px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div className="flex items-center justify-between w-full md:w-auto">
-        <div className="flex items-center gap-3">
-          <img src={Logo} alt="Logo" className="w-15 rounded-lg" />
+        <Link to={"/"} className="flex items-center gap-3">
+          <img
+            src={Logo}
+            alt="Logo"
+            className="w-17 rounded-lg drop-shadow-xs drop-shadow-cyan-600"
+          />
           <span className="text-2xl font-extrabold bg-gradient-to-r from-cyan-300 to-violet-100 bg-clip-text text-transparent">
             Pocket Pilot
           </span>
-        </div>
+        </Link>
 
         <button
           onClick={() => setIsOpen(!isOpen)}
