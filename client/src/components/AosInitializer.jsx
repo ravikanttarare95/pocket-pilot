@@ -10,7 +10,8 @@ const AosInitializer = () => {
       mirror: true,
       offset: 120,
     });
-  }, []);  AOS.refreshHard();
+  }, []);
+  AOS.refreshHard();
   return null;
 };
 

@@ -3,10 +3,16 @@ import Input from "./../components/Input";
 import Button from "./../components/Button";
 import PasswordInput from "./../components/PasswordInput";
 import Label from "./../components/Label";
+import Logo from "./../../public/wallet-logo.png";
+import { Link } from "react-router";
 
 const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-6">
+      {" "}
+      <Link to="/">
+        <img src={Logo} alt="" className="w-17 fixed top-0 left-0" />
+      </Link>
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
           Sign Up
@@ -30,7 +36,7 @@ const Signup = () => {
 
           <div>
             <Label htmlFor="confirmPassword" labelTitle="Confirm Password" />
-            <PasswordInput id="password" placeholder="••••••••" />
+            <PasswordInput id="confirmPassword" placeholder="••••••••" />
           </div>
 
           <Button
