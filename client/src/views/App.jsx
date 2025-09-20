@@ -15,7 +15,7 @@ function App() {
     <div className="min-h-screen flex flex-col text-slate-900 font-serif ">
       <AosInitializer />
       <Navbar />
-      {/* Hero Section */}
+
       <section className="max-w-7xl mx-auto text-center py-8 sm:py-10 px-4 sm:px-6 flex-1">
         <div
           data-aos="zoom-in"
@@ -48,14 +48,12 @@ function App() {
         </p>
       </section>
 
-      {/* Features Section */}
       <section className="">
         <div
           data-aos="fade-up"
           data-aos-duration="1000"
           className="mx-auto bg-gradient-to-br from-white to-white-100 max-w-7xl rounded-2xl shadow-lg py-8 sm:py-10 my-8 sm:my-10 px-4 sm:px-8 text-center"
         >
-          {/* Section Heading */}
           <h3
             data-aos="flip-up"
             data-aos-delay="100"
@@ -65,7 +63,6 @@ function App() {
             What Makes Pocket Pilot Different?
           </h3>
 
-          {/* Section Description */}
           <p
             data-aos="fade-up"
             data-aos-delay="200"
@@ -76,7 +73,6 @@ function App() {
             one secure place.
           </p>
 
-          {/* Features Flex Layout */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
             {FEATURES.map(
               ({ featureText, featureIcon: FeatureIcon, colorObj }, idx) => (
@@ -93,7 +89,6 @@ function App() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="text-center py-8 sm:py-10 px-4">
         <h3
           data-aos="fade-up"
@@ -113,6 +108,7 @@ function App() {
 
         <Button
           btnTitle="Start Free"
+          size="lg"
           onBtnClick={() => {
             hangleNavigation("/login");
           }}
