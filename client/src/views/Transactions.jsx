@@ -1,7 +1,12 @@
 import React from "react";
+import DashboardTopBar from "./../components/DashboardTopBar";
 
 function Transactions() {
-  return <div className="text-5xl font-extrabold">Transactions</div>;
+  return (
+    <div className="">
+      <DashboardTopBar dashTopBarTitle="Transactions" />
+    </div>
+  );
 }
 
 export default Transactions;

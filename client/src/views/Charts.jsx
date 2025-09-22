@@ -1,7 +1,12 @@
 import React from "react";
+import DashboardTopBar from "./../components/DashboardTopBar";
 
 function Charts() {
-  return <div className="text-5xl font-extrabold">Charts</div>;
+  return (
+    <div className="">
+      <DashboardTopBar dashTopBarTitle="Charts" />
+    </div>
+  );
 }
 
 export default Charts;

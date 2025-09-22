@@ -24,7 +24,7 @@ function Dashboard() {
       <aside
         className={`relative ${
           isClose ? "w-fit" : "w-64 max-sm:fixed left-0 top-0 bottom-0"
-        } bg-gray-800 text-white p-3 transition-width duration-300`}
+        } bg-slate-900 text-white p-1 sm:p-3 transition-width duration-300 z-49`}
       >
         <div className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer">
           {isClose ? (
@@ -69,7 +69,7 @@ function Dashboard() {
                 }}
               >
                 <Icon />
-                <span className={`${isClose ? "hidden" : "block"}`}>
+                <span className={`${isClose ? "hidden" : "block capitalize"}`}>
                   {title}
                 </span>
               </li>
@@ -77,7 +77,7 @@ function Dashboard() {
           })}
         </ul>
       </aside>
-      <main className="flex-1 bg-gray-100 p-8">
+      <main className="flex-1 bg-gray-100">
         {mainContent === "overview" ? (
           <Overview />
         ) : mainContent === "transactions" ? (

@@ -1,7 +1,11 @@
 import React from "react";
-
+import DashboardTopBar from "./../components/DashboardTopBar";
 function Overview() {
-  return <div className="text-5xl font-extrabold">Overview</div>;
+  return (
+    <div className="">
+      <DashboardTopBar dashTopBarTitle="Overview" />
+    </div>
+  );
 }
 
 export default Overview;
