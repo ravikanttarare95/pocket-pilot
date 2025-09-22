@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Button from "../components/Button";
-import { House, LayoutDashboard, HandCoins, ChartPie } from "lucide-react";
-
+import Button from "./../components/Button";
+import { House } from "lucide-react";
 import {
   HiMiniArrowLeftStartOnRectangle,
   HiMiniArrowRightStartOnRectangle,
@@ -9,6 +8,7 @@ import {
 import Overview from "./Overview";
 import Transactions from "./Transactions";
 import Charts from "./Charts";
+import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
 
 import { useNavigate } from "react-router";
 
@@ -55,44 +55,26 @@ function Dashboard() {
         />
 
         <ul className="space-y-2 mt-5">
-          <li
-            className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
-            onClick={() => {
-              setMainContent("overview");
-              if (window.innerWidth < 640) {
-                setIsClose(true);
-              }
-            }}
-          >
-            <LayoutDashboard />
-            <span className={`${isClose ? "hidden" : "block"}`}>Overview</span>
-          </li>
-          <li
-            className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
-            onClick={() => {
-              setMainContent("transactions");
-              if (window.innerWidth < 640) {
-                setIsClose(true);
-              }
-            }}
-          >
-            <HandCoins />
-            <span className={`${isClose ? "hidden" : "block"}`}>
-              Transactions
-            </span>
-          </li>
-          <li
-            className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
-            onClick={() => {
-              setMainContent("Charts");
-              if (window.innerWidth < 640) {
-                setIsClose(true);
-              }
-            }}
-          >
-            <ChartPie />
-            <span className={`${isClose ? "hidden" : "block"}`}>Charts</span>
-          </li>
+          {SIDEBAR_LINKS.map((linkObj) => {
+            const { title, icon: Icon } = linkObj;
+            return (
+              <li
+                key={title}
+                className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
+                onClick={() => {
+                  setMainContent(title);
+                  if (window.innerWidth < 640) {
+                    setIsClose(true);
+                  }
+                }}
+              >
+                <Icon />
+                <span className={`${isClose ? "hidden" : "block"}`}>
+                  {title}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </aside>
       <main className="flex-1 bg-gray-100 p-8">

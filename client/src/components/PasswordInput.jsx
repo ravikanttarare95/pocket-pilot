@@ -15,13 +15,13 @@ function PasswordInput({ id, placeholder }) {
       <div className="absolute right-0 top-1/2 -translate-1/2 cursor-pointer w-fit opacity-50 hover:opacity-80 transition-opacity duration-300">
         <div>
           {isPasswordVisible ? (
-            <EyeOff
+            <Eye
               onClick={() => {
                 setIsPasswordVisible(false);
               }}
             />
           ) : (
-            <Eye
+            <EyeOff
               onClick={() => {
                 setIsPasswordVisible(true);
               }}

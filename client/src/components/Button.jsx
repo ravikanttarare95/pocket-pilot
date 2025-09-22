@@ -11,7 +11,7 @@ function Button({ btnTitle, onBtnClick, customStyle = "", size = "md" }) {
   return (
     <button
       className={`${customStyle} ${sizeClasses} 
-        cursor-pointer bg-gradient-to-br from-cyan-400 to-violet-500 
+        cursor-pointer bg-gradient-to-br from-cyan-300 to-violet-500 
         text-white shadow-lg hover:shadow-xl duration-300 font-semibold`}
       onClick={onBtnClick}
     >
