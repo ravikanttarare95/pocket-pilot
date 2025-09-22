@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import { House, LayoutDashboard, HandCoins, ChartPie } from "lucide-react";
+
+import {
+  HiMiniArrowLeftStartOnRectangle,
+  HiMiniArrowRightStartOnRectangle,
+} from "react-icons/hi2";
 import Overview from "./Overview";
 import Transactions from "./Transactions";
 import Charts from "./Charts";
@@ -9,10 +14,32 @@ import { useNavigate } from "react-router";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [isClose, setIsClose] = useState(false);
   const [mainContent, setMainContent] = useState("overview");
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-gray-800 text-white p-3">
+      <aside
+        className={`relative ${
+          isClose ? "w-fit" : "w-64 max-sm:fixed left-0 top-0 bottom-0"
+        } bg-gray-800 text-white p-3 transition-width duration-300`}
+      >
+        <div className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer">
+          {isClose ? (
+            <HiMiniArrowRightStartOnRectangle
+              size={30}
+              onClick={() => {
+                setIsClose(false);
+              }}
+            />
+          ) : (
+            <HiMiniArrowLeftStartOnRectangle
+              size={30}
+              onClick={() => {
+                setIsClose(true);
+              }}
+            />
+          )}
+        </div>
         <Button
           btnTitle={<House />}
           size="sm"
@@ -32,7 +59,7 @@ function Dashboard() {
             }}
           >
             <LayoutDashboard />
-            Overview
+            <span className={`${isClose ? "hidden" : "block"}`}>Overview</span>
           </li>
           <li
             className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
@@ -41,7 +68,9 @@ function Dashboard() {
             }}
           >
             <HandCoins />
-            Transactions
+            <span className={`${isClose ? "hidden" : "block"}`}>
+              Transactions
+            </span>
           </li>
           <li
             className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
@@ -50,7 +79,7 @@ function Dashboard() {
             }}
           >
             <ChartPie />
-            Charts
+            <span className={`${isClose ? "hidden" : "block"}`}>Charts</span>
           </li>
         </ul>
       </aside>
