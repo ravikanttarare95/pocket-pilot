@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { House, LayoutDashboard, HandCoins, ChartPie } from "lucide-react";
 
@@ -16,6 +16,9 @@ function Dashboard() {
   const navigate = useNavigate();
   const [isClose, setIsClose] = useState(false);
   const [mainContent, setMainContent] = useState("overview");
+  useEffect(() => {
+    if (window.innerWidth < 640) setIsClose(true);
+  }, []);
   return (
     <div className="flex min-h-screen">
       <aside
@@ -56,6 +59,9 @@ function Dashboard() {
             className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
             onClick={() => {
               setMainContent("overview");
+              if (window.innerWidth < 640) {
+                setIsClose(true);
+              }
             }}
           >
             <LayoutDashboard />
@@ -65,6 +71,9 @@ function Dashboard() {
             className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
             onClick={() => {
               setMainContent("transactions");
+              if (window.innerWidth < 640) {
+                setIsClose(true);
+              }
             }}
           >
             <HandCoins />
@@ -76,6 +85,9 @@ function Dashboard() {
             className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
             onClick={() => {
               setMainContent("Charts");
+              if (window.innerWidth < 640) {
+                setIsClose(true);
+              }
             }}
           >
             <ChartPie />
