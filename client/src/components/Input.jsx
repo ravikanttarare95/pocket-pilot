@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
-const Input = ({ type, id, placeholder }) => {
+const Input = ({ type = "text", id, placeholder }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const inputType = type === "password" && isPasswordVisible ? "text" : type; //--IMPORTANT--//
   return (
-    <input
-      type={type}
-      id={id}
-      placeholder={placeholder}
-      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-400 focus:border-violet-400 outline-none"
-    />
+    <div className="relative">
+      <input
+        tabIndex={0}
+        type={inputType}
+        id={id}
+        placeholder={placeholder}
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-violet-400"
+      />
+      {type === "password" && (
+        <div
+          className="absolute right-0 top-1/2 -translate-1/2 cursor-pointer w-fit opacity-50 hover:opacity-80 transition-opacity duration-300"
+          onClick={() => {
+            setIsPasswordVisible(!isPasswordVisible);
+          }}
+        >
+          {isPasswordVisible ? <Eye /> : <EyeOff />}
+        </div>
+      )}
+    </div>
   );
 };
 

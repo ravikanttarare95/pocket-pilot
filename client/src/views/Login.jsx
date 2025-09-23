@@ -3,9 +3,7 @@ import Button from "./../components/Button";
 import { House } from "lucide-react";
 import { useNavigate } from "react-router";
 import Input from "./../components/Input";
-import PasswordInput from "./../components/PasswordInput";
 import Label from "./../components/Label";
-import Logo from "./../../public/wallet-logo.png";
 import { Link } from "react-router";
 
 const Login = () => {
@@ -22,9 +20,6 @@ const Login = () => {
           }, 300);
         }}
       />
-      {/* <Link to="/">
-        <img src={Logo} alt="" className="w-17 fixed top-0 left-0" />
-      </Link> */}
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">
           Login
@@ -38,7 +33,7 @@ const Login = () => {
 
           <div>
             <Label htmlFor="password" labelTitle={"Password"} />
-            <PasswordInput id={"password"} placeholder="••••••••" />
+            <Input type="password" id={"password"} placeholder="••••••••" />
           </div>
 
           <Button type="submit" btnTitle={"Login"} customStyle={"w-full"} />
@@ -61,9 +56,9 @@ const Login = () => {
 
         <p className="text-center text-sm text-gray-600 mt-6">
           Don’t have an account?{" "}
-          <a href="/sign-up" className="text-indigo-500 hover:underline">
+          <Link to="/sign-up" className="text-indigo-500 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

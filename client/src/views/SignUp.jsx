@@ -3,9 +3,7 @@ import Input from "./../components/Input";
 import Button from "./../components/Button";
 import { House } from "lucide-react";
 import { useNavigate } from "react-router";
-import PasswordInput from "./../components/PasswordInput";
 import Label from "./../components/Label";
-import Logo from "./../../public/wallet-logo.png";
 import { Link } from "react-router";
 
 const Signup = () => {
@@ -41,12 +39,16 @@ const Signup = () => {
 
           <div>
             <Label htmlFor="password" labelTitle="Password" />
-            <PasswordInput id="password" placeholder="••••••••" />
+            <Input type="password" id="password" placeholder="••••••••" />
           </div>
 
           <div>
             <Label htmlFor="confirmPassword" labelTitle="Confirm Password" />
-            <PasswordInput id="confirmPassword" placeholder="••••••••" />
+            <Input
+              type="password"
+              id="confirmPassword"
+              placeholder="••••••••"
+            />
           </div>
 
           <Button
@@ -75,9 +77,9 @@ const Signup = () => {
 
         <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?{" "}
-          <a href="/login" className="text-cyan-500 hover:underline">
+          <Link to="/login" className="text-cyan-500 hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>
