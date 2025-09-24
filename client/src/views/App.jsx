@@ -106,13 +106,16 @@ function App() {
           Pilot. No ads. No hidden fees. Just clarity and control.
         </p>
 
-        <Button
-          btnTitle="Start Free"
-          size="lg"
-          onBtnClick={() => {
-            hangleNavigation("/login");
-          }}
-        />
+        <div className="flex justify-center">
+          <Button
+            btnTitle="Start Free"
+            btnVariant={"primary"}
+            size="lg"
+            onBtnClick={() => {
+              hangleNavigation("/login");
+            }}
+          />
+        </div>
       </section>
     </div>
   );

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Button from "./../components/Button";
 import { House } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
-import { Link } from "react-router";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +11,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen p-6">
       <Button
         btnTitle={<House />}
+        btnVariant={"primary"}
         size="sm"
         customStyle="px-2! py-2 rounded-full! fixed top-3 left-3"
         onBtnClick={() => {
@@ -36,10 +36,15 @@ const Login = () => {
             <Input type="password" id={"password"} placeholder="••••••••" />
           </div>
 
-          <Button type="submit" btnTitle={"Login"} customStyle={"w-full"} />
+          <Button
+            type="submit"
+            btnTitle={"Login"}
+            btnVariant={"primary"}
+            customStyle={"w-full"}
+          />
         </form>
 
-        <div className="flex items-center my-6">
+        <div className="flex items-center my-5">
           <hr className="flex-grow border-gray-300" />
           <span className="px-3 text-gray-500 text-sm">OR</span>
           <hr className="flex-grow border-gray-300" />

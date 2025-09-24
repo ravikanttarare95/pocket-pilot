@@ -11,7 +11,7 @@ const Input = ({ type = "text", id, placeholder }) => {
         type={inputType}
         id={id}
         placeholder={placeholder}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-violet-400"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
       />
       {type === "password" && (
         <div

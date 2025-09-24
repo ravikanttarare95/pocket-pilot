@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "./../../public/wallet-logo.png";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
+import Button from "./Button";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md  px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4">
@@ -49,20 +51,33 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Link
-              to="/login"
-              className="flex items-center gap-2 px-4 py-2 border border-cyan-300 bg-slate-800 text-sm rounded-full font-extrabold text-cyan-200 hover:bg-cyan-300 hover:text-slate-950 transition-all duration-300"
-            >
-              <LogIn className="w-5 h-5" />
-              <span>Login</span>
-            </Link>
-            <Link
-              to="/sign-up"
-              className="flex items-center gap-2 px-4 py-2 border border-cyan-300 bg-cyan-300 text-sm rounded-full font-extrabold text-slate-950 hover:bg-cyan-400 transition-all duration-300"
-            >
-              <UserPlus className="w-5 h-5" />
-              <span>Sign Up</span>
-            </Link>
+            <Button
+              btnVariant={"secondary"}
+              size="sm"
+              onBtnClick={() => {
+                navigate("/login");
+              }}
+              btnTitle={
+                <>
+                  <LogIn className="w-5 h-5" />
+                  Login
+                </>
+              }
+            />
+
+            <Button
+              btnVariant="primary"
+              size="sm"
+              onBtnClick={() => {
+                navigate("/sign-up");
+              }}
+              btnTitle={
+                <>
+                  <UserPlus className="w-5 h-5" />
+                  Sign Up
+                </>
+              }
+            />
           </>
         )}
       </div>
