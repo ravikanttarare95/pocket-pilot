@@ -32,7 +32,7 @@ function App() {
           data-aos="fade-up"
           data-aos-delay="200"
           data-aos-duration="800"
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-slate-900 leading-tight"
+          className="text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-slate-900 leading-tight"
           style={{ fontFamily: '"Cormorant Upright", cursive' }}
         >
           Take Control of Your Finances

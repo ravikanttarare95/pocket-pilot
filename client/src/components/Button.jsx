@@ -18,13 +18,13 @@ function Button({
     btnVariant === "primary"
       ? "bg-gradient-to-b from-cyan-400 to-violet-500 text-white [text-shadow:_0_1px_4px_rgba(0,0,0,0.4)]"
       : btnVariant === "secondary"
-      ? "border border-cyan-300 bg-slate-900 hover:bg-gradient-to-b hover:from-cyan-400 hover:to-violet-500 text-cyan-100 hover:text-white"
+      ? "border border-slate-300 text-slate-600 shadow-xs hover:shadow-sm"
       : "bg-slate-200 text-slate-900 hover:bg-slate-300";
 
   return (
     <button
       className={`${customStyle} ${sizeClasses} ${variantClasses} 
-        cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
+        cursor-pointer transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
       onClick={onBtnClick}
     >
       {btnTitle}

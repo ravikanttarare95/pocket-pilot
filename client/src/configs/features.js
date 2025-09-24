@@ -19,11 +19,11 @@ const FEATURES = [
     featureText: "Set monthly spending limits",
     featureIcon: MdSpeed,
     colorObj: {
-      border: "border-cyan-600",
+      border: "border-cyan-500",
       bg: "bg-cyan-100",
       text: "text-cyan-600",
-      hoverBg: "group-hover:bg-cyan-600",
-      focusBg: "group-focus:bg-cyan-600",
+      hoverBg: "group-hover:bg-cyan-500",
+      focusBg: "group-focus:bg-cyan-500",
     },
   },
   {

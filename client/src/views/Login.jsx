@@ -50,14 +50,20 @@ const Login = () => {
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        <button className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 transition  cursor-pointer">
-          <img
-            src="https://www.svgrepo.com/show/355037/google.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          <span className="text-gray-700">Continue with Google</span>
-        </button>
+        <Button
+          btnVariant={"secondary"}
+          customStyle="w-full"
+          btnTitle={
+            <>
+              <img
+                src="https://www.svgrepo.com/show/355037/google.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Continue with Google
+            </>
+          }
+        />
 
         <p className="text-center text-sm text-gray-600 mt-6">
           Don’t have an account?{" "}

@@ -20,7 +20,7 @@ const Input = ({ type = "text", id, placeholder }) => {
             setIsPasswordVisible(!isPasswordVisible);
           }}
         >
-          {isPasswordVisible ? <Eye /> : <EyeOff />}
+          {isPasswordVisible ? <Eye size={20}/> : <EyeOff size={20}/>}
         </div>
       )}
     </div>

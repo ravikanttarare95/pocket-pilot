@@ -54,6 +54,7 @@ function Navbar() {
             <Button
               btnVariant={"secondary"}
               size="sm"
+              customStyle="text-white"
               onBtnClick={() => {
                 navigate("/login");
               }}
