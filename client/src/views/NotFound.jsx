@@ -16,6 +16,7 @@ function NotFound() {
       </p>
       <Button
         btnTitle={"Go Back Home"}
+        btnVariant={"primary"}
         onBtnClick={() => {
           setTimeout(() => {
             navigate("/");

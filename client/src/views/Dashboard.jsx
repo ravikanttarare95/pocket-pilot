@@ -8,6 +8,8 @@ import {
 import Overview from "./Overview";
 import Transactions from "./Transactions";
 import Charts from "./Charts";
+import Budgets from "./Budgets";
+import NotFound from "./NotFound.jsx";
 import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
 
 import { useNavigate } from "react-router";
@@ -82,8 +84,12 @@ function Dashboard() {
           <Overview />
         ) : mainContent === "transactions" ? (
           <Transactions />
-        ) : (
+        ) : mainContent === "charts" ? (
           <Charts />
+        ) : mainContent === "budgets" ? (
+          <Budgets />
+        ) : (
+          <NotFound />
         )}
       </main>
     </div>

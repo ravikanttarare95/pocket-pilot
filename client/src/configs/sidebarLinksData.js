@@ -1,13 +1,22 @@
-import { LayoutDashboard, HandCoins, ChartPie } from "lucide-react";
+import {
+  LayoutDashboard,
+  ArrowRightLeft,
+  ChartPie,
+  Wallet,
+} from "lucide-react";
 const SIDEBAR_LINKS = [
   { title: "overview", icon: LayoutDashboard },
   {
     title: "transactions",
-    icon: HandCoins,
+    icon: ArrowRightLeft,
   },
   {
     title: "charts",
     icon: ChartPie,
+  },
+  {
+    title: "budgets",
+    icon: Wallet,
   },
 ];
 
