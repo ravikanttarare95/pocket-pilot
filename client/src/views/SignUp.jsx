@@ -8,7 +8,7 @@ import Label from "./../components/Label";
 const Signup = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-center min-h-screen p-6">
+    <div className="flex items-center justify-center min-h-screen p-3">
       {" "}
       <Button
         btnTitle={<House />}

@@ -16,9 +16,9 @@ function Button({
 
   const variantClasses =
     btnVariant === "primary"
-      ? "bg-gradient-to-b from-cyan-500 to-cyan-600 text-white hover:from-cyan-600 hover:to-cyan-700 [text-shadow:_0_1px_4px_rgba(0,0,0,0.4)]"
+      ? "bg-gradient-to-b from-cyan-400 to-violet-500 text-white [text-shadow:_0_1px_4px_rgba(0,0,0,0.4)]"
       : btnVariant === "secondary"
-      ? "border border-cyan-300 bg-slate-900 hover:bg-gradient-to-b hover:from-cyan-500 hover:to-cyan-600 text-cyan-200 hover:text-white"
+      ? "border border-cyan-300 bg-slate-900 hover:bg-gradient-to-b hover:from-cyan-400 hover:to-violet-500 text-cyan-100 hover:text-white"
       : "bg-slate-200 text-slate-900 hover:bg-slate-300";
 
   return (

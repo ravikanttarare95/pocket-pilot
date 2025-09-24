@@ -18,7 +18,7 @@ function Navbar() {
             alt="Logo"
             className="w-12 rounded-lg drop-shadow-xs drop-shadow-cyan-600"
           />
-          <span className="text-2xl font-extrabold bg-gradient-to-r from-cyan-300 to-violet-100 bg-clip-text text-transparent">
+          <span className="text-2xl font-extrabold text-cyan-50">
             Pocket Pilot
           </span>
         </Link>
