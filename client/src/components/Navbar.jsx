@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import Logo from "./../../public/wallet-logo.png";
+import Logo from "./../../public/logo.svg";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "./Button";
+import BrandLogo from "./BrandLogo.jsx";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,17 +13,7 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md  px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4">
       <div className="flex items-center justify-between  md:w-auto">
-        <Link to={"/"} className="flex items-center gap-3">
-          <img
-            src={Logo}
-            alt="Logo"
-            className="w-12 rounded-lg drop-shadow-xs drop-shadow-cyan-600"
-          />
-          <span className="text-2xl font-extrabold text-cyan-50">
-            Pocket Pilot
-          </span>
-        </Link>
-
+        <BrandLogo customNameStyle={`seef`} />
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="sm:hidden text-white focus:outline-none"

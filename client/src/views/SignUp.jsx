@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, isClose, useEffect } from "react";
 import Input from "./../components/Input";
 import Button from "./../components/Button";
+import BrandLogo from "./../components/BrandLogo";
 import { House } from "lucide-react";
 import { useNavigate, Link } from "react-router";
 import Label from "./../components/Label";
@@ -10,16 +11,9 @@ const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       {" "}
-      <Button
-        btnTitle={<House />}
-        btnVariant="primary"
-        size="sm"
-        customStyle="px-2! py-2 rounded-full! fixed top-3 left-3"
-        onBtnClick={() => {
-          setTimeout(() => {
-            navigate("/");
-          }, 300);
-        }}
+      <BrandLogo
+        customLinkStyle="fixed top-3 left-3"
+        customNameStyle={`text-slate-600 `}
       />
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">

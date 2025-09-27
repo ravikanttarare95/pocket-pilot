@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "./../components/Button";
-import { House } from "lucide-react";
+import BrandLogo from "./../components/BrandLogo.jsx";
 import {
   HiMiniArrowLeftStartOnRectangle,
   HiMiniArrowRightStartOnRectangle,
@@ -12,7 +12,7 @@ import Budgets from "./Budgets";
 import NotFound from "./NotFound.jsx";
 import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
 
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -29,16 +29,8 @@ function Dashboard() {
         } bg-slate-900 text-white p-1 sm:p-3 transition-width duration-300 z-49`}
       >
         <div className="sticky top-3">
-          <Button
-            btnTitle={<House />}
-            btnVariant={"secondary"}
-            size="sm"
-            customStyle="px-2! py-2 rounded-full!"
-            onBtnClick={() => {
-              setTimeout(() => {
-                navigate("/");
-              }, 300);
-            }}
+          <BrandLogo
+            customNameStyle={`${isClose ? "hidden" : "block Capitalize"}`}
           />
 
           <ul className="space-y-2 mt-5">

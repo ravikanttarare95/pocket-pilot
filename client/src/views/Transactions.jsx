@@ -3,9 +3,12 @@ import DashboardTopBar from "./../components/DashboardTopBar";
 
 function Transactions() {
   return (
-    <div className="">
+    <>
       <DashboardTopBar dashTopBarTitle="Transactions" />
-    </div>
+      <main className="px-1.5 py-6 sm:p-6">
+        <section>sflk</section>
+      </main>
+    </>
   );
 }
 
