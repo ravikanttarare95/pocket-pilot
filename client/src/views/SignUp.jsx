@@ -10,14 +10,9 @@ const Signup = () => {
   const navigate = useNavigate();
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
-      {" "}
-      <BrandLogo
-        customLinkStyle="fixed top-3 left-3"
-        customNameStyle={`text-slate-600 `}
-      />
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
-          Sign Up
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">
+          <BrandLogo customNameStyle={`text-slate-700 `} />
         </h1>
 
         <form className="space-y-5">

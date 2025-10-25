@@ -11,9 +11,9 @@ function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md  px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4">
+    <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4 w-full">
       <div className="flex items-center justify-between  md:w-auto">
-        <BrandLogo customNameStyle={`seef`} />
+        <BrandLogo />
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="sm:hidden text-white focus:outline-none"

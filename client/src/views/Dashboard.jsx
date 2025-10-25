@@ -13,6 +13,7 @@ import NotFound from "./NotFound.jsx";
 import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
 
 import { useNavigate, Link } from "react-router";
+import Navbar from "./../components/Navbar.jsx";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -22,68 +23,65 @@ function Dashboard() {
     if (window.innerWidth < 640) setIsClose(true);
   }, []);
   return (
-    <div className="flex min-h-screen">
-      <aside
-        className={`relative ${
-          isClose ? "w-fit" : "w-64 max-sm:fixed left-0 top-0 bottom-0"
-        } bg-slate-900 text-white p-1 sm:p-3 transition-width duration-300 z-49`}
-      >
-        <div className="sticky top-3">
-          <BrandLogo
-            customNameStyle={`${isClose ? "hidden" : "block Capitalize"}`}
-          />
-
-          <ul className="space-y-2 mt-5">
-            {SIDEBAR_LINKS.map((linkObj) => {
-              const { title, icon: Icon } = linkObj;
-              return (
-                <li
-                  key={title}
-                  className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
-                  onClick={() => {
-                    setMainContent(title);
-                    if (window.innerWidth < 640) {
-                      setIsClose(true);
-                    }
-                  }}
-                >
-                  <Icon />
-                  <span
-                    className={`${isClose ? "hidden" : "block capitalize"}`}
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex flex-1">
+        <aside
+          className={`${isClose ? "w-fit" : "w-64"} ${!isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"} bg-slate-900 text-white p-0.5 sm:p-3 transition-all duration-300 z-40`}
+        >
+          <div className="sticky top-3">
+            <ul className="space-y-2">
+              {SIDEBAR_LINKS.map((linkObj) => {
+                const { title, icon: Icon } = linkObj;
+                return (
+                  <li
+                    key={title}
+                    className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
+                    onClick={() => {
+                      setMainContent(title);
+                      if (window.innerWidth < 640) {
+                        setIsClose(true);
+                      }
+                    }}
                   >
-                    {title}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-          <div
-            className="mt-30 flex justify-end mr-2 top-89 cursor-pointer"
-            onClick={() => {
-              setIsClose(!isClose);
-            }}
-          >
-            {isClose ? (
-              <HiMiniArrowRightStartOnRectangle size={30} />
-            ) : (
-              <HiMiniArrowLeftStartOnRectangle size={30} />
-            )}
+                    <Icon />
+                    <span
+                      className={`${isClose ? "hidden" : "block capitalize"}`}
+                    >
+                      {title}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <div
+              className="mt-30 flex justify-end mr-2 top-89 cursor-pointer"
+              onClick={() => {
+                setIsClose(!isClose);
+              }}
+            >
+              {isClose ? (
+                <HiMiniArrowRightStartOnRectangle size={30} />
+              ) : (
+                <HiMiniArrowLeftStartOnRectangle size={30} />
+              )}
+            </div>
           </div>
-        </div>
-      </aside>
-      <main className="flex-1 bg-gray-100">
-        {mainContent === "overview" ? (
-          <Overview />
-        ) : mainContent === "transactions" ? (
-          <Transactions />
-        ) : mainContent === "charts" ? (
-          <Charts />
-        ) : mainContent === "budgets" ? (
-          <Budgets />
-        ) : (
-          <NotFound />
-        )}
-      </main>
+        </aside>
+        <main className="flex-1 bg-gray-100">
+          {mainContent === "overview" ? (
+            <Overview />
+          ) : mainContent === "transactions" ? (
+            <Transactions />
+          ) : mainContent === "charts" ? (
+            <Charts />
+          ) : mainContent === "budgets" ? (
+            <Budgets />
+          ) : (
+            <NotFound />
+          )}
+        </main>
+      </div>
     </div>
   );
 }

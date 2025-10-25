@@ -7,7 +7,7 @@ function Overview() {
   return (
     <>
       <DashboardTopBar dashTopBarTitle="Overview" />
-      <main className="px-1.5 py-6 sm:p-6">
+      <main className="px-1.5 py-6 sm:p-6 ">
         {/* Income & Expenses */}
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
           <article className="bg-white rounded-xl shadow-md p-5 border-l-4 border-emerald-500 flex items-center justify-between">
