@@ -20,6 +20,7 @@ const Login = () => {
             <Input type="email" id="email" placeholder="abcd123@gmail.com" />
           </div>
 
+
           <div>
             <Label htmlFor="password" labelTitle={"Password"} />
             <Input type="password" id={"password"} placeholder="••••••••" />
