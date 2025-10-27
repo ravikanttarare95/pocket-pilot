@@ -6,6 +6,7 @@ import Login from "./views/Login.jsx";
 import Dashboard from "./views/Dashboard.jsx";
 import NotFound from "./views/NotFound.jsx";
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Toaster } from "react-hot-toast";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -17,5 +18,6 @@ root.render(
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    <Toaster />
   </BrowserRouter>
 );

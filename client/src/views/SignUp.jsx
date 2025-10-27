@@ -5,6 +5,8 @@ import BrandLogo from "./../components/BrandLogo";
 import { House } from "lucide-react";
 import { useNavigate, Link } from "react-router";
 import Label from "./../components/Label";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,6 +22,21 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleRegistration = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/users/register`,
+
+        formData
+      );
+      if (response) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
@@ -27,7 +44,13 @@ const Signup = () => {
           <BrandLogo customNameStyle={`text-slate-700 `} />
         </h1>
 
-        <form className="space-y-5">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleRegistration();
+          }}
+          className="space-y-5"
+        >
           <div>
             <Label htmlFor="name" labelTitle="Full Name" />
             <Input
