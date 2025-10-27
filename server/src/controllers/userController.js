@@ -1,5 +1,8 @@
 import User from "./../models/User.js";
 import bcrypt, { compare } from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const userRegister = async (req, res) => {
   try {
@@ -106,6 +109,18 @@ const userLogin = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        id: existingUser._id,
+        fullName: existingUser.fullName,
+        email: existingUser.email,
+      },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
+
     return res.status(200).json({
       success: true,
       message: "Login successful",
@@ -114,6 +129,7 @@ const userLogin = async (req, res) => {
         fullName: existingUser.fullName,
         email: existingUser.email,
       },
+      token,
     });
   } catch (error) {
     return res.status(500).json(error);
