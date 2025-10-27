@@ -22,7 +22,6 @@ const userSchema = new Schema(
     avtarUrl: {
       type: String,
     },
-
     isVerified: { type: Boolean, default: false },
     provider: { type: String, default: "local" },
   },
