@@ -4,6 +4,8 @@ import BrandLogo from "./../components/BrandLogo.jsx";
 import { useNavigate, Link } from "react-router";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +17,34 @@ const Login = () => {
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/users/login`,
+        formData
+      );
+
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(response?.data?.user)
+        );
+        localStorage.setItem("token", JSON.stringify(response?.data?.token));
+        setFormData({
+          email: "",
+          password: "",
+        });
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
@@ -22,7 +52,13 @@ const Login = () => {
           <BrandLogo customNameStyle={`text-slate-700 `} />
         </h1>
 
-        <form className="space-y-5">
+        <form
+          className="space-y-5"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
           <div>
             <Label htmlFor="email" labelTitle={"Email Address"} />
             <Input
