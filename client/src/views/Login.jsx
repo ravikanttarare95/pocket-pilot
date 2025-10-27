@@ -7,6 +7,14 @@ import Label from "./../components/Label";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
@@ -17,13 +25,24 @@ const Login = () => {
         <form className="space-y-5">
           <div>
             <Label htmlFor="email" labelTitle={"Email Address"} />
-            <Input type="email" id="email" placeholder="abcd123@gmail.com" />
+            <Input
+              type="email"
+              id="email"
+              placeholder="abcd123@gmail.com"
+              value={formData?.email}
+              onInputChange={handleInputChange}
+            />
           </div>
-
 
           <div>
             <Label htmlFor="password" labelTitle={"Password"} />
-            <Input type="password" id={"password"} placeholder="••••••••" />
+            <Input
+              type="password"
+              id={"password"}
+              placeholder="••••••••"
+              value={formData?.password}
+              onInputChange={handleInputChange}
+            />
           </div>
 
           <Button

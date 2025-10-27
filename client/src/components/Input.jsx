@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-const Input = ({ type = "text", id, placeholder }) => {
+const Input = ({ type = "text", id, placeholder, onInputChange, value }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const inputType = type === "password" && isPasswordVisible ? "text" : type; //--IMPORTANT--//
   return (
@@ -11,7 +11,9 @@ const Input = ({ type = "text", id, placeholder }) => {
         type={inputType}
         id={id}
         placeholder={placeholder}
+        value={value}
         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
+        onChange={onInputChange}
       />
       {type === "password" && (
         <div
@@ -20,7 +22,7 @@ const Input = ({ type = "text", id, placeholder }) => {
             setIsPasswordVisible(!isPasswordVisible);
           }}
         >
-          {isPasswordVisible ? <Eye size={20}/> : <EyeOff size={20}/>}
+          {isPasswordVisible ? <Eye size={20} /> : <EyeOff size={20} />}
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, isClose, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./../components/Input";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo";
@@ -8,6 +8,18 @@ import Label from "./../components/Label";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleInputChange = (e) => {
+    // const { id, value } = e.target;
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
@@ -18,17 +30,35 @@ const Signup = () => {
         <form className="space-y-5">
           <div>
             <Label htmlFor="name" labelTitle="Full Name" />
-            <Input type="text" id="name" placeholder="xyz" />
+            <Input
+              type="text"
+              id="fullName"
+              placeholder="xyz"
+              value={formData?.fullName}
+              onInputChange={handleInputChange}
+            />
           </div>
 
           <div>
             <Label htmlFor="email" labelTitle="Email Address" />
-            <Input type="email" id="email" placeholder="xyz@gmail.com" />
+            <Input
+              type="email"
+              id="email"
+              placeholder="xyz@gmail.com"
+              value={formData?.email}
+              onInputChange={handleInputChange}
+            />
           </div>
 
           <div>
             <Label htmlFor="password" labelTitle="Password" />
-            <Input type="password" id="password" placeholder="••••••••" />
+            <Input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              value={formData?.password}
+              onInputChange={handleInputChange}
+            />
           </div>
 
           <div>
@@ -37,6 +67,8 @@ const Signup = () => {
               type="password"
               id="confirmPassword"
               placeholder="••••••••"
+              value={formData?.confirmPassword}
+              onInputChange={handleInputChange}
             />
           </div>
 
@@ -70,7 +102,7 @@ const Signup = () => {
         />
 
         <p className="text-center text-sm text-gray-600 mt-6">
-          Already have an account?{" "}
+          Already have an account?
           <Link to="/login" className="text-cyan-500 hover:underline">
             Login
           </Link>
