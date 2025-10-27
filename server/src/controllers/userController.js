@@ -1,5 +1,5 @@
 import User from "./../models/User.js";
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 
 const userRegister = async (req, res) => {
   try {
@@ -64,9 +64,9 @@ const userRegister = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    return res.json({
+    return res.status(201).json({
       success: true,
-      message: "User registration successfull",
+      message: "User registered successfully",
       user: newUser,
     });
   } catch (err) {
@@ -77,4 +77,46 @@ const userRegister = async (req, res) => {
     });
   }
 };
-export { userRegister };
+
+const userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400).json({
+        success: false,
+        message: "Email and Password required",
+      });
+    }
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found or invalid email",
+      });
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid password",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      user: {
+        id: existingUser._id,
+        fullName: existingUser.fullName,
+        email: existingUser.email,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+export { userRegister, userLogin };
