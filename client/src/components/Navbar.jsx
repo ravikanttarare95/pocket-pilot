@@ -5,6 +5,7 @@ import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "./Button";
 import BrandLogo from "./BrandLogo.jsx";
 import { getloggedInUser } from "./../utils.js";
+import toast from "react-hot-toast";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,10 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("loggedInUser");
     setUser(false);
-    navigate("/login");
+    toast.success("Logout Successful");
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   return (

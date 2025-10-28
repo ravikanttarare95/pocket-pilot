@@ -19,7 +19,7 @@ import { getloggedInUser } from "./../utils.js";
 function Dashboard() {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(getloggedInUser || null);
+  const [user, setUser] = useState(getloggedInUser() || null);
   const [isClose, setIsClose] = useState(false);
   const [mainContent, setMainContent] = useState("overview");
 

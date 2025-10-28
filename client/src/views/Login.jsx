@@ -26,7 +26,7 @@ const Login = () => {
       );
 
       if (response?.data?.success) {
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.message || "Login Successful");
         localStorage.setItem(
           "loggedInUser",
           JSON.stringify(response?.data?.user)
@@ -38,11 +38,11 @@ const Login = () => {
         });
         setTimeout(() => {
           navigate("/dashboard");
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      console.log(error)
+      console.log(error);
     }
   };
 
