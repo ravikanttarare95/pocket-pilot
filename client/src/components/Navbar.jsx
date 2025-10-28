@@ -4,11 +4,19 @@ import Logo from "./../../public/logo.svg";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "./Button";
 import BrandLogo from "./BrandLogo.jsx";
+import { getloggedInUser } from "./../utils.js";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState(getloggedInUser() || false);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("loggedInUser");
+    setUser(false);
+    navigate("/login");
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4 w-full">
@@ -27,7 +35,7 @@ function Navbar() {
           ${isOpen ? "flex" : "hidden"}
         `}
       >
-        {isLogin ? (
+        {user ? (
           <>
             <Link
               to="/dashboard"
@@ -35,7 +43,10 @@ function Navbar() {
             >
               Dashboard
             </Link>
-            <button className="flex items-center gap-2 px-4 py-2 border border-cyan-300 bg-slate-800 text-sm rounded-full font-extrabold text-cyan-200 hover:bg-cyan-300 hover:text-slate-950 transition-all duration-300">
+            <button
+              className="flex items-center gap-2 px-4 py-2 border border-cyan-300 bg-slate-800 text-sm rounded-full font-extrabold text-cyan-200 hover:bg-cyan-300 hover:text-slate-950 transition-all duration-300 cursor-pointer"
+              onClick={handleLogout}
+            >
               <LogIn className="w-5 h-5" />
               <span>Logout</span>
             </button>

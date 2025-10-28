@@ -14,20 +14,28 @@ import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
 
 import { useNavigate, Link } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
+import { getloggedInUser } from "./../utils.js";
 
 function Dashboard() {
   const navigate = useNavigate();
+
+  const [user, setUser] = useState(getloggedInUser || null);
   const [isClose, setIsClose] = useState(false);
   const [mainContent, setMainContent] = useState("overview");
+
   useEffect(() => {
+    if (!user) return navigate("/login");
     if (window.innerWidth < 640) setIsClose(true);
   }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex flex-1">
         <aside
-          className={`${isClose ? "w-fit" : "w-64"} ${!isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"} bg-slate-900 text-white p-0.5 sm:p-3 transition-all duration-300 z-40`}
+          className={`${isClose ? "w-fit" : "w-64"} ${
+            !isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"
+          } bg-slate-900 text-white p-0.5 sm:p-3 transition-all duration-300 z-40`}
         >
           <div className="sticky top-3">
             <ul className="space-y-2">
