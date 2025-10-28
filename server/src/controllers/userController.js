@@ -132,7 +132,10 @@ const userLogin = async (req, res) => {
       token,
     });
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error during login",
+    });
   }
 };
 export { userRegister, userLogin };
