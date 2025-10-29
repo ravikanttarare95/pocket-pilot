@@ -4,7 +4,7 @@ import { EllipsisVertical } from "lucide-react";
 function DashboardTopBar({ dashTopBarTitle }) {
   const [showLogOut, setShowLogOut] = useState(false);
   return (
-    <div className="flex items-center justify-between sticky top-0 right-0 left-0 px-2 sm:px-5 py-2 bg-slate-800 text-slate-50">
+    <div className="flex items-center justify-between sticky top-0 right-0 left-0 px-2 sm:px-5 py-2 bg-yellow-500 text-slate-50">
       <p className="text-2xl font-bold">{dashTopBarTitle}</p>
       <EllipsisVertical
         className="cursor-pointer -mr-2"
