@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardTopBar from "./../components/DashboardTopBar";
+import GreetingBar from "./../components/GreetingBar";
 
 function Charts() {
   return (
     <div className="">
-      <DashboardTopBar dashTopBarTitle="Charts" />
+      <GreetingBar greetingBarTitle="Charts" />
       <main className="px-1.5 py-6 sm:p-6"></main>
     </div>
   );

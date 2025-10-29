@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 
 import {
@@ -9,11 +9,16 @@ import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData.js";
 
 function Sidebar() {
   const [isClose, setIsClose] = useState(false);
+  // const [user, setUser] = useState(getloggedInUser() || null);
+
+  useEffect(() => {
+    if (window.innerWidth < 640) setIsClose(true);
+  }, []);
   return (
     <aside
       className={`${isClose ? "w-fit" : "w-64"} ${
         !isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"
-      } bg-gradient-to-br from-slate-900 to-slate-800 text-white p-0.5 sm:p-3 transition-all duration-300 z-40`}
+      } bg-slate-800 text-white p-0.5 sm:p-3 transition-all duration-300 z-40`}
     >
       <div className="sticky top-3">
         <ul className="space-y-2">

@@ -1,12 +1,12 @@
 import React from "react";
-import DashboardTopBar from "./../components/DashboardTopBar";
+import GreetingBar from "./../components/GreetingBar";
 import { Wallet, AlertTriangle } from "lucide-react";
 import Button from "./../components/Button";
 
 function Budgets() {
   return (
     <>
-      <DashboardTopBar dashTopBarTitle="Budgets" />
+      <GreetingBar greetingBarTitle="Budgets" />
       <main className="px-1.5 py-6 sm:p-6">
         {/* Budget & Overspend */}
         <section className="bg-white rounded-xl shadow-md p-6 border border-slate-200">

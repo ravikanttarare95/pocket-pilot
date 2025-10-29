@@ -1,30 +1,26 @@
 import React from "react";
-import DashboardTopBar from "./../components/DashboardTopBar";
-import { TrendingUp, TrendingDown, Wallet, AlertTriangle } from "lucide-react";
+import DashboardTopBar from "../components/GreetingBar";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import Button from "./../components/Button";
 
 function Overview() {
   return (
     <>
-      <DashboardTopBar dashTopBarTitle="Overview" />
+      <DashboardTopBar greetingBarTitle="Overview" />
       <main className="px-1.5 py-6 sm:p-6 ">
         <div className="flex items-center justify-between bg-slate-100 p-5 rounded-xl mb-8 shadow-sm">
           <div className="flex gap-10 items-center">
             <div>
-              <h2 className="text-slate-600 font-semibold text-lg">
-                Current Balance
-              </h2>
+              <h2 className="text-slate-600 text-lg">Current Balance</h2>
               <p className="text-3xl font-bold text-slate-800 mt-1">
                 ₹ 1,20,000
               </p>
             </div>
-            <Wallet className="w-10 h-10 text-emerald-500" />
           </div>
 
           <article className="text-center flex flex-col items-center">
-            <AlertTriangle className="w-10 h-10 text-cyan-500 mb-2" />
-            <p className="text-2xl font-bold text-cyan-600">₹ 000000</p>
-            <h3 className="text-slate-600 font-medium mt-1">Overspend</h3>
+            <h2 className="text-slate-600 text-lg">Overspend</h2>
+            <p className="text-2xl font-bold text-rose-600">₹ 12,500</p>
           </article>
         </div>
 
@@ -32,9 +28,7 @@ function Overview() {
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
           <article className="bg-white rounded-xl shadow-md p-5 border-l-4 border-emerald-500 flex items-center justify-between">
             <div>
-              <h2 className="text-slate-600 font-semibold text-lg mb-1">
-                TOTAL INCOME
-              </h2>
+              <h2 className="text-slate-600 text-lg mb-1">Total Income</h2>
               <p className="text-2xl font-bold text-emerald-600">₹ 000000</p>
             </div>
             <TrendingUp className="w-10 h-10 text-emerald-500" />
@@ -42,9 +36,7 @@ function Overview() {
 
           <article className="bg-white rounded-xl shadow-md p-5 border-l-4 border-rose-500 flex items-center justify-between">
             <div>
-              <h2 className="text-slate-600 font-semibold text-lg mb-1">
-                TOTAL EXPENSES
-              </h2>
+              <h2 className="text-slate-600 text-lg mb-1">Total Expense</h2>
               <p className="text-2xl font-bold text-rose-600">₹ 000000</p>
             </div>
             <TrendingDown className="w-10 h-10 text-rose-500" />
@@ -61,27 +53,25 @@ function Overview() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse">
-              <thead>
-                <tr className="bg-slate-100 text-slate-600 text-sm uppercase">
-                  <th className="py-3 px-4 text-left rounded-tl-lg">Date</th>
-                  <th className="py-3 px-4 text-left">Category</th>
-                  <th className="py-3 px-4 text-left">Description</th>
-                  <th className="py-3 px-4 text-right rounded-tr-lg">Amount</th>
-                </tr>
-              </thead>
+            <div className="space-y-3">
+              {/* Transaction Header */}
+              <div className="hidden sm:grid sm:grid-cols-4 text-slate-500 text-sm font-medium uppercase bg-slate-100 rounded-lg p-3">
+                <span>Date</span>
+                <span>Category</span>
+                <span>Description</span>
+                <span className="text-right">Amount</span>
+              </div>
 
-              <tbody className="divide-y divide-slate-200 text-slate-700">
-                <tr className="hover:bg-slate-50 transition">
-                  <td className="py-3 px-4">Oct 28</td>
-                  <td className="py-3 px-4">Food</td>
-                  <td className="py-3 px-4">Zomato Order</td>
-                  <td className="py-3 px-4 text-right font-semibold text-red-500">
-                    -₹320
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              {/* Transaction Item */}
+              <div className="flex flex-col sm:grid sm:grid-cols-4 sm:items-center bg-slate-50 hover:bg-slate-100 transition rounded-lg p-4">
+                <span className="text-slate-700 font-medium">Oct 28</span>
+                <span className="text-slate-700">Food</span>
+                <span className="text-slate-600">Zomato Order</span>
+                <span className="text-right font-semibold text-rose-600">
+                  -₹320
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </main>

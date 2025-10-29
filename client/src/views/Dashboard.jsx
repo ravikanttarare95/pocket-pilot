@@ -6,12 +6,10 @@ import Sidebar from "./../components/Sidebar.jsx";
 
 function Dashboard() {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState(getloggedInUser() || null);
+  const [user, _] = useState(getloggedInUser() || null);
 
   useEffect(() => {
     if (!user) return navigate("/login");
-    if (window.innerWidth < 640) setIsClose(true);
   }, []);
 
   return (
