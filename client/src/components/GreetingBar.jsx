@@ -41,8 +41,11 @@ function GreetingBar({ greetingBarTitle }) {
     <header
       className={`flex items-center justify-between px-2 sm:px-5 py-3 shadow-md transition-all duration-500 ${bgColor} ${textColor}`}
     >
-      <p className="text-xl sm:text-2xl tracking-wide">
-        {greeting} <span className="font-bold">{user && user.fullName}</span>
+      <p className="tracking-wide">
+        <span className="text-lg sm:text-xl ">{greeting} </span>
+        <span className="text-xl sm:text-2xl font-bold">
+          {user && user.fullName}
+        </span>
       </p>
       {greetingBarTitle && (
         <span className="hidden sm:block text-lg opacity-80 font-medium">

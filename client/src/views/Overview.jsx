@@ -2,7 +2,24 @@ import React from "react";
 import DashboardTopBar from "../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import Button from "./../components/Button";
+import TransactionCard from "./../components/TransactionCard";
 
+const transactions = [
+  {
+    date: "29-10-2025  9:57:55",
+    category: "salary",
+    description: "Job Salary",
+    amount: 751,
+    type: "income",
+  },
+  {
+    date: "28-10-2025  17:30:00",
+    category: "food",
+    description: "Dinner with friends",
+    amount: 420,
+    type: "expense",
+  },
+];
 function Overview() {
   return (
     <>
@@ -51,28 +68,7 @@ function Overview() {
               View All
             </button>
           </div>
-
-          <div className="overflow-x-auto">
-            <div className="space-y-3">
-              {/* Transaction Header */}
-              <div className="hidden sm:grid sm:grid-cols-4 text-slate-500 text-sm font-medium uppercase bg-slate-100 rounded-lg p-3">
-                <span>Date</span>
-                <span>Category</span>
-                <span>Description</span>
-                <span className="text-right">Amount</span>
-              </div>
-
-              {/* Transaction Item */}
-              <div className="flex flex-col sm:grid sm:grid-cols-4 sm:items-center bg-slate-50 hover:bg-slate-100 transition rounded-lg p-4">
-                <span className="text-slate-700 font-medium">Oct 28</span>
-                <span className="text-slate-700">Food</span>
-                <span className="text-slate-600">Zomato Order</span>
-                <span className="text-right font-semibold text-rose-600">
-                  -₹320
-                </span>
-              </div>
-            </div>
-          </div>
+          <TransactionCard transactions={transactions} />
         </div>
       </main>
     </>
