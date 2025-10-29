@@ -10,9 +10,9 @@ import Transactions from "./Transactions";
 import Charts from "./Charts";
 import Budgets from "./Budgets";
 import NotFound from "./NotFound.jsx";
-import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData";
+import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData.js";
 
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link, Outlet } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
 import { getloggedInUser } from "./../utils.js";
 
@@ -40,24 +40,25 @@ function Dashboard() {
           <div className="sticky top-3">
             <ul className="space-y-2">
               {SIDEBAR_LINKS.map((linkObj) => {
-                const { title, icon: Icon } = linkObj;
+                const { title, icon: Icon, path } = linkObj;
                 return (
-                  <li
-                    key={title}
-                    className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
-                    onClick={() => {
-                      setMainContent(title);
-                      if (window.innerWidth < 640) {
-                        setIsClose(true);
-                      }
-                    }}
-                  >
-                    <Icon />
-                    <span
-                      className={`${isClose ? "hidden" : "block capitalize"}`}
+                  <li key={title}>
+                    <Link
+                      to={path}
+                      className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
+                      onClick={() => {
+                        if (window.innerWidth < 640) {
+                          setIsClose(true);
+                        }
+                      }}
                     >
-                      {title}
-                    </span>
+                      <Icon />
+                      <span
+                        className={`${isClose ? "hidden" : "block capitalize"}`}
+                      >
+                        {title}
+                      </span>
+                    </Link>
                   </li>
                 );
               })}
@@ -77,17 +78,7 @@ function Dashboard() {
           </div>
         </aside>
         <main className="flex-1 bg-gray-100">
-          {mainContent === "overview" ? (
-            <Overview />
-          ) : mainContent === "transactions" ? (
-            <Transactions />
-          ) : mainContent === "charts" ? (
-            <Charts />
-          ) : mainContent === "budgets" ? (
-            <Budgets />
-          ) : (
-            <NotFound />
-          )}
+          <Outlet />
         </main>
       </div>
     </div>

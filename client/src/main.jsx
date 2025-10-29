@@ -8,6 +8,10 @@ import NotFound from "./views/NotFound.jsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Overview from "./views/Overview.jsx";
+import Transactions from "./views/Transactions.jsx";
+import Charts from "./views/Charts.jsx";
+import Budgets from "./views/Budgets.jsx";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +20,9 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
+
+      {/* Nested Routes */}
+
       <Route
         path="/dashboard"
         element={
@@ -23,7 +30,13 @@ root.render(
             <Dashboard />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<Overview />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="charts" element={<Charts />} />
+        <Route path="budgets" element={<Budgets />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
     <Toaster position="top-right" />
