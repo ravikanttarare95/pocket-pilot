@@ -3,6 +3,7 @@ import DashboardTopBar from "../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import Button from "./../components/Button";
 import TransactionCard from "./../components/TransactionCard";
+import { Link } from "react-router";
 
 const transactions = [
   {
@@ -25,15 +26,11 @@ function Overview() {
     <>
       <DashboardTopBar greetingBarTitle="Overview" />
       <main className="px-1.5 py-6 sm:p-6 ">
-        <div className="flex items-center justify-between bg-slate-100 p-5 rounded-xl mb-8 shadow-sm">
-          <div className="flex gap-10 items-center">
-            <div>
-              <h2 className="text-slate-600 text-lg">Current Balance</h2>
-              <p className="text-3xl font-bold text-slate-800 mt-1">
-                ₹ 1,20,000
-              </p>
-            </div>
-          </div>
+        <div className="flex items-center flex-wrap justify-between bg-slate-100 p-5 rounded-xl mb-8 shadow-sm">
+          <article className="items-center justify-between">
+            <h2 className="text-slate-600 text-lg">Current Balance</h2>
+            <p className="text-3xl font-bold text-slate-800 mt-1">₹ 1,20,000</p>
+          </article>
 
           <article className="text-center flex flex-col items-center">
             <h2 className="text-slate-600 text-lg">Overspend</h2>
@@ -64,9 +61,12 @@ function Overview() {
             <h3 className="text-xl font-semibold text-slate-700">
               Recent Transactions
             </h3>
-            <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+            <Link
+              to={"/dashboard/transactions"}
+              className="text-sm font-medium text-blue-600 hover:text-blue-800 transition"
+            >
               View All
-            </button>
+            </Link>
           </div>
           <TransactionCard transactions={transactions} />
         </div>

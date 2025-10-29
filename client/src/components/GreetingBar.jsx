@@ -14,21 +14,25 @@ function GreetingBar({ greetingBarTitle }) {
     let color = "";
     let text = "";
 
-    if (hour < 12) {
-      greet = "Good Morning 🌼";
-      color = "bg-gradient-to-r from-emerald-400 to-teal-500";
+    if (hour >= 0 && hour < 5) {
+      greet = "The Night is Yours 🌌";
+      color = "bg-black";
+      text = "text-slate-50";
+    } else if (hour < 12) {
+      greet = "Good Morning 🌻";
+      color = "bg-gradient-to-r from-teal-400 to-teal-500";
       text = "text-slate-900";
     } else if (hour < 17) {
       greet = "Good Afternoon 🌤️";
-      color = "bg-amber-400";
+      color = "bg-amber-300";
       text = "text-slate-900";
     } else if (hour < 20) {
       greet = "Good Evening 🌇";
-      color = "bg-gradient-to-r from-sky-400 to-blue-500";
+      color = "bg-gradient-to-r from-sky-500 to-blue-500";
       text = "text-slate-50";
     } else {
-      greet = "Burning the Midnight Oil 🔭";
-      color = "bg-gradient-to-r from-slate-800 to-slate-900";
+      greet = "Late Hustle 🔭";
+      color = "bg-black";
       text = "text-slate-50";
     }
 
@@ -39,7 +43,7 @@ function GreetingBar({ greetingBarTitle }) {
 
   return (
     <header
-      className={`flex items-center justify-between px-2 sm:px-5 py-3 shadow-md transition-all duration-500 ${bgColor} ${textColor}`}
+      className={`sticky top-18 flex items-center justify-between px-2 sm:px-5 py-4 shadow-md transition-all duration-500 ${bgColor} ${textColor}`}
     >
       <p className="tracking-wide">
         <span className="text-lg sm:text-xl ">{greeting} </span>

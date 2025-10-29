@@ -42,7 +42,7 @@ function TransactionCard({ transactions = [] }) {
               </div>
 
               <div className="flex items-center">
-                <p
+                <div
                   className={`text-lg font-semibold ${
                     txn.type === "income" ? "text-emerald-600" : "text-rose-600"
                   }`}
@@ -51,7 +51,7 @@ function TransactionCard({ transactions = [] }) {
                     <p>{txn.type === "income" ? "+" : "-"}</p>
                     <p>₹{txn.amount}</p>
                   </div>
-                </p>
+                </div>
               </div>
             </div>
           ))}
