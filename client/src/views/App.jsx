@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import AosInitializer from "../components/AosInitializer";
 import HeroImg from "./../assets/hero-img.png";
@@ -5,12 +6,12 @@ import FEATURES from "../configs/features";
 import FeaturesCard from "../components/FeaturesCard";
 import Button from "../components/Button";
 import Navbar from "./../components/Navbar";
+import { getloggedInUser } from "./../utils";
 
 function App() {
+  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
-  const hangleNavigation = (path) => {
-    navigate(path);
-  };
+
   return (
     <div className="min-h-screen flex flex-col text-slate-900 font-serif ">
       <AosInitializer />
@@ -112,7 +113,8 @@ function App() {
             btnVariant={"primary"}
             size="lg"
             onBtnClick={() => {
-              hangleNavigation("/login");
+              if (!user) return navigate("/login");
+              navigate("/dashboard");
             }}
           />
         </div>

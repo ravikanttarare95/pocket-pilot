@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo.jsx";
 import { useNavigate, Link } from "react-router";
@@ -6,8 +6,10 @@ import Input from "./../components/Input";
 import Label from "./../components/Label";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getloggedInUser } from "./../utils.js";
 
 const Login = () => {
+  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -45,6 +47,10 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (user) return navigate("/");
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-3">

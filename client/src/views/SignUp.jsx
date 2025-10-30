@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import Input from "./../components/Input";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo";
-import { House } from "lucide-react";
 import { useNavigate, Link } from "react-router";
 import Label from "./../components/Label";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getloggedInUser } from "./../utils.js";
 
 const Signup = () => {
+  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -40,6 +41,9 @@ const Signup = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) return navigate("/");
+  }, []);
   return (
     <div className="flex items-center justify-center min-h-screen p-3">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">

@@ -3,38 +3,8 @@ import DashboardTopBar from "../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import TransactionCard from "./../components/TransactionCard";
 import { Link } from "react-router";
+import { transactions } from "./../utils";
 
-const transactions = [
-  {
-    date: "29-10-2025  9:57:55",
-    category: "salary",
-    description:
-      "Job Salary sdkb aashdkba sdbkba kabdkb bkbqwdh sdkjb sdjnbsd kjjnsdd ",
-    amount: 751,
-    type: "income",
-  },
-  {
-    date: "28-10-2025  17:30:00",
-    category: "education",
-    description: "Dinner with friends",
-    amount: 420,
-    type: "expense",
-  },
-  {
-    date: "28-10-2025  17:30:00",
-    category: "food",
-    description: "Dinner with friends",
-    amount: 420,
-    type: "income",
-  },
-  {
-    date: "28-10-2025  17:30:00",
-    category: "shopping",
-    description: "Dinner with friends",
-    amount: 420,
-    type: "expense",
-  },
-];
 function Overview() {
   return (
     <>
@@ -70,20 +40,38 @@ function Overview() {
             <TrendingDown className="w-10 h-10 text-rose-500" />
           </article>
         </section>
-        <div className="bg-white rounded-2xl shadow-2xl p-6 mt-6 transition-all duration-300 hover:shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-semibold text-slate-700">
-              Recent Transactions
-            </h3>
-            <Link
-              to={"/dashboard/transactions"}
-              className="text-sm font-medium text-blue-600 hover:text-blue-800 transition"
-            >
-              View All
-            </Link>
-          </div>
-          <TransactionCard transactions={transactions} />
+        {/* <div className="bg-white rounded-2xl shadow-2xl p-6 mt-6 transition-all duration-300 hover:shadow-xl"> */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-semibold text-slate-700">
+            Recent Transactions
+          </h3>
+          <Link
+            to={"/dashboard/transactions"}
+            className="text-sm font-medium text-blue-600 hover:text-blue-800 transition"
+          >
+            View All
+          </Link>
         </div>
+        {transactions ? (
+          transactions.map((txn, index) => {
+            const { date, category, description, amount, type } = txn;
+            return (
+              <div key={index}>
+                <TransactionCard
+                  date={date}
+                  category={category}
+                  description={description}
+                  amount={amount}
+                  type={type}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <p className="text-center text-slate-500 py-4">No transactions yet</p>
+        )}
+
+        {/* </div> */}
       </main>
     </>
   );
