@@ -8,6 +8,10 @@ const Input = ({
   placeholder,
   onInputChange,
   value,
+  customStyle,
+  checked,
+  min,
+  max,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const inputType = type === "password" && isPasswordVisible ? "text" : type; //--IMPORTANT--//
@@ -20,8 +24,11 @@ const Input = ({
         name={name}
         placeholder={placeholder}
         value={value}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
+        className={`${customStyle} w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400`}
         onChange={onInputChange}
+        checked={checked}
+        min={min}
+        max={max}
       />
       {type === "password" && (
         <div

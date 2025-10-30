@@ -13,12 +13,12 @@ function Transactions() {
     description: "",
     amount: "",
     category: "",
-    date: "",
-    type: "income",
+    date: new Date().toISOString().split("T")[0],
+    type: "",
   });
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,8 +28,8 @@ function Transactions() {
       description: "",
       amount: "",
       category: "",
-      date: "",
-      type: "income",
+      date: new Date().toISOString().split("T")[0],
+      type: "",
     });
   };
   return (
@@ -54,15 +54,12 @@ function Transactions() {
           />
         </div>
         {addSec && (
-          <section className="absolute inset-0 flex items-center justify-center bg-black/70">
-            <div className="w-5xl bg-amber-50 p-7 rounded">
-              <h2 className="text-xl font-semibold text-slate-800 mb-4">
+          <section className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-xs transition-all duration-300 ">
+            <div className="w-full max-w-2xl m-3 bg-white p-6 sm:p-8 rounded-2xl shadow-2xl relative">
+              <h2 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-6">
                 Add Transaction
               </h2>
-              {formData?.description}
-              {formData?.amount}
-              {formData?.category}
-              {formData?.date}
+
               <form
                 onSubmit={handleSubmit}
                 className="grid gap-4 sm:grid-cols-2"
@@ -72,6 +69,7 @@ function Transactions() {
                   <Input
                     type="text"
                     id="description"
+                    name="description"
                     placeholder="e.g., Grocery Shopping"
                     value={formData?.description}
                     onInputChange={handleChange}
@@ -81,10 +79,12 @@ function Transactions() {
                 <div>
                   <Label htmlFor={"amount"} labelTitle={"Amount (₹)"} />
                   <Input
-                    type="text"
+                    type="number"
                     id="amount"
+                    name="amount"
                     placeholder="e.g., 1500"
                     value={formData?.amount}
+                    min={1}
                     onInputChange={handleChange}
                   />
                 </div>
@@ -94,7 +94,7 @@ function Transactions() {
                   <select
                     name="category"
                     id="category"
-                    value={formData.category}
+                    value={formData?.category}
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
                   >
@@ -116,35 +116,45 @@ function Transactions() {
                   <Input
                     type="date"
                     id="date"
+                    name="date"
                     value={formData?.date}
+                    max={new Date().toISOString().split("T")[0]}
                     onInputChange={handleChange}
                   />
                 </div>
 
-                <div className="flex items-center gap-4 ">
-                  <label className="text-slate-600">Type:</label>
-                  <div className="flex gap-3">
+                <div className="flex items-center gap-1">
+                  <Label labelTitle={"Type:"} />
+                  <div className="flex gap-1 items-center">
                     <Input
                       type="radio"
-                      id="type"
+                      id="income"
                       name="type"
                       value="income"
-                      checked={formData.type === "income"}
+                      checked={formData?.type === "income"}
                       onInputChange={handleChange}
-                      // className="accent-green-500"
+                      customStyle="accent-green-500 !cursor-pointer"
                     />
-                    <Label htmlFor={"income"} labelTitle={"Income"} />
+                    <Label
+                      htmlFor={"income"}
+                      labelTitle={"Income"}
+                      customStyle="cursor-pointer mr-3"
+                    />
 
                     <Input
                       type="radio"
-                      id="type"
+                      id="expense"
                       name="type"
                       value="expense"
-                      checked={formData.type === "expense"}
+                      checked={formData?.type === "expense"}
                       onInputChange={handleChange}
-                      // className="accent-red-500"
+                      customStyle="accent-red-500 !cursor-pointer"
                     />
-                    <Label htmlFor={"expense"} labelTitle={"Expense"} />
+                    <Label
+                      htmlFor={"expense"}
+                      labelTitle={"Expense"}
+                      customStyle="cursor-pointer"
+                    />
                   </div>
                 </div>
 
@@ -158,6 +168,12 @@ function Transactions() {
                   />
                 </div>
               </form>
+              <button
+                onClick={() => setAddSec(false)}
+                className="absolute top-4 right-5 text-slate-600 hover:text-slate-800 text-2xl cursor-pointer transition-all duration-200"
+              >
+                ✕
+              </button>
             </div>
           </section>
         )}
