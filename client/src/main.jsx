@@ -12,7 +12,7 @@ import Overview from "./views/Overview.jsx";
 import Transactions from "./views/Transactions.jsx";
 import Charts from "./views/Charts.jsx";
 import Budgets from "./views/Budgets.jsx";
-
+import AddTrans from "./views/AddTrans.jsx";
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -32,7 +32,9 @@ root.render(
         }
       >
         <Route index element={<Overview />} />
-        <Route path="transactions" element={<Transactions />} />
+        <Route path="transactions" element={<Transactions />}>
+          <Route path="add-trans" element={<AddTrans />} />
+        </Route>
         <Route path="charts" element={<Charts />} />
         <Route path="budgets" element={<Budgets />} />
       </Route>
