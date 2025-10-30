@@ -29,13 +29,13 @@ function TransactionCard({ transactions = [] }) {
                     : "💡"}
                 </div>
                 <div>
-                  <p className="text-slate-700 text-xs sm:text-sm font-medium">
+                  <p className="text-slate-700 text-sm sm:text-base font-medium">
                     {txn.date}
                   </p>
-                  <p className="text-slate-800 font-semibold uppercase tracking-wide text-sm mt-0.5">
+                  <p className="text-slate-800 font-semibold capitalize tracking-wide mt-0.5">
                     {txn.category}
                   </p>
-                  <p className="text-slate-600 text-xs sm:text-sm mt-0.5">
+                  <p className="text-slate-600 text-sm sm:text-base mt-0.5">
                     {txn.description}
                   </p>
                 </div>

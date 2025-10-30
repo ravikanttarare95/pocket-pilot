@@ -1,6 +1,7 @@
 import React from "react";
 
 function Button({
+  type,
   btnTitle,
   onBtnClick,
   btnVariant,
@@ -23,6 +24,7 @@ function Button({
 
   return (
     <button
+      type={type}
       className={`${customStyle} ${sizeClasses} ${variantClasses} 
         cursor-pointer transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
       onClick={onBtnClick}

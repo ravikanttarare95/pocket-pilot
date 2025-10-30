@@ -1,7 +1,6 @@
 import React from "react";
 import DashboardTopBar from "../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
-import Button from "./../components/Button";
 import TransactionCard from "./../components/TransactionCard";
 import { Link } from "react-router";
 
@@ -9,13 +8,28 @@ const transactions = [
   {
     date: "29-10-2025  9:57:55",
     category: "salary",
-    description: "Job Salary",
+    description:
+      "Job Salary sdkb aashdkba sdbkba kabdkb bkbqwdh sdkjb sdjnbsd kjjnsdd ",
     amount: 751,
     type: "income",
   },
   {
     date: "28-10-2025  17:30:00",
+    category: "education",
+    description: "Dinner with friends",
+    amount: 420,
+    type: "expense",
+  },
+  {
+    date: "28-10-2025  17:30:00",
     category: "food",
+    description: "Dinner with friends",
+    amount: 420,
+    type: "income",
+  },
+  {
+    date: "28-10-2025  17:30:00",
+    category: "shopping",
     description: "Dinner with friends",
     amount: 420,
     type: "expense",
@@ -76,3 +90,4 @@ function Overview() {
 }
 
 export default Overview;
+export { transactions };

@@ -4,7 +4,7 @@ function Label({ htmlFor, labelTitle }) {
   return (
     <label
       htmlFor={htmlFor}
-      className="block text-sm font-medium text-gray-600 mb-1"
+      className="block text-base font-medium text-gray-600 mb-1"
     >
       {labelTitle}
     </label>

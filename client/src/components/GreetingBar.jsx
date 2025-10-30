@@ -43,7 +43,7 @@ function GreetingBar({ greetingBarTitle }) {
 
   return (
     <header
-      className={`sticky top-18 flex items-center justify-between px-2 sm:px-5 py-4 shadow-md transition-all duration-500 ${bgColor} ${textColor}`}
+      className={`sticky top-18 flex items-center justify-between px-2 sm:px-5 py-4 shadow-md transition-all duration-500 ${bgColor} ${textColor} z-50`}
     >
       <p className="tracking-wide">
         <span className="text-lg sm:text-xl ">{greeting} </span>
