@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link, Outlet } from "react-router";
+import { useNavigate, Outlet } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
 import { getloggedInUser } from "./../utils.js";
 import Sidebar from "./../components/Sidebar.jsx";

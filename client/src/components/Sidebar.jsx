@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 import {
   HiMiniArrowLeftStartOnRectangle,
@@ -9,8 +9,7 @@ import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData.js";
 
 function Sidebar() {
   const [isClose, setIsClose] = useState(false);
-  // const [user, setUser] = useState(getloggedInUser() || null);
-
+  const location = useLocation();
   useEffect(() => {
     if (window.innerWidth < 640) setIsClose(true);
   }, []);
@@ -24,11 +23,18 @@ function Sidebar() {
         <ul className="space-y-2">
           {SIDEBAR_LINKS.map((linkObj) => {
             const { title, icon: Icon, path } = linkObj;
+
+            const isActive =
+              location.pathname === path ||
+              (path !== "/dashboard" && location.pathname.startsWith(path));
+
             return (
               <li key={title}>
                 <Link
                   to={path}
-                  className="hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2"
+                  className={`${
+                    isActive && "bg-gray-700 border border-white/20"
+                  } hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2 border border-transparent`}
                   onClick={() => {
                     if (window.innerWidth < 640) {
                       setIsClose(true);
