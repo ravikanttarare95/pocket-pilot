@@ -2,8 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-import userRoute from "./routes/userRoutes.js";
 import connectDB from "./configs/db.js";
+
+import userRoute from "./routes/userRoutes.js";
+import transactionRoute from "./routes/transactionRoutes.js";
+
 const app = express();
 
 app.use(express.json());
@@ -14,6 +17,8 @@ app.get("/health", (_, res) => {
 });
 
 app.use("/api/users", userRoute);
+
+app.use("/api/transactions", transactionRoute);
 
 const PORT = process.env.PORT || 8080;
 

@@ -17,12 +17,7 @@ function Transactions() {
             All Transactions
           </h1>
         </div>
-        <section
-          className="
-            space-y-3 sm:space-y-4 
-            pb-10
-          "
-        >
+        <section className="space-y-3 sm:space-y-4 pb-10">
           {transactions &&
             transactions.map((txn, index) => {
               const { date, category, description, amount, type } = txn;
