@@ -32,7 +32,24 @@ const createTransaction = async (req, res) => {
 };
 
 const getTransactions = async (req, res) => {
-  const { user } = req;
+  try {
+    const { user } = req;
+    const existingTransactions = await Transaction.find({
+      userId: user.id,
+    }).sort({
+      createdAt: -1, // latest first
+    });
+
+    if (existingTransactions) {
+      res.json({ success: true, data: existingTransactions });
+    }
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while fetching transactions",
+    });
+  }
 };
 
 const editTransaction = async (req, res) => {
