@@ -75,7 +75,7 @@ function AddTrans() {
             >
               <option value="">Select Category</option>
               <option value="home-expenses">Home Expenses</option>
-              <option value="food-drinks">Food & Drinks</option>
+              <option value="food-and-drinks">Food & Drinks</option>
               <option value="shopping">Shopping</option>
               <option value="travel">Travel</option>
               <option value="entertainment">Entertainment</option>
