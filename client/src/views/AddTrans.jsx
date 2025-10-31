@@ -3,6 +3,7 @@ import Input from "./../components/Input";
 import Label from "./../components/Label";
 import Button from "./../components/Button";
 import { useNavigate } from "react-router";
+import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
 
 function AddTrans() {
   const navigate = useNavigate();
@@ -37,7 +38,40 @@ function AddTrans() {
         <h2 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-6">
           Add Transaction
         </h2>
+        <div className="flex items-center gap-2 mb-4">
+          <Label labelTitle={"Type:"} />
+          <div className="flex gap-1 items-center">
+            <Input
+              type="radio"
+              id="income"
+              name="type"
+              value="income"
+              checked={formData?.type === "income"}
+              onInputChange={handleChange}
+              customStyle="accent-green-500 !cursor-pointer focus:outline-none focus:ring-0"
+            />
+            <Label
+              htmlFor={"income"}
+              labelTitle={"Income"}
+              customStyle="cursor-pointer mr-3 !text-black"
+            />
 
+            <Input
+              type="radio"
+              id="expense"
+              name="type"
+              value="expense"
+              checked={formData?.type === "expense"}
+              onInputChange={handleChange}
+              customStyle="accent-red-500 !cursor-pointer focus:outline-none focus:ring-0"
+            />
+            <Label
+              htmlFor={"expense"}
+              labelTitle={"Expense"}
+              customStyle="cursor-pointer !text-black"
+            />
+          </div>
+        </div>
         <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
           <div>
             <Label htmlFor={"description"} labelTitle={"Description"} />
@@ -73,16 +107,11 @@ function AddTrans() {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
             >
-              <option value="">Select Category</option>
-              <option value="home-expenses">Home Expenses</option>
-              <option value="food-and-drinks">Food & Drinks</option>
-              <option value="shopping">Shopping</option>
-              <option value="travel">Travel</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="allowance">Allowance</option>
-              <option value="salary">Salary</option>
-              <option value="bonus">Bonus</option>
-              <option value="other">Others</option>
+              {TRANS_CATEGORIES_SELECT.map((cate) => (
+                <option key={cate.value} value={cate.value}>
+                  {cate.label}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -96,41 +125,6 @@ function AddTrans() {
               max={new Date().toISOString().split("T")[0]}
               onInputChange={handleChange}
             />
-          </div>
-
-          <div className="flex items-center gap-1">
-            <Label labelTitle={"Type:"} />
-            <div className="flex gap-1 items-center">
-              <Input
-                type="radio"
-                id="income"
-                name="type"
-                value="income"
-                checked={formData?.type === "income"}
-                onInputChange={handleChange}
-                customStyle="accent-green-500 !cursor-pointer focus:outline-none focus:ring-0"
-              />
-              <Label
-                htmlFor={"income"}
-                labelTitle={"Income"}
-                customStyle="cursor-pointer mr-3"
-              />
-
-              <Input
-                type="radio"
-                id="expense"
-                name="type"
-                value="expense"
-                checked={formData?.type === "expense"}
-                onInputChange={handleChange}
-                customStyle="accent-red-500 !cursor-pointer focus:outline-none focus:ring-0"
-              />
-              <Label
-                htmlFor={"expense"}
-                labelTitle={"Expense"}
-                customStyle="cursor-pointer"
-              />
-            </div>
           </div>
 
           <div className="sm:col-span-2">

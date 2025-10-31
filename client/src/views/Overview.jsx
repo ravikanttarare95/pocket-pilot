@@ -40,7 +40,7 @@ function Overview() {
             <TrendingDown className="w-10 h-10 text-rose-500" />
           </article>
         </section>
-        {/* <div className="bg-white rounded-2xl shadow-2xl p-6 mt-6 transition-all duration-300 hover:shadow-xl"> */}
+
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-semibold text-slate-700">
             Recent Transactions
@@ -70,8 +70,6 @@ function Overview() {
         ) : (
           <p className="text-center text-slate-500 py-4">No transactions yet</p>
         )}
-
-        {/* </div> */}
       </main>
     </>
   );
