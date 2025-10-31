@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 const transactionSchema = new Schema(
   {
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     type: {
       type: String,
       required: true,
@@ -13,7 +14,7 @@ const transactionSchema = new Schema(
       required: true,
       min: [0, "Amount must be positive"],
     },
-    date: { type: Date, required: true, default: Date.now },
+    date: { type: Date, required: true },
     time: { type: String, required: true },
     category: {
       type: String,

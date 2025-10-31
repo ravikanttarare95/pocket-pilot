@@ -29,7 +29,7 @@ const getloggedInUser = () => {
 
 const transactions = [
   {
-    date: "29-10-2025  9:57:55",
+    date: "2025-10-29",
     category: "salary",
     description:
       "Job Salary sdkb aashdkba sdbkba kabdkb bkbqwdh sdkjb sdjnbsd kjjnsdd ",
@@ -37,23 +37,23 @@ const transactions = [
     type: "income",
   },
   {
-    date: "28-10-2025  17:30:00",
+    date: "2025-10-28",
     category: "education",
+    description: "Books",
+    amount: 420,
+    type: "expense",
+  },
+  {
+    date: "2025-10-27",
+    category: "food",
     description: "Dinner with friends",
     amount: 420,
     type: "expense",
   },
   {
-    date: "28-10-2025  17:30:00",
-    category: "food",
-    description: "Dinner with friends",
-    amount: 420,
-    type: "income",
-  },
-  {
-    date: "28-10-2025  17:30:00",
+    date: "2025-10-25",
     category: "shopping",
-    description: "Dinner with friends",
+    description: "Shirt",
     amount: 420,
     type: "expense",
   },

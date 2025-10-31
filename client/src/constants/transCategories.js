@@ -11,12 +11,10 @@ import {
   FaEllipsisH,
   FaBook,
 } from "react-icons/fa";
-import { MdFastfood } from "react-icons/md";
 
 const TRANS_CATEGORIES_SELECT = [
   { value: "", label: "🗂️ Select Category:" },
   { value: "home-expenses", label: "🏠 Home Expenses" },
-  { value: "food-and-drinks", label: "🍽️ Food & Drinks" },
   { value: "salary", label: "💼 Salary" },
   { value: "food", label: "🍔 Food" },
   { value: "travel", label: "✈️ Travel" },
@@ -33,10 +31,6 @@ const TRANS_CATEGORY_META = {
   "home-expenses": {
     label: "Home Expenses",
     icon: FaHome,
-  },
-  "food-and-drinks": {
-    label: "Food & Drinks",
-    icon: MdFastfood,
   },
   salary: {
     label: "Salary",

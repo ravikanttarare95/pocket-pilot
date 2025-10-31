@@ -12,22 +12,33 @@ function Transactions() {
     <>
       <GreetingBar greetingBarTitle="Transactions" />
       <main className="relative px-1.5 py-6 sm:p-6 min-h-screen">
-        <h1 className="text-2xl mb-5">All Transactions</h1>
-        {transactions &&
-          transactions.map((txn, index) => {
-            const { date, category, description, amount, type } = txn;
-            return (
-              <div key={index}>
-                <TransactionCard
-                  date={date}
-                  category={category}
-                  description={description}
-                  amount={amount}
-                  type={type}
-                />
-              </div>
-            );
-          })}
+        <div className="flex justify-between items-center mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800">
+            All Transactions
+          </h1>
+        </div>
+        <section
+          className="
+            space-y-3 sm:space-y-4 
+            pb-10
+          "
+        >
+          {transactions &&
+            transactions.map((txn, index) => {
+              const { date, category, description, amount, type } = txn;
+              return (
+                <div key={index}>
+                  <TransactionCard
+                    date={date}
+                    category={category}
+                    description={description}
+                    amount={amount}
+                    type={type}
+                  />
+                </div>
+              );
+            })}
+        </section>
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6">
           <Button
             btnTitle={
