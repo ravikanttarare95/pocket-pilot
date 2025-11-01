@@ -4,8 +4,8 @@ import TransactionCard from "./../components/TransactionCard";
 import Button from "./../components/Button";
 import { Plus } from "lucide-react";
 import { useNavigate, Outlet } from "react-router";
-// import { transactions } from "./../utils.js";
 import { TransactionsContext } from "../context/TransactionsContext";
+import axios from "axios";
 
 function Transactions() {
   const navigate = useNavigate();

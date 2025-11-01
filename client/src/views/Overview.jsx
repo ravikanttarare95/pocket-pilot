@@ -1,11 +1,16 @@
-import React from "react";
-import DashboardTopBar from "../components/GreetingBar";
+import React, { useContext } from "react";
+import DashboardTopBar from "./../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
-import TransactionCard from "../components/TransactionCard";
+import TransactionCard from "./../components/TransactionCard";
 import { Link } from "react-router";
-import { transactions } from "../utils";
+// import { transactions } from "../utils";
+import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 
 function Overview() {
+  const { transactions, loading, error } = useContext(TransactionsContext);
+  const recentTransactions = transactions.slice(0, 3);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <>
       <DashboardTopBar greetingBarTitle="Overview" />
@@ -75,9 +80,9 @@ function Overview() {
           </Link>
         </div>
 
-        {transactions && transactions.length > 0 ? (
+        {recentTransactions && recentTransactions.length > 0 ? (
           <div className="space-y-3 sm:space-y-4">
-            {transactions.slice(0, 3).map((txn, index) => (
+            {recentTransactions.map((txn, index) => (
               <TransactionCard
                 key={index}
                 date={txn.date}
@@ -99,4 +104,3 @@ function Overview() {
 }
 
 export default Overview;
-export { transactions };

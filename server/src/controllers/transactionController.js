@@ -3,6 +3,41 @@ import Transaction from "./../models/Transaction.js";
 const createTransaction = async (req, res) => {
   const { type, amount, date, time, category, description } = req.body;
   const { user } = req;
+  if (!type) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction type is required" });
+  }
+  if (!amount) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction amount is required" });
+  }
+  if (!date) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction date is required" });
+  }
+  if (!time) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction time is required" });
+  }
+  if (!category) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction category is required" });
+  }
+  if (!description) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Transaction description is required" });
+  }
+  if (!type || !amount || !date || !time || !category || !description) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields are required" });
+  }
   try {
     const newTransaction = await Transaction.create({
       userId: user.id,
@@ -25,7 +60,7 @@ const createTransaction = async (req, res) => {
     if (error.name === "ValidationError") {
       //////////////
       const messages = Object.values(error.errors).map((err) => err.message);
-      return res.status(400).json({ success: false, errors: messages });
+      res.status(400).json({ success: false, message: messages });
     }
     res.status(500).json({ success: false, message: "Server error" });
   }

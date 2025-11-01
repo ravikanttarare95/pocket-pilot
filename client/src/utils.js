@@ -27,36 +27,4 @@ const getloggedInUser = () => {
   }
 };
 
-const transactions = [
-  {
-    date: "2025-10-29",
-    category: "salary",
-    description:
-      "Job Salary sdkb aashdkba sdbkba kabdkb bkbqwdh sdkjb sdjnbsd kjjnsdd ",
-    amount: 751,
-    type: "income",
-  },
-  {
-    date: "2025-10-28",
-    category: "education",
-    description: "Books",
-    amount: 420,
-    type: "expense",
-  },
-  {
-    date: "2025-10-27",
-    category: "food",
-    description: "Dinner with friends",
-    amount: 420,
-    type: "expense",
-  },
-  {
-    date: "2025-10-25",
-    category: "shopping",
-    description: "Shirt",
-    amount: 420,
-    type: "expense",
-  },
-];
-
-export { getloggedInUser, transactions };
+export { getloggedInUser };
