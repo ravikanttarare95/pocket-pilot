@@ -5,17 +5,13 @@ import Button from "./../components/Button";
 import { Plus } from "lucide-react";
 import { useNavigate, Outlet } from "react-router";
 import { TransactionsContext } from "../context/TransactionsContext";
-import axios from "axios";
+import Loader from "./../components/Loader.jsx";
+import ErrorState from "./../components/ErrorState.jsx";
 
 function Transactions() {
   const navigate = useNavigate();
   const { transactions, loading, error } = useContext(TransactionsContext);
-  if (loading) {
-    return <p>Loading....</p>;
-  }
-  if (error) {
-    return <p>{error}</p>;
-  }
+
   return (
     <>
       <GreetingBar greetingBarTitle="Transactions" />
@@ -26,21 +22,32 @@ function Transactions() {
           </h1>
         </div>
         <section className="space-y-3 sm:space-y-4 pb-10">
-          {transactions &&
-            transactions.map((txn, index) => {
-              const { date, category, description, amount, type } = txn;
-              return (
-                <div key={index}>
-                  <TransactionCard
-                    date={date}
-                    category={category}
-                    description={description}
-                    amount={amount}
-                    type={type}
-                  />
-                </div>
-              );
-            })}
+          {error && <ErrorState error={error} />}
+
+          {/* ===== Loading State ===== */}
+          {loading && !error && (
+            <Loader message="Fetching your transactions..." />
+          )}
+
+          {!loading && !error && (
+            <>
+              {transactions &&
+                transactions.map((txn, index) => {
+                  const { date, category, description, amount, type } = txn;
+                  return (
+                    <div key={index}>
+                      <TransactionCard
+                        date={date}
+                        category={category}
+                        description={description}
+                        amount={amount}
+                        type={type}
+                      />
+                    </div>
+                  );
+                })}
+            </>
+          )}
         </section>
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6">
           <Button

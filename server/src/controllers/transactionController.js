@@ -3,36 +3,7 @@ import Transaction from "./../models/Transaction.js";
 const createTransaction = async (req, res) => {
   const { type, amount, date, time, category, description } = req.body;
   const { user } = req;
-  if (!type) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction type is required" });
-  }
-  if (!amount) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction amount is required" });
-  }
-  if (!date) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction date is required" });
-  }
-  if (!time) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction time is required" });
-  }
-  if (!category) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction category is required" });
-  }
-  if (!description) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Transaction description is required" });
-  }
+
   if (!type || !amount || !date || !time || !category || !description) {
     return res
       .status(400)

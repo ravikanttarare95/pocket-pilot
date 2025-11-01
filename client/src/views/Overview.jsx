@@ -3,14 +3,13 @@ import DashboardTopBar from "./../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import TransactionCard from "./../components/TransactionCard";
 import { Link } from "react-router";
-// import { transactions } from "../utils";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
+import Loader from "./../components/Loader.jsx";
+import ErrorState from "./../components/ErrorState.jsx";
 
 function Overview() {
   const { transactions, loading, error } = useContext(TransactionsContext);
   const recentTransactions = transactions.slice(0, 3);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
   return (
     <>
       <DashboardTopBar greetingBarTitle="Overview" />
@@ -35,7 +34,6 @@ function Overview() {
             </p>
           </article>
         </div>
-
         {/* ===== Income & Expense Summary ===== */}
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
           <article className="bg-gradient-to-r from-emerald-50 to-white rounded-xl shadow-sm p-4 sm:p-5 border-l-4 border-emerald-500 flex items-center justify-between hover:shadow-md transition-shadow duration-200">
@@ -66,7 +64,6 @@ function Overview() {
             </div>
           </article>
         </section>
-
         {/* ===== Recent Transactions ===== */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
           <h3 className="text-lg sm:text-2xl font-semibold text-slate-800 tracking-tight">
@@ -80,23 +77,35 @@ function Overview() {
           </Link>
         </div>
 
-        {recentTransactions && recentTransactions.length > 0 ? (
-          <div className="space-y-3 sm:space-y-4">
-            {recentTransactions.map((txn, index) => (
-              <TransactionCard
-                key={index}
-                date={txn.date}
-                category={txn.category}
-                description={txn.description}
-                amount={txn.amount}
-                type={txn.type}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-slate-500 py-6 text-sm sm:text-base">
-            No transactions yet 🪶
-          </p>
+        {/* ===== Error State ===== */}
+        {error && <ErrorState error={error} />}
+
+        {/* ===== Loading State ===== */}
+        {loading && !error && (
+          <Loader message="Fetching your transactions..." />
+        )}
+
+        {!loading && !error && (
+          <>
+            {recentTransactions && recentTransactions.length > 0 ? (
+              <div className="space-y-3 sm:space-y-4">
+                {recentTransactions.map((txn, index) => (
+                  <TransactionCard
+                    key={index}
+                    date={txn.date}
+                    category={txn.category}
+                    description={txn.description}
+                    amount={txn.amount}
+                    type={txn.type}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-slate-500 py-6 text-sm sm:text-base">
+                No transactions yet 🪶
+              </p>
+            )}
+          </>
         )}
       </main>
     </>
