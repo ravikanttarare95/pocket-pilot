@@ -13,6 +13,7 @@ import Transactions from "./views/Transactions.jsx";
 import Charts from "./views/Charts.jsx";
 import Budgets from "./views/Budgets.jsx";
 import AddTrans from "./views/AddTrans.jsx";
+import { TransactionsProvider } from "./context/TransactionsContext.jsx";
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -27,7 +28,9 @@ root.render(
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <TransactionsProvider>
+              <Dashboard />
+            </TransactionsProvider>
           </ProtectedRoute>
         }
       >

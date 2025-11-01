@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import GreetingBar from "./../components/GreetingBar";
 import TransactionCard from "./../components/TransactionCard";
 import Button from "./../components/Button";
 import { Plus } from "lucide-react";
 import { useNavigate, Outlet } from "react-router";
-import { transactions } from "./../utils.js";
+// import { transactions } from "./../utils.js";
+import { TransactionsContext } from "../context/TransactionsContext";
 
 function Transactions() {
   const navigate = useNavigate();
+  const { transactions, loading, error } = useContext(TransactionsContext);
+  if (loading) {
+    return <p>Loading....</p>;
+  }
+  if (error) {
+    return <p>{error}</p>;
+  }
   return (
     <>
       <GreetingBar greetingBarTitle="Transactions" />

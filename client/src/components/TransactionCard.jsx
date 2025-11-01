@@ -60,9 +60,10 @@ function TransactionCard({ date, category, description, amount, type }) {
             ${type === "income" ? "text-emerald-500" : "text-rose-500"}
           `}
         >
-          <span className="text-lg sm:text-xl">
-            {type === "income" ? "+" : "-"}₹{amount}
-          </span>
+          <div className="text-lg sm:text-xl ml-2 flex">
+            <p>{type === "income" ? "+" : "-"}</p>
+            <p>₹{amount}</p>
+          </div>
           <span className="text-xs text-slate-400 capitalize">{type}</span>
         </div>
       </div>
