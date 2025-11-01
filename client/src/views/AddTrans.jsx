@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
 import Button from "./../components/Button";
@@ -6,9 +6,11 @@ import { useNavigate } from "react-router";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 
 function AddTrans() {
   const navigate = useNavigate();
+  const { fetchTransactions } = useContext(TransactionsContext);
   const [formData, setFormData] = useState({
     description: "",
     amount: "",
@@ -39,6 +41,9 @@ function AddTrans() {
       );
       if (response) {
         toast.success(response.data.message);
+
+        await fetchTransactions(); // refresh data before navigating
+
         setTimeout(() => {
           navigate(-1);
         }, 1000);

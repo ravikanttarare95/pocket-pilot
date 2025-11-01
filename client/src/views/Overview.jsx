@@ -10,6 +10,17 @@ import ErrorState from "./../components/ErrorState.jsx";
 function Overview() {
   const { transactions, loading, error } = useContext(TransactionsContext);
   const recentTransactions = transactions.slice(0, 3);
+
+  const totalIncome = transactions
+    .filter((txn) => txn.type === "income")
+    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
+
+  const totalExpense = transactions
+    .filter((txn) => txn.type === "expense")
+    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
+
+  const currentBalance = totalIncome - totalExpense;
+
   return (
     <>
       <DashboardTopBar greetingBarTitle="Overview" />
@@ -21,7 +32,7 @@ function Overview() {
               Current Balance
             </h2>
             <p className="text-2xl sm:text-4xl font-extrabold text-slate-800">
-              ₹ 1,20,000
+              ₹{currentBalance.toLocaleString("en-IN")}
             </p>
           </article>
 
@@ -30,7 +41,7 @@ function Overview() {
               Overspend
             </h2>
             <p className="text-xl sm:text-3xl font-bold text-rose-600">
-              ₹ 12,500
+              ₹{"00000"}
             </p>
           </article>
         </div>
@@ -42,7 +53,7 @@ function Overview() {
                 Total Income
               </h2>
               <p className="text-xl sm:text-3xl font-bold text-emerald-600">
-                ₹ 00,000
+                ₹{totalIncome.toLocaleString("en-IN")}
               </p>
             </div>
             <div className="bg-emerald-100 p-2 sm:p-3 rounded-full">
@@ -56,7 +67,7 @@ function Overview() {
                 Total Expense
               </h2>
               <p className="text-xl sm:text-3xl font-bold text-rose-600">
-                ₹ 00,000
+                ₹{totalExpense.toLocaleString("en-IN")}
               </p>
             </div>
             <div className="bg-rose-100 p-2 sm:p-3 rounded-full">

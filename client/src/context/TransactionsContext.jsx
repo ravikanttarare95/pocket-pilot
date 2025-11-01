@@ -34,7 +34,9 @@ function TransactionsProvider({ children }) {
   }, []);
 
   return (
-    <TransactionsContext.Provider value={{ transactions, loading, error }}>
+    <TransactionsContext.Provider
+      value={{ transactions, loading, error, fetchTransactions }}
+    >
       {children}
     </TransactionsContext.Provider>
   );

@@ -62,9 +62,11 @@ function TransactionCard({ date, category, description, amount, type }) {
         >
           <div className="text-lg sm:text-xl ml-2 flex">
             <p>{type === "income" ? "+" : "-"}</p>
-            <p>₹{amount}</p>
+            <p>₹{amount.toLocaleString("en-IN")}</p>
           </div>
-          <span className="text-xs text-slate-400 capitalize">{type}</span>
+          <span className="text-xs text-slate-400 font-light capitalize">
+            {type}
+          </span>
         </div>
       </div>
     </div>
