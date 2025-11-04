@@ -43,7 +43,7 @@ const Login = () => {
         }, 1000);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || error?.message);
       console.log(error);
     }
   };
