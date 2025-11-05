@@ -16,4 +16,28 @@ const getBudget = async (req, res) => {
   }
 };
 
-export { getBudget };
+const saveBudget = async (req, res) => {
+  const { user } = req;
+  const { month, budgets } = req.body;
+
+  try {
+    let budget = await Budget.findOneAndUpdate(
+      { userId: user._id, month },
+      { budgets },
+      { new: true, upsert: true }
+    );
+    if (budget) {
+      res.json({
+        success: true,
+        message: "Budget updated successfully",
+        data: budget,
+      });
+    } else {
+      res.status(404).json({ message: "Budget not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error updating budget" });
+  }
+};
+
+export { getBudget, saveBudget };
