@@ -12,9 +12,9 @@ const BudgetSchema = new Schema(
       required: true,
     },
     budgets: {
-      type: Map,
-      of: Number,
-      default: {},
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
   { timestamps: true }

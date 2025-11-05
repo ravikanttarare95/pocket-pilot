@@ -10,11 +10,19 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
+import { BudgetsContext } from "./../context/BudgetsContext.jsx";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Overview() {
-  const [budget, setBudget] = useState("5000");
-  const { transactions, loading, error } = useContext(TransactionsContext);
+  const { budgets } = useContext(BudgetsContext);
+  const {
+    transactions,
+    loading,
+    error,
+    currMonthTotalIncome,
+    currMonthTotalExpense,
+  } = useContext(TransactionsContext);
   const recentTransactions = transactions.slice(0, 3);
 
   const totalIncome = transactions
@@ -26,26 +34,6 @@ function Overview() {
     .reduce((sum, currTxn) => sum + currTxn.amount, 0);
 
   const currentBalance = totalIncome - totalExpense;
-
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
-
-  const monthlyTransactions = transactions.filter((txn) => {
-    const txnDate = new Date(txn.date);
-    return (
-      txnDate.getMonth() === currentMonth &&
-      txnDate.getFullYear() === currentYear
-    );
-  });
-
-  const currMonthTotalIncome = monthlyTransactions
-    .filter((txn) => txn.type === "income")
-    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
-
-  const currMonthTotalExpense = monthlyTransactions
-    .filter((txn) => txn.type === "expense")
-    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
 
   const chartData = {
     labels: ["Income", "Expense"],
@@ -117,7 +105,7 @@ function Overview() {
                 }}
               />
               <p className="text-xs text-slate-500 mt-1">
-                {currentDate.toLocaleString("default", {
+                {new Date().toLocaleString("default", {
                   month: "long",
                   year: "numeric",
                 })}
@@ -130,12 +118,12 @@ function Overview() {
               </h2>
               <p className="text-xl sm:text-3xl font-bold text-rose-600">
                 ₹
-                {currMonthTotalExpense > budget
-                  ? currMonthTotalExpense - budget
+                {currMonthTotalExpense > budgets
+                  ? (currMonthTotalExpense - budgets).toLocaleString()
                   : 0}
               </p>
               <p className="text-xs text-slate-500 mt-1">
-                {currentDate.toLocaleString("default", {
+                {new Date().toLocaleString("default", {
                   month: "long",
                   year: "numeric",
                 })}

@@ -4,7 +4,7 @@ import axios from "axios";
 const BudgetsContext = createContext();
 
 function BudgetsProvider({ children }) {
-  const [budget, setBudget] = useState();
+  const [budgets, setBudgets] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); ///////////
 
@@ -24,11 +24,10 @@ function BudgetsProvider({ children }) {
         }
       );
       if (response) {
-        setBudget(response?.data?.data);
-        console.log(response?.data);
+        setBudgets(response?.data?.budgets);
       }
     } catch (error) {
-      setError(err.response?.data?.message || "Error fetching budgets");
+      setError(error.response?.data?.message || "Error fetching budgets");
     } finally {
       setLoading(false);
     }
@@ -38,14 +37,21 @@ function BudgetsProvider({ children }) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/budgets`,
-        { month: currentMonth, budgets: newBudgets }
+        { month: currentMonth, budgets: newBudgets },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
+          },
+        }
       );
 
       if (response) {
-        setBudget(newBudgets);
+        setBudgets(newBudgets);
       }
     } catch (error) {
-      setError(err.response?.data?.message || "Error saving budgets");
+      setError(error.response?.data?.message || "Error saving budgets");
     }
   };
 
@@ -55,7 +61,7 @@ function BudgetsProvider({ children }) {
 
   return (
     <BudgetsContext.Provider
-      value={{ budget, setBudget, saveBudgets, loading, error }}
+      value={{ budgets, setBudgets, saveBudgets, loading, error }}
     >
       {children}
     </BudgetsContext.Provider>

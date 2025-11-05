@@ -2,10 +2,9 @@ import Budget from "./../models/Budget.js";
 
 const getBudget = async (req, res) => {
   const { user } = req;
-  //   console.log(user);
   const { month } = req.params;
   try {
-    const budget = await Budget.findOne({ userId: user._id, month });
+    const budget = await Budget.findOne({ userId: user.id, month });
     if (budget) {
       return res.status(200).json(budget);
     } else {

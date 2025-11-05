@@ -29,13 +29,40 @@ function TransactionsProvider({ children }) {
     }
   };
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+
+  const monthlyTransactions = transactions.filter((txn) => {
+    const txnDate = new Date(txn.date);
+    return (
+      txnDate.getMonth() + 1 === currentMonth + 1 &&
+      txnDate.getFullYear() === currentYear
+    );
+  });
+
+  const currMonthTotalIncome = monthlyTransactions
+    .filter((txn) => txn.type === "income")
+    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
+
+  const currMonthTotalExpense = monthlyTransactions
+    .filter((txn) => txn.type === "expense")
+    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
+
   useEffect(() => {
     fetchTransactions();
   }, []);
 
   return (
     <TransactionsContext.Provider
-      value={{ transactions, loading, error, fetchTransactions }}
+      value={{
+        transactions,
+        loading,
+        error,
+        fetchTransactions,
+        currMonthTotalIncome,
+        currMonthTotalExpense,
+      }}
     >
       {children}
     </TransactionsContext.Provider>
