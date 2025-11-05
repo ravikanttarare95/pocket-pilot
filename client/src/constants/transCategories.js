@@ -5,37 +5,69 @@ import {
   FaPlane,
   FaShoppingBag,
   FaBolt,
-  FaGift,
   FaFilm,
   FaCoins,
   FaEllipsisH,
   FaBook,
+  FaBuilding,
+  FaChartLine,
+  FaDollarSign,
 } from "react-icons/fa";
 
-const TRANS_CATEGORIES_SELECT = [
-  { value: "", label: "🗂️ Select Category:" },
-  { value: "home-expenses", label: "🏠 Home Expenses" },
-  { value: "salary", label: "💼 Salary" },
-  { value: "food", label: "🍔 Food" },
-  { value: "travel", label: "✈️ Travel" },
-  { value: "bills", label: "💡 Bills" },
-  { value: "education", label: "📚 Education" },
-  { value: "shopping", label: "🛍️ Shopping" },
-  { value: "bonus", label: "🎁 Bonus" },
-  { value: "allowance", label: "💰 Allowance" },
-  { value: "entertainment", label: "🎬 Entertainment" },
-  { value: "others", label: "🔹 Others" },
-];
+const TRANS_CATEGORIES_SELECT = {
+  income: [
+    { value: "salary", label: "💼 Salary" },
+    { value: "allowance", label: "💰 Allowance" },
+    { value: "business", label: "🏢 Business" },
+    { value: "investment", label: "📈 Investment" },
+    { value: "interest", label: "💵 Interest" },
+    { value: "rental-income", label: "🏡 Rental Income" },
+    { value: "others", label: "🔹 Others" },
+  ],
+
+  expense: [
+    { value: "home-expenses", label: "🏠 Home Expenses" },
+    { value: "food", label: "🍔 Food" },
+    { value: "travel", label: "✈️ Travel" },
+    { value: "bills", label: "💡 Bills" },
+    { value: "education", label: "📚 Education" },
+    { value: "shopping", label: "🛍️ Shopping" },
+    { value: "entertainment", label: "🎬 Entertainment" },
+    { value: "others", label: "🔹 Others" },
+  ],
+};
 
 const TRANS_CATEGORY_META = {
-  "home-expenses": {
-    label: "Home Expenses",
-    icon: FaHome,
-  },
   salary: {
     label: "Salary",
     icon: FaMoneyBillWave,
   },
+  allowance: {
+    label: "Allowance",
+    icon: FaCoins,
+  },
+  business: {
+    label: "Business",
+    icon: FaBuilding,
+  },
+  investment: {
+    label: "Investment",
+    icon: FaChartLine,
+  },
+  interest: {
+    label: "Interest",
+    icon: FaDollarSign,
+  },
+  "rental-income": {
+    label: "Rental Income",
+    icon: FaHome,
+  },
+
+  "home-expenses": {
+    label: "Home Expenses",
+    icon: FaHome,
+  },
+
   food: {
     label: "Food",
     icon: FaUtensils,
@@ -56,20 +88,13 @@ const TRANS_CATEGORY_META = {
     label: "Shopping",
     icon: FaShoppingBag,
   },
-  bonus: {
-    label: "Bonus",
-    icon: FaGift,
-  },
-  allowance: {
-    label: "Allowance",
-    icon: FaCoins,
-  },
+
   entertainment: {
     label: "Entertainment",
     icon: FaFilm,
   },
   others: {
-    label: "Others",
+    label: "",
     icon: FaEllipsisH,
   },
 };

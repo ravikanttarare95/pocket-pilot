@@ -94,12 +94,20 @@ function Overview() {
               </p>
             </article>
 
-            <div className="flex justify-center items-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
+            <div className="flex flex-col justify-center items-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
               <Doughnut
                 data={chartData}
                 options={{
                   plugins: {
-                    legend: { display: true, position: "bottom" },
+                    legend: {
+                      display: true,
+                      position: "top",
+                      labels: {
+                        color: "#334155",
+                        font: { size: 13, weight: "500" },
+                        boxWidth: 12,
+                      },
+                    },
                     tooltip: { enabled: true },
                   },
                   cutout: "70%",
@@ -107,6 +115,12 @@ function Overview() {
                   maintainAspectRatio: false,
                 }}
               />
+              <p className="text-xs text-slate-500 mt-1">
+                {currentDate.toLocaleString("default", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
             </div>
 
             <article className="flex flex-col sm:items-end sm:text-right">
@@ -115,6 +129,12 @@ function Overview() {
               </h2>
               <p className="text-xl sm:text-3xl font-bold text-rose-600">
                 ₹{"00000"}
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                {currentDate.toLocaleString("default", {
+                  month: "long",
+                  year: "numeric",
+                })}
               </p>
             </article>
           </div>

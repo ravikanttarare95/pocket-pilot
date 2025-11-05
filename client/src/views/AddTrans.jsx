@@ -19,6 +19,7 @@ function AddTrans() {
     type: "",
     time: new Date().toTimeString().slice(0, 5),
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -133,7 +134,8 @@ function AddTrans() {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
             >
-              {TRANS_CATEGORIES_SELECT.map((cate) => (
+              <option value="">🗂️ Select Category:</option>
+              {TRANS_CATEGORIES_SELECT[formData?.type]?.map((cate) => (
                 <option key={cate.value} value={cate.value}>
                   {cate.label}
                 </option>

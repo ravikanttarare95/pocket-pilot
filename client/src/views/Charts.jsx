@@ -4,15 +4,110 @@ import { TransactionsContext } from "./../context/TransactionsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie, Bar } from "react-chartjs-2";
+import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 function Charts() {
   const { transactions, loading, error } = useContext(TransactionsContext);
-  const totalIncome = transactions
-    .filter((txn) => txn.type === "income")
-    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
 
-  const totalExpense = transactions
-    .filter((txn) => txn.type === "expense")
-    .reduce((sum, currTxn) => sum + currTxn.amount, 0);
+  const incomeTransactions = transactions.filter(
+    (txn) => txn.type === "income"
+  );
+
+  const expenseTransactions = transactions.filter(
+    (txn) => txn.type === "expense"
+  );
+
+  const totalIncome = incomeTransactions.reduce(
+    (sum, currTxn) => sum + currTxn.amount,
+    0
+  );
+
+  const totalExpense = expenseTransactions.reduce(
+    (sum, currTxn) => sum + currTxn.amount,
+    0
+  );
+
+  const chartData = {
+    labels: ["Income", "Expense"],
+    datasets: [
+      {
+        label: "Monthly Transactions",
+        data: [totalIncome, totalExpense],
+        backgroundColor: ["#22c55e", "#ef4444"],
+        borderWidth: 2,
+        borderColor: "#ffffff",
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  // === Group by category ===
+  const groupByCategory = (txns) =>
+    txns.reduce((acc, curr) => {
+      acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
+      return acc;
+    }, {}); // {} is initial value of acc
+
+  const incomeCategories = TRANS_CATEGORIES_SELECT["income"].map(
+    (cate) => cate.value
+  );
+
+  const expenseCategories = TRANS_CATEGORIES_SELECT["expense"].map(
+    (cate) => cate.value
+  );
+
+  const incomeByCategory = groupByCategory(incomeTransactions);
+  const expenseByCategory = groupByCategory(expenseTransactions);
+
+  const incomeData = {
+    labels: incomeCategories,
+    datasets: [
+      {
+        label: "Income",
+        data: incomeCategories.map((cat) => incomeByCategory[cat] || 0),
+        backgroundColor: [
+          "#22c55e",
+          "#3b82f6",
+          "#facc15",
+          "#ec4899",
+          "#8b5cf6",
+          "#14b8a6",
+          "#f97316",
+          "#64748b",
+        ],
+        borderColor: "#ffffff",
+        borderWidth: 1,
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  const expenseData = {
+    labels: expenseCategories,
+    datasets: [
+      {
+        label: "Expense",
+        data: expenseCategories.map((cat) => expenseByCategory[cat] || 0),
+        backgroundColor: [
+          "#ef4444",
+          "#f97316",
+          "#facc15",
+          "#22d3ee",
+          "#3b82f6",
+          "#8b5cf6",
+          "#14b8a6",
+          "#ec4899",
+        ],
+        borderColor: "#ffffff",
+        borderWidth: 1,
+        hoverOffset: 10,
+      },
+    ],
+  };
 
   /* ===== Error State ===== */
   if (error)
@@ -34,9 +129,40 @@ function Charts() {
     );
   if (!loading && !error)
     return (
-      <div className="">
+      <div className="min-h-screen bg-gray-50">
         <GreetingBar greetingBarTitle="Charts" />
-        <main className="px-1.5 py-6 sm:p-6">Charts</main>
+
+        <main className="px-4 py-6 sm:px-6 lg:px-10">
+          <h2 className="text-2xl font-bold mb-6">Charts Overview</h2>
+
+          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-8">
+            {/* Combined Chart */}
+            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
+              <Pie data={chartData} />
+              <p className="mt-4 text-center text-slate-700 font-medium">
+                Income vs Expense
+              </p>
+            </div>
+
+            {/* Income Chart */}
+            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
+              <Pie data={incomeData} />
+
+              <p className="mt-4 text-center text-slate-700 font-medium">
+                Income Distribution
+              </p>
+            </div>
+
+            {/* Expense Chart */}
+            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
+              <Pie data={expenseData} />
+
+              <p className="mt-4 text-center text-slate-700 font-medium">
+                Expense Breakdown
+              </p>
+            </div>
+          </div>
+        </main>
       </div>
     );
 }
