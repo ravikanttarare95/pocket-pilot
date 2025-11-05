@@ -22,7 +22,7 @@ const saveBudget = async (req, res) => {
 
   try {
     let budget = await Budget.findOneAndUpdate(
-      { userId: user._id, month },
+      { userId: user.id, month },
       { budgets },
       { new: true, upsert: true }
     );

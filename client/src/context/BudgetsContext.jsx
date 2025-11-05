@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const BudgetsContext = createContext();
+
 function BudgetsProvider({ children }) {
   const [budget, setBudget] = useState();
   const [loading, setLoading] = useState(true);
@@ -33,13 +34,32 @@ function BudgetsProvider({ children }) {
     }
   };
 
+  const saveBudgets = async (newBudgets) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/budgets`,
+        { month: currentMonth, budgets: newBudgets }
+      );
+
+      if (response) {
+        setBudget(newBudgets);
+      }
+    } catch (error) {
+      setError(err.response?.data?.message || "Error saving budgets");
+    }
+  };
+
   useEffect(() => {
     fetchBudgets();
   }, []);
 
   return (
-    <BudgetsContext.Provider value={{}}>{children}</BudgetsContext.Provider>
+    <BudgetsContext.Provider
+      value={{ budget, setBudget, saveBudgets, loading, error }}
+    >
+      {children}
+    </BudgetsContext.Provider>
   );
 }
 
-export { BudgetsContext, BudgetsContext };
+export { BudgetsProvider, BudgetsContext };
