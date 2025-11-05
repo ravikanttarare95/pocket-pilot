@@ -25,9 +25,16 @@ function BudgetsProvider({ children }) {
       );
       if (response) {
         setBudgets(response?.data?.budgets);
+      } else {
+        setBudgets(0);
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Error fetching budgets");
+      if (error.response?.status === 404) {
+        ///
+        setBudgets(0);
+      } else {
+        setError(error.response?.data?.message || "Error fetching budgets");
+      }
     } finally {
       setLoading(false);
     }
