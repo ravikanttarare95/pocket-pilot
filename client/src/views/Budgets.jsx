@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import GreetingBar from "./../components/GreetingBar";
 import { Wallet, AlertTriangle } from "lucide-react";
 import Button from "./../components/Button";
 
 function Budgets() {
+  const [budget, setBudget] = useState("5000");
   return (
     <>
       <GreetingBar greetingBarTitle="Budgets" />
@@ -13,7 +14,7 @@ function Budgets() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             <article className="text-center flex flex-col items-center">
               <Wallet className="w-10 h-10 text-violet-500 mb-2" />
-              <p className="text-2xl font-bold text-violet-600">₹ 000000</p>
+              <p className="text-2xl font-bold text-violet-600">₹{budget}</p>
               <h3 className="text-slate-600 font-medium mt-1">
                 Monthly Budget
               </h3>
@@ -21,7 +22,7 @@ function Budgets() {
 
             <article className="text-center flex flex-col items-center">
               <AlertTriangle className="w-10 h-10 text-cyan-500 mb-2" />
-              <p className="text-2xl font-bold text-cyan-600">₹ 000000</p>
+              <p className="text-2xl font-bold text-cyan-600">₹000000</p>
               <h3 className="text-slate-600 font-medium mt-1">Overspend</h3>
             </article>
           </div>

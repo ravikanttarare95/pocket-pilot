@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import DashboardTopBar from "./../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import TransactionCard from "./../components/TransactionCard";
@@ -13,6 +13,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Overview() {
+  const [budget, setBudget] = useState("5000");
   const { transactions, loading, error } = useContext(TransactionsContext);
   const recentTransactions = transactions.slice(0, 3);
 
@@ -128,7 +129,10 @@ function Overview() {
                 Overspend
               </h2>
               <p className="text-xl sm:text-3xl font-bold text-rose-600">
-                ₹{"00000"}
+                ₹
+                {currMonthTotalExpense > budget
+                  ? currMonthTotalExpense - budget
+                  : 0}
               </p>
               <p className="text-xs text-slate-500 mt-1">
                 {currentDate.toLocaleString("default", {

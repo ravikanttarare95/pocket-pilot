@@ -94,7 +94,7 @@ const TRANS_CATEGORY_META = {
     icon: FaFilm,
   },
   others: {
-    label: "",
+    label: "Others",
     icon: FaEllipsisH,
   },
 };
