@@ -7,6 +7,7 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
+import PieChart from "./../components/PieChart.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -135,31 +136,19 @@ function Charts() {
           <h2 className="text-2xl font-bold mb-6">Charts Overview</h2>
 
           <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-8">
-            {/* Combined Chart */}
-            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
-              <Pie data={chartData} />
-              <p className="mt-4 text-center text-slate-700 font-medium">
-                Income vs Expense
-              </p>
-            </div>
+            <PieChart
+              chart={<Pie data={chartData} />}
+              chartHeading={"Income vs Expense"}
+            />
 
-            {/* Income Chart */}
-            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
-              <Pie data={incomeData} />
-
-              <p className="mt-4 text-center text-slate-700 font-medium">
-                Income Distribution
-              </p>
-            </div>
-
-            {/* Expense Chart */}
-            <div className="bg-white shadow-md rounded-2xl p-4 transition-transform duration-300">
-              <Pie data={expenseData} />
-
-              <p className="mt-4 text-center text-slate-700 font-medium">
-                Expense Breakdown
-              </p>
-            </div>
+            <PieChart
+              chart={<Pie data={incomeData} />}
+              chartHeading={"Income Distribution"}
+            />
+            <PieChart
+              chart={<Pie data={expenseData} />}
+              chartHeading={"Expense Breakdown"}
+            />
           </div>
         </main>
       </div>
