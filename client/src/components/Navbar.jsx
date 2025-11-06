@@ -42,6 +42,12 @@ function Navbar() {
         {user ? (
           <>
             <Link
+              to="/"
+              className="text-md font-medium hover:text-cyan-400 transition-colors duration-200"
+            >
+              Home
+            </Link>
+            <Link
               to="/dashboard"
               className="text-md font-medium hover:text-cyan-400 transition-colors duration-200"
             >

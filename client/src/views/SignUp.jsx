@@ -45,7 +45,17 @@ const Signup = () => {
     if (user) return navigate("/");
   }, []);
   return (
-    <div className="flex items-center justify-center min-h-screen p-3">
+    <div className="flex items-center justify-evenly min-h-screen p-3">
+      <div className="hidden md:flex flex-col">
+        <h1 className="text-4xl lg:text-5xl text-slate-700 font-extrabold mb-4 leading-tight drop-shadow-md">
+          Create Your Account ✨
+        </h1>
+
+        <p className="text-base lg:text-lg  text-slate-500 max-w-md leading-relaxed">
+          Join us today and start managing your expenses, tracking your goals,
+          and building a financially confident future.
+        </p>
+      </div>
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">
           <BrandLogo customNameStyle={`text-slate-700 `} />
