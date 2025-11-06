@@ -36,7 +36,7 @@ function Sidebar() {
                     isActive && "!bg-gray-700 border border-white/30"
                   } ${
                     isClose ? "" : " w-43"
-                  }  bg-gray-950  p-2 rounded cursor-pointer flex gap-2 border border-white/30`}
+                  }  bg-gray-950  p-2 rounded cursor-pointer flex gap-2 border border-white/20`}
                   onClick={() => {
                     if (window.innerWidth < 640) {
                       setIsClose(true);
