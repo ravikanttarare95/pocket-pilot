@@ -10,7 +10,12 @@ import ErrorState from "./../components/ErrorState.jsx";
 
 function Transactions() {
   const navigate = useNavigate();
-  const { transactions, loading, error } = useContext(TransactionsContext);
+  const { transactions, loading, error, deleteTransaction } =
+    useContext(TransactionsContext);
+
+  const handleEdit = (id) => {
+    alert("EDIT" + id);
+  };
 
   /* ===== Error State ===== */
   if (error)
@@ -45,16 +50,21 @@ function Transactions() {
               transactions.map((txn, index) => {
                 const { _id, date, category, description, amount, type } = txn;
                 return (
-                  <div key={index}>
-                    <TransactionCard
-                      id={_id}
-                      date={date}
-                      category={category}
-                      description={description}
-                      amount={amount}
-                      type={type}
-                    />
-                  </div>
+                  <TransactionCard
+                    key={index}
+                    id={_id}
+                    date={date}
+                    category={category}
+                    description={description}
+                    amount={amount}
+                    type={type}
+                    handleDelete={() => {
+                      deleteTransaction(_id);
+                    }}
+                    handleEdit={() => {
+                      handleEdit(_id);
+                    }}
+                  />
                 );
               })
             ) : (

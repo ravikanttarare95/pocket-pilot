@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const TransactionsContext = createContext();
 
@@ -49,6 +50,28 @@ function TransactionsProvider({ children }) {
     .filter((txn) => txn.type === "expense")
     .reduce((sum, currTxn) => sum + currTxn.amount, 0);
 
+  const deleteTransaction = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
+          },
+        }
+      );
+      if (response) {
+        toast.success(response?.data?.message);
+        await fetchTransactions();
+      }
+    } catch (error) {
+      console.log(error?.response);
+      toast.error("Error Deleting Transaction");
+    }
+  };
+
   useEffect(() => {
     fetchTransactions();
   }, []);
@@ -62,6 +85,7 @@ function TransactionsProvider({ children }) {
         fetchTransactions,
         currMonthTotalIncome,
         currMonthTotalExpense,
+        deleteTransaction,
       }}
     >
       {children}

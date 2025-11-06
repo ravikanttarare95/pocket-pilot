@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { TRANS_CATEGORY_META } from "../constants/transCategories.js";
 import { EllipsisVertical, Trash, Pencil } from "lucide-react";
 
-function TransactionCard({ id, date, category, description, amount, type }) {
+function TransactionCard({
+  id,
+  date,
+  category,
+  description,
+  amount,
+  type,
+  handleDelete,
+  handleEdit,
+}) {
   const [showMenu, setShowMenu] = useState(false);
   const CategoryMeta = TRANS_CATEGORY_META[category];
-
-  const handleEdit = (id) => {
-    alert("EDIT" + id);
-  };
-
-  const handleDelete = (id) => {
-    alert("DELETE" + id);
-  };
 
   return (
     <div className="relative flex justify-between items-center bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-4 pr-5 sm:pr-7 shadow-sm hover:shadow-md transition-all duration-200">
@@ -24,13 +25,13 @@ function TransactionCard({ id, date, category, description, amount, type }) {
         <div className="absolute right-2 top-8 bg-white border border-slate-200 rounded-lg shadow-md flex flex-col text-sm">
           <button
             className="flex gap-2 border-b border-b-slate-300 px-4 py-2 text-left hover:bg-slate-100 text-slate-700 cursor-pointer"
-            onClick={() => handleEdit(id)}
+            onClick={handleEdit}
           >
             <Pencil size={16} /> Edit
           </button>
           <button
             className="flex gap-1 px-4 py-2 text-left hover:bg-slate-100 text-rose-500 cursor-pointer"
-            onClick={() => handleDelete(id)}
+            onClick={handleDelete}
           >
             <Trash size={16} /> Delete
           </button>
