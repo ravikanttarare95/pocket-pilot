@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const TransactionsContext = createContext();
 
@@ -51,6 +52,18 @@ function TransactionsProvider({ children }) {
     .reduce((sum, currTxn) => sum + currTxn.amount, 0);
 
   const deleteTransaction = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#10B981",
+      cancelButtonColor: "#F43F5E",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
@@ -63,12 +76,20 @@ function TransactionsProvider({ children }) {
         }
       );
       if (response) {
-        toast.success(response?.data?.message);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Transaction deleted successfully",
+          icon: "success",
+        });
         await fetchTransactions();
       }
     } catch (error) {
       console.log(error?.response);
-      toast.error("Error Deleting Transaction");
+      Swal.fire({
+        title: "Deleted!",
+        text: "Failed to delete transaction",
+        icon: "error",
+      });
     }
   };
 

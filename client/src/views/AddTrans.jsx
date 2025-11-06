@@ -41,7 +41,16 @@ function AddTrans() {
         }
       );
       if (response) {
-        toast.success(response.data.message);
+        toast.success(response.data.message, { id: "postTrans" });
+
+        setFormData({
+          description: "",
+          amount: "",
+          category: "",
+          date: new Date().toISOString().split("T")[0],
+          type: "",
+          time: new Date().toTimeString().slice(0, 5),
+        });
 
         await fetchTransactions(); // refresh data before navigating
 
@@ -50,7 +59,10 @@ function AddTrans() {
         }, 1000);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add transaction");
+      toast.error(
+        error.response?.data?.message || "Failed to add transaction",
+        { id: "error" }
+      );
       console.log(error);
     }
   };
