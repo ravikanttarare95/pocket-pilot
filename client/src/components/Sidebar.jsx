@@ -15,12 +15,12 @@ function Sidebar() {
   }, []);
   return (
     <aside
-      className={`${isClose ? "min-w-11.5 sm:min-w-16" : " w-64"} ${
+      className={`${isClose ? "min-w-11.5 sm:min-w-16" : " w-49"} ${
         !isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"
       } bg-slate-800 text-white p-0.5 sm:p-3 transition-all duration-300 z-45`}
     >
-      <div className="fixed top-21">
-        <ul className="space-y-2">
+      <div className="fixed top-24">
+        <ul className="space-y-3">
           {SIDEBAR_LINKS.map((linkObj) => {
             const { title, icon: Icon, path } = linkObj;
 
@@ -33,8 +33,10 @@ function Sidebar() {
                 <Link
                   to={path}
                   className={`${
-                    isActive && "bg-gray-700 border border-white/20"
-                  } hover:bg-gray-700 p-2 rounded cursor-pointer flex gap-2 border border-transparent`}
+                    isActive && "!bg-gray-700 border border-white/30"
+                  } ${
+                    isClose ? "" : " w-43"
+                  }  bg-gray-950  p-2 rounded cursor-pointer flex gap-2 border border-white/30`}
                   onClick={() => {
                     if (window.innerWidth < 640) {
                       setIsClose(true);

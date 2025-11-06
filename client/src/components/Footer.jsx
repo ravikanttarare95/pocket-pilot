@@ -9,7 +9,7 @@ import {
 
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-white py-6">
+    <footer className="bg-slate-900 text-white py-6 z-47">
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         <div className="flex flex-col items-start space-y-4">
           <BrandLogo />
