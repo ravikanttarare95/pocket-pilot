@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import GreetingBar from "./../components/GreetingBar";
 import TransactionCard from "./../components/TransactionCard";
 import Button from "./../components/Button";
-import { Plus } from "lucide-react";
+import { Plus, Wallet } from "lucide-react";
 import { useNavigate, Outlet } from "react-router";
 import { TransactionsContext } from "./../context/TransactionsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
+import NoTransactions from "./../components/NoTransactions.jsx";
 
 function Transactions() {
   const navigate = useNavigate();
@@ -68,9 +69,7 @@ function Transactions() {
                 );
               })
             ) : (
-              <p className="text-center text-slate-500 py-6 text-sm sm:text-base">
-                No transactions yet 🪶
-              </p>
+              <NoTransactions />
             )}
             <div
               className={`sticky bottom-4 right-4 flex ${

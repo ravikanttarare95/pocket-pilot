@@ -11,6 +11,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 import { BudgetsContext } from "./../context/BudgetsContext.jsx";
+import NoTransactions from "./../components/NoTransactions.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -190,9 +191,7 @@ function Overview() {
               ))}
             </div>
           ) : (
-            <p className="text-center text-slate-500 py-6 text-sm sm:text-base">
-              No transactions yet 🪶
-            </p>
+            <NoTransactions />
           )}
         </main>
       </>
