@@ -72,22 +72,26 @@ function Transactions() {
                 No transactions yet 🪶
               </p>
             )}
+            <div
+              className={`sticky bottom-4 right-4 flex ${
+                transactions.length > 0 ? "justify-end" : "justify-center"
+              } sm:bottom-6 sm:right-6`}
+            >
+              <Button
+                btnTitle={
+                  <span className="flex items-center gap-2">
+                    <span className="hidden sm:inline">Add Transactions</span>
+                    <Plus size={30} />
+                  </span>
+                }
+                btnVariant="primary"
+                customStyle={"max-sm:!px-2.5"}
+                onBtnClick={() => {
+                  navigate("add-trans");
+                }}
+              />
+            </div>
           </section>
-          <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6">
-            <Button
-              btnTitle={
-                <span className="flex items-center gap-2">
-                  <span className="hidden sm:inline">Add Transactions</span>
-                  <Plus size={30} />
-                </span>
-              }
-              btnVariant="primary"
-              customStyle={"max-sm:!px-2.5"}
-              onBtnClick={() => {
-                navigate("add-trans");
-              }}
-            />
-          </div>
 
           <Outlet />
         </main>

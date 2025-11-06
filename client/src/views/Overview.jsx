@@ -22,6 +22,7 @@ function Overview() {
     error,
     currMonthTotalIncome,
     currMonthTotalExpense,
+    deleteTransaction,
   } = useContext(TransactionsContext);
   const recentTransactions = transactions.slice(0, 3);
 
@@ -182,6 +183,9 @@ function Overview() {
                   description={txn.description}
                   amount={txn.amount}
                   type={txn.type}
+                  handleDelete={() => {
+                    deleteTransaction(txn._id);
+                  }}
                 />
               ))}
             </div>
