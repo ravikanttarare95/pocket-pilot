@@ -41,10 +41,28 @@ function Overview() {
       {
         label: "Monthly Transactions",
         data: [currMonthTotalIncome, currMonthTotalExpense],
-        backgroundColor: ["#22c55e", "#ef4444"],
+        backgroundColor: ["#10B981", "#F43F5E"],
         borderWidth: 1,
       },
     ],
+  };
+
+  const chartOptions = {
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        labels: {
+          color: "#334155",
+          font: { size: 13, weight: "500" },
+          boxWidth: 12,
+        },
+      },
+      tooltip: { enabled: true },
+    },
+    cutout: "70%",
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   /* ===== Error State ===== */
@@ -84,26 +102,8 @@ function Overview() {
             </article>
 
             <div className="flex flex-col justify-center items-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
-              <Doughnut
-                data={chartData}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: "top",
-                      labels: {
-                        color: "#334155",
-                        font: { size: 13, weight: "500" },
-                        boxWidth: 12,
-                      },
-                    },
-                    tooltip: { enabled: true },
-                  },
-                  cutout: "70%",
-                  responsive: true,
-                  maintainAspectRatio: false,
-                }}
-              />
+              <Doughnut data={chartData} options={chartOptions} />
+
               <p className="text-xs text-slate-500 mt-1">
                 {new Date().toLocaleString("default", {
                   month: "long",

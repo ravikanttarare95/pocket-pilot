@@ -15,11 +15,11 @@ function Sidebar() {
   }, []);
   return (
     <aside
-      className={`${isClose ? "w-fit" : "w-64"} ${
+      className={`${isClose ? "min-w-11.5 sm:min-w-16" : " w-64"} ${
         !isClose && "max-sm:fixed max-sm:left-0 max-sm:h-full"
       } bg-slate-800 text-white p-0.5 sm:p-3 transition-all duration-300 z-45`}
     >
-      <div className="sticky top-21">
+      <div className="fixed top-21">
         <ul className="space-y-2">
           {SIDEBAR_LINKS.map((linkObj) => {
             const { title, icon: Icon, path } = linkObj;

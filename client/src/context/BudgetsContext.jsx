@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const BudgetsContext = createContext();
 
@@ -55,7 +56,8 @@ function BudgetsProvider({ children }) {
       );
 
       if (response) {
-        setBudgets(newBudgets);
+        setBudgets(response?.data?.data?.budgets);
+        toast.success(response?.data?.message);
       }
     } catch (error) {
       setError(error.response?.data?.message || "Error saving budgets");

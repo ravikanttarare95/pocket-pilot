@@ -20,16 +20,16 @@ const saveBudget = async (req, res) => {
   const { month, budgets } = req.body;
 
   try {
-    let budget = await Budget.findOneAndUpdate(
+    let newBudget = await Budget.findOneAndUpdate(
       { userId: user.id, month },
       { budgets },
       { new: true, upsert: true }
     );
-    if (budget) {
+    if (newBudget) {
       res.json({
         success: true,
         message: "Budget updated successfully",
-        data: budget,
+        data: newBudget,
       });
     } else {
       res.status(404).json({ message: "Budget not found" });

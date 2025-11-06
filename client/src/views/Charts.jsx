@@ -37,7 +37,7 @@ function Charts() {
       {
         label: "Monthly Transactions",
         data: [totalIncome, totalExpense],
-        backgroundColor: ["#22c55e", "#ef4444"],
+        backgroundColor: ["#10B981", "#F43F5E"],
         borderWidth: 2,
         borderColor: "#ffffff",
         hoverOffset: 10,
@@ -70,12 +70,11 @@ function Charts() {
         label: "Income",
         data: incomeCategories.map((cat) => incomeByCategory[cat] || 0),
         backgroundColor: [
-          "#22c55e",
+          "#10B981",
           "#3b82f6",
           "#facc15",
           "#ec4899",
           "#8b5cf6",
-          "#14b8a6",
           "#f97316",
           "#64748b",
         ],
@@ -99,8 +98,8 @@ function Charts() {
           "#22d3ee",
           "#3b82f6",
           "#8b5cf6",
-          "#14b8a6",
           "#ec4899",
+          "#64748b",
         ],
         borderColor: "#ffffff",
         borderWidth: 1,
@@ -132,7 +131,7 @@ function Charts() {
       <div className="min-h-screen bg-gray-50">
         <GreetingBar greetingBarTitle="Charts" />
 
-        <main className="px-4 py-6 sm:px-6 lg:px-10">
+        <main className="px-2 py-6 sm:px-6 lg:px-10">
           <h2 className="text-2xl font-bold mb-6">Charts Overview</h2>
 
           <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-8">

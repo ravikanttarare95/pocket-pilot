@@ -3,6 +3,7 @@ import { useNavigate, Outlet } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
 import { getloggedInUser } from "./../utils.js";
 import Sidebar from "./../components/Sidebar.jsx";
+import Footer from "./../components/Footer.jsx";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Dashboard() {
           <Outlet />
         </main>
       </div>
+      <Footer/>
     </div>
   );
 }

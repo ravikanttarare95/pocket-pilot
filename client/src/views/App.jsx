@@ -7,6 +7,7 @@ import FeaturesCard from "../components/FeaturesCard";
 import Button from "../components/Button";
 import Navbar from "./../components/Navbar";
 import { getloggedInUser } from "./../utils";
+import Footer from "./../components/Footer";
 
 function App() {
   const [user, setUser] = useState(getloggedInUser() || null);
@@ -119,6 +120,7 @@ function App() {
           />
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

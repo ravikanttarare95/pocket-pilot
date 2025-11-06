@@ -14,7 +14,7 @@ function GreetingBar({ greetingBarTitle }) {
     textColor = "text-slate-50";
   } else if (hour < 12) {
     greet = "Good Morning 🌻";
-    bgColor = "bg-gradient-to-r from-teal-400 to-teal-500";
+    bgColor = "bg-gradient-to-r from-cyan-400 to-cyan-500";
     textColor = "text-slate-900";
   } else if (hour < 17) {
     greet = "Good Afternoon 🌤️";

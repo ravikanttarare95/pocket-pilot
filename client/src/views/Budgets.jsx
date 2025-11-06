@@ -30,7 +30,7 @@ function Budgets() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <GreetingBar greetingBarTitle="Monthly Budget" />
 
-      <main className="px-4 py-8 sm:px-8 lg:px-12">
+      <main className="px-2 py-8 sm:px-8 lg:px-12">
         <h2 className="text-3xl font-bold mb-8 text-slate-800 text-center">
           Track Your Monthly Budget
         </h2>
@@ -54,8 +54,8 @@ function Budgets() {
             <div
               className={`h-3 transition-all duration-700 ${
                 currMonthTotalExpense > budgets
-                  ? "bg-gradient-to-r from-red-400 to-red-600"
-                  : "bg-gradient-to-r from-green-400 to-emerald-600"
+                  ? "bg-gradient-to-r from-rose-400 to-rose-600"
+                  : "bg-gradient-to-r from-emerald-400 to-emerald-600"
               }`}
               style={{ width: `${percent}%` }}
             ></div>
@@ -74,7 +74,7 @@ function Budgets() {
 
           <p
             className={`mt-3 text-center font-medium ${
-              remaining >= 0 ? "text-green-600" : "text-red-600"
+              remaining >= 0 ? "text-emerald-500" : "text-red-600"
             }`}
           >
             {remaining >= 0 ? "Remaining" : "Overspent"} ₹
