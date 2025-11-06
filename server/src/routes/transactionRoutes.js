@@ -4,6 +4,7 @@ import {
   getTransactions,
   editTransaction,
   deleteTransaction,
+  getTransactionById,
 } from "./../controllers/transactionController.js";
 import jwtCheck from "./../middlewares/jwtCheck.js";
 
@@ -15,6 +16,6 @@ router.post("/", createTransaction);
 router.get("/", getTransactions);
 router.put("/", editTransaction);
 router.delete("/:id", deleteTransaction);
-router.post("/", createTransaction);
+router.get("/:id", getTransactionById);
 
 export default router;

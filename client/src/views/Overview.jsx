@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import DashboardTopBar from "./../components/GreetingBar";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import TransactionCard from "./../components/TransactionCard";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
@@ -178,7 +178,8 @@ function Overview() {
             <div className="space-y-3 sm:space-y-4">
               {recentTransactions.map((txn, index) => (
                 <TransactionCard
-                  key={index}
+                  key={txn._id}
+                  id={txn._id}
                   date={txn.date}
                   category={txn.category}
                   description={txn.description}

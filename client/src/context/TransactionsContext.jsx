@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const TransactionsContext = createContext();

@@ -87,9 +87,33 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
+const getTransactionById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const transaction = await Transaction.findById({ _id: id });
+    if (!transaction) {
+      return res.status(404).json({
+        success: false,
+        message: "Transaction not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Transaction fetched succesffully",
+      data: transaction,
+    });
+  } catch (error) {
+    console.log("❌ Error fetching transaction:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Server error fetching transaction" });
+  }
+};
+
 export {
   createTransaction,
   getTransactions,
   editTransaction,
   deleteTransaction,
+  getTransactionById,
 };

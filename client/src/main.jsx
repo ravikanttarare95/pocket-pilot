@@ -13,6 +13,7 @@ import Transactions from "./views/Transactions.jsx";
 import Charts from "./views/Charts.jsx";
 import Budgets from "./views/Budgets.jsx";
 import AddTrans from "./views/AddTrans.jsx";
+import EditTrans from "./views/EditTrans.jsx";
 import { TransactionsProvider } from "./context/TransactionsContext.jsx";
 import { BudgetsProvider } from "./context/BudgetsContext.jsx";
 
@@ -41,6 +42,7 @@ root.render(
         <Route index element={<Overview />} />
         <Route path="transactions" element={<Transactions />}>
           <Route path="add-trans" element={<AddTrans />} />
+          <Route path="edit-trans/:id" element={<EditTrans />} />
         </Route>
         <Route path="charts" element={<Charts />} />
         <Route path="budgets" element={<Budgets />} />

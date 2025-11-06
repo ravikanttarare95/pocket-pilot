@@ -14,8 +14,8 @@ function Transactions() {
   const { transactions, loading, error, deleteTransaction } =
     useContext(TransactionsContext);
 
-  const handleEdit = (id) => {
-    alert("EDIT" + id);
+  const navigateToEdit = (id) => {
+    navigate(`edit-trans/${id}`);
   };
 
   /* ===== Error State ===== */
@@ -52,7 +52,7 @@ function Transactions() {
                 const { _id, date, category, description, amount, type } = txn;
                 return (
                   <TransactionCard
-                    key={index}
+                    key={_id}
                     id={_id}
                     date={date}
                     category={category}
@@ -62,9 +62,7 @@ function Transactions() {
                     handleDelete={() => {
                       deleteTransaction(_id);
                     }}
-                    handleEdit={() => {
-                      handleEdit(_id);
-                    }}
+                    navigateEdit={(id) => navigateToEdit(id)}
                   />
                 );
               })

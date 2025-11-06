@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TRANS_CATEGORY_META } from "../constants/transCategories.js";
 import { EllipsisVertical, Trash, Pencil } from "lucide-react";
+import { useNavigate, useLocation } from "react-router";
 
 function TransactionCard({
   id,
@@ -10,8 +11,10 @@ function TransactionCard({
   amount,
   type,
   handleDelete,
-  handleEdit,
+  navigateEdit,
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const CategoryMeta = TRANS_CATEGORY_META[category];
 
@@ -25,7 +28,10 @@ function TransactionCard({
         <div className="absolute right-2 top-8 bg-white border border-slate-200 rounded-lg shadow-md flex flex-col text-sm">
           <button
             className="flex gap-2 border-b border-b-slate-300 px-4 py-2 text-left hover:bg-slate-100 text-slate-700 cursor-pointer"
-            onClick={handleEdit}
+            onClick={() => {
+              navigateEdit(id);
+              setShowMenu(false);
+            }}
           >
             <Pencil size={16} /> Edit
           </button>
