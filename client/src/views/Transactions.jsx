@@ -43,10 +43,11 @@ function Transactions() {
           <section className="space-y-3 sm:space-y-4 pb-10">
             {transactions && transactions.length > 0 ? (
               transactions.map((txn, index) => {
-                const { date, category, description, amount, type } = txn;
+                const { _id, date, category, description, amount, type } = txn;
                 return (
                   <div key={index}>
                     <TransactionCard
+                      id={_id}
                       date={date}
                       category={category}
                       description={description}

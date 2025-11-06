@@ -14,7 +14,7 @@ router.use(jwtCheck);
 router.post("/", createTransaction);
 router.get("/", getTransactions);
 router.put("/", editTransaction);
-router.delete("/", deleteTransaction);
+router.delete("/:id", deleteTransaction);
 router.post("/", createTransaction);
 
 export default router;

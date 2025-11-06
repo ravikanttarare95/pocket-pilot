@@ -60,10 +60,31 @@ const getTransactions = async (req, res) => {
 
 const editTransaction = async (req, res) => {
   const { user } = req;
+  const { id } = req.params;
 };
 
 const deleteTransaction = async (req, res) => {
   const { user } = req;
+  const { id } = req.params;
+  try {
+    const transaction = await Transaction.findOne({ _id: id, userId: user.id });
+    if (!transaction) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Transaction not found" });
+    }
+
+    await Transaction.deleteOne({ _id: id, userId: user.id });
+    return res
+      .status(200)
+      .json({ success: true, message: "Transaction deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting transaction:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while deleting transaction",
+    });
+  }
 };
 
 export {
