@@ -97,7 +97,7 @@ const getTransactionById = async (req, res) => {
         message: "Transaction not found",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Transaction fetched succesffully",
       data: transaction,

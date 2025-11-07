@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
 import Button from "./../components/Button";
@@ -10,17 +10,16 @@ import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 
 function EditTrans() {
   const navigate = useNavigate();
-  const { id } = useParams();         
-  
+  const { id } = useParams();
 
   const { fetchTransactions } = useContext(TransactionsContext);
   const [formData, setFormData] = useState({
     description: "",
     amount: "",
     category: "",
-    date: new Date().toISOString().split("T")[0],
+    date: "",
     type: "",
-    time: new Date().toTimeString().slice(0, 5),
+    time: "",
   });
 
   const handleChange = (e) => {
@@ -29,6 +28,37 @@ function EditTrans() {
   };
 
   const handleClose = () => navigate(-1);
+
+  const getTransactionById = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
+          },
+        }
+      );
+      if (response) {
+        const transaction = response?.data?.data;
+        setFormData({
+          description: transaction.description,
+          amount: transaction.amount,
+          category: transaction.category,
+          date: new Date(transaction.date).toISOString().split("T")[0],
+          type: transaction.type,
+          time: transaction.time,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error?.response?.data?.message || "Error loading Transaction data"
+      );
+    }
+  };
 
   const UpdateTransaction = async () => {
     try {
@@ -69,6 +99,11 @@ function EditTrans() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getTransactionById();
+  }, []);
+
   return (
     <section className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-xs z-50 transition-all duration-300">
       <div className="w-full max-w-2xl m-3 bg-white p-6 sm:p-8 rounded-2xl shadow-2xl relative">
