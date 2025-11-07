@@ -61,6 +61,39 @@ const getTransactions = async (req, res) => {
 const editTransaction = async (req, res) => {
   const { user } = req;
   const { id } = req.params;
+  const { type, amount, date, time, category, description } = req.body;
+
+  try {
+    const transaction = await Transaction.findOne({ _id: id, userId: user.id });
+    if (!transaction) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Transaction not found" });
+    }
+
+    const updatedTransaction = await transaction.updateOne(
+      // {
+      //   _id: id,
+      //   userId: user.id,
+      // },
+      { type, amount, date, time, category, description },
+      { new: true }
+    );
+    if (updatedTransaction) {
+      return res.status(200).json({
+        success: true,
+        message: "Transaction updated successfully",
+      });
+    }
+  } catch (error) {
+    console.error("Error updating transaction:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating transaction",
+      error: error.message,
+    });
+  }
 };
 
 const deleteTransaction = async (req, res) => {

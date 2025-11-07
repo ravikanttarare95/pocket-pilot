@@ -62,8 +62,8 @@ function EditTrans() {
 
   const UpdateTransaction = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/transactions`,
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
         formData,
         {
           headers: {
@@ -74,16 +74,7 @@ function EditTrans() {
         }
       );
       if (response) {
-        toast.success(response.data.message, { id: "postTrans" });
-
-        setFormData({
-          description: "",
-          amount: "",
-          category: "",
-          date: new Date().toISOString().split("T")[0],
-          type: "",
-          time: new Date().toTimeString().slice(0, 5),
-        });
+        toast.success(response.data.message, { id: "updateTrans" });
 
         await fetchTransactions(); // refresh data before navigating
 
@@ -93,7 +84,7 @@ function EditTrans() {
       }
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Failed to add transaction",
+        error.response?.data?.message || "Failed to update transaction",
         { id: "error" }
       );
       console.log(error);
