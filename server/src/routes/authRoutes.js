@@ -7,6 +7,8 @@ dotenv.config();
 import passport from "passport";
 
 import jwt from "jsonwebtoken";
+import jwtCheck from "./../middlewares/jwtCheck";
+import User from "../models/User";
 
 router.get(
   "/",
@@ -30,4 +32,20 @@ router.get(
   }
 );
 
+router.get("/me", jwtCheck, async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.user.id }).select(
+      "_id fullName email avtarUrl"
+    );
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
 export default router;

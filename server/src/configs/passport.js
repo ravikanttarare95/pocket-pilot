@@ -29,7 +29,7 @@ passport.use(
           } else {
             user = await User.create({
               googleId: profile.id,
-              name: profile.displayName,
+              fullName: profile.displayName,
               email: profile.emails?.[0]?.value.toLowerCase(),
               avatar: profile.photos?.[0]?.value,
               isVerified: true,
