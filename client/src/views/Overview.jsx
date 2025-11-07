@@ -98,7 +98,7 @@ function Overview() {
     return (
       <>
         <DashboardTopBar greetingBarTitle="Overview" />
-        <main className="px-2 sm:px-6 py-6 bg-slate-50 min-h-screen">
+        <main className="px-2 py-6 sm:px-6 lg:px-10 bg-slate-50 min-h-screen">
           {/* ===== Current Balance & Overspend ===== */}
 
           <div className="flex flex-col max-sm:items-center md:flex-row md:justify-between gap-8 mb-8">
