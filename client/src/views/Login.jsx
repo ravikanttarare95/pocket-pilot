@@ -126,6 +126,9 @@ const Login = () => {
               Continue with Google
             </>
           }
+          onBtnClick={() => {
+            window.open(`${import.meta.env.VITE_API_URL}/auth/google`, "_self");
+          }}
         />
 
         <p className="text-center text-sm text-gray-600 mt-6">
