@@ -13,6 +13,8 @@ import { Doughnut } from "react-chartjs-2";
 import { BudgetsContext } from "./../context/BudgetsContext.jsx";
 import NoTransactions from "./../components/NoTransactions.jsx";
 import FinanceCard from "./../components/FinanceCard.jsx";
+import HeadingTwo from "./../components/HeadingTwo.jsx";
+import HeadingThree from "./../components/HeadingThree.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -98,56 +100,60 @@ function Overview() {
         <DashboardTopBar greetingBarTitle="Overview" />
         <main className="px-2 sm:px-6 py-6 bg-slate-50 min-h-screen">
           {/* ===== Current Balance & Overspend ===== */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl mb-8 shadow-md border border-slate-200">
-            <article className="flex flex-col gap-1">
-              <h2 className="text-slate-500 text-sm sm:text-base font-medium">
-                Current Balance
-              </h2>
-              <p className="text-2xl sm:text-4xl font-extrabold text-slate-800">
-                ₹{currentBalance.toLocaleString("en-IN")}
-              </p>
-            </article>
 
-            <div className="flex flex-col justify-center items-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
+          <div className="flex flex-col max-sm:items-center md:flex-row md:justify-between gap-8 mb-8">
+            <div className="flex w-full flex-wrap items-center justify-between gap-4 bg-white px-6 py-5 rounded-2xl  shadow-md border border-slate-200">
+              <article className="flex flex-col gap-1">
+                <HeadingThree title={"Current Balance"} />
+
+                <p className="text-2xl sm:text-4xl font-extrabold text-slate-800">
+                  ₹{currentBalance.toLocaleString("en-IN")}
+                </p>
+              </article>
+
+              <article className="flex flex-col ">
+                <HeadingThree title={`Overspend (${currentMonthYear})`} />
+
+                <p
+                  className={`text-xl sm:text-3xl font-bold ${
+                    currMonthTotalExpense > budgets
+                      ? "text-rose-600"
+                      : "text-slate-500"
+                  }`}
+                >
+                  ₹
+                  {currMonthTotalExpense > budgets
+                    ? (currMonthTotalExpense - budgets).toLocaleString()
+                    : 0}
+                </p>
+              </article>
+            </div>
+            <div className="flex flex-col justify-center items-center shadow-md border border-slate-200 p-4 rounded-2xl w-60 h-60 md:w-50 md:h-50 px-10">
               <Doughnut data={chartData} options={chartOptions} />
 
               <p className="text-xs text-slate-500 mt-1">{currentMonthYear}</p>
             </div>
-
-            <article className="flex flex-col sm:items-end sm:text-right">
-              <h2 className="text-slate-500 text-sm sm:text-base font-medium">
-                Overspend
-              </h2>
-              <p className="text-xl sm:text-3xl font-bold text-rose-600">
-                ₹
-                {currMonthTotalExpense > budgets
-                  ? (currMonthTotalExpense - budgets).toLocaleString()
-                  : 0}
-              </p>
-              <p className="text-xs text-slate-500 mt-1">{currentMonthYear}</p>
-            </article>
           </div>
           {/* ===== Income & Expense Summary ===== */}
-          <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight mb-4 sm:mb-6">
-            This Month’s Summary
-          </h2>
 
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
+          <HeadingTwo title={"This Month’s Summary"} />
+
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-10">
             <FinanceCard
               title={`Income (${currentMonthYear})`}
-              amount={totalIncome}
+              amount={currMonthTotalIncome}
               type={"income"}
             />
             <FinanceCard
-              title={`Income (${currentMonthYear})`}
-              amount={totalExpense}
+              title={`Expense (${currentMonthYear})`}
+              amount={currMonthTotalExpense}
               type={"expense"}
             />
           </section>
-          <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight mb-4 sm:mb-6">
-            Overall Summary
-          </h2>
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
+
+          <HeadingTwo title={"Overall Summary"} />
+
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-10">
             <FinanceCard
               title={`Total Income`}
               amount={totalIncome}
@@ -161,13 +167,12 @@ function Overview() {
           </section>
 
           {/* ===== Recent Transactions ===== */}
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight">
-              Recent Transactions
-            </h2>
+          <div className="flex items-center justify-between">
+            <HeadingTwo title={"Recent Transactions"} />
+
             <Link
               to="/dashboard/transactions"
-              className="text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
+              className="text-xs sm:text-sm font-medium text-cyan-600 hover:text-cyan-800 transition-colors"
             >
               View All →
             </Link>

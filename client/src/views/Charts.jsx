@@ -8,6 +8,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
 import PieChart from "./../components/PieChart.jsx";
+import HeadingOne from "./../components/HeadingOne.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -133,7 +134,7 @@ function Charts() {
         <GreetingBar greetingBarTitle="Charts" />
 
         <main className="px-2 py-6 sm:px-6 lg:px-10">
-          <h2 className="text-2xl font-bold mb-6">Charts Overview</h2>
+          <HeadingOne title={"Charts Overview"} />
 
           <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-8">
             <PieChart

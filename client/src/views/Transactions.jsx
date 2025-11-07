@@ -8,6 +8,7 @@ import { TransactionsContext } from "./../context/TransactionsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
 import NoTransactions from "./../components/NoTransactions.jsx";
+import HeadingOne from "./../components/HeadingOne.jsx";
 
 function Transactions() {
   const navigate = useNavigate();
@@ -41,11 +42,8 @@ function Transactions() {
       <>
         <GreetingBar greetingBarTitle="Transactions" />
         <main className="relative px-1.5 py-6 sm:p-6 ">
-          <div className="flex justify-between items-center mb-6 sm:mb-8">
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800">
-              All Transactions
-            </h1>
-          </div>
+          <HeadingOne title={"All Transactions"} />
+
           <section className="space-y-3 sm:space-y-4 pb-10">
             {transactions && transactions.length > 0 ? (
               transactions.map((txn, index) => {

@@ -8,6 +8,7 @@ import { BudgetsContext } from "./../context/BudgetsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
+import HeadingOne from "./../components/HeadingOne.jsx";
 
 function Budgets() {
   const { budgets, setBudgets, loading, error, saveBudgets } =
@@ -31,11 +32,9 @@ function Budgets() {
       <GreetingBar greetingBarTitle="Monthly Budget" />
 
       <main className="px-2 py-8 sm:px-8 lg:px-12">
-        <h2 className="text-3xl font-bold mb-8 text-slate-800 text-center">
-          Track Your Monthly Budget
-        </h2>
+        <HeadingOne title={"Track Your Monthly Budget"} />
 
-        <div className="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 transition-transform hover:scale-[1.01] duration-300">
+        <div className="max-w-lg mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-200 transition-transform hover:scale-[1.01] duration-300">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-cyan-100 text-cyan-700 rounded-full">
               <Wallet className="w-6 h-6" />
@@ -105,15 +104,13 @@ function Budgets() {
             </div>
           )}
 
-          {/* Save button */}
-          <div className="mt-8 flex justify-center">
-            <Button
-              btnTitle="Save Budget"
-              btnVariant="primary"
-              size="lg"
-              onBtnClick={handleSave}
-            />
-          </div>
+          <Button
+            btnTitle="Save Budget"
+            btnVariant="primary"
+            size="md"
+            onBtnClick={handleSave}
+            customStyle="!w-full !mt-6 sm:!mt-8"
+          />
         </div>
       </main>
     </div>
