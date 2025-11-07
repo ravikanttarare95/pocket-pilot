@@ -12,10 +12,15 @@ import { Doughnut } from "react-chartjs-2";
 
 import { BudgetsContext } from "./../context/BudgetsContext.jsx";
 import NoTransactions from "./../components/NoTransactions.jsx";
+import FinanceCard from "./../components/FinanceCard.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Overview() {
+  const currentMonthYear = new Date().toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
   const { budgets } = useContext(BudgetsContext);
   const {
     transactions,
@@ -106,12 +111,7 @@ function Overview() {
             <div className="flex flex-col justify-center items-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
               <Doughnut data={chartData} options={chartOptions} />
 
-              <p className="text-xs text-slate-500 mt-1">
-                {new Date().toLocaleString("default", {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
+              <p className="text-xs text-slate-500 mt-1">{currentMonthYear}</p>
             </div>
 
             <article className="flex flex-col sm:items-end sm:text-right">
@@ -124,49 +124,47 @@ function Overview() {
                   ? (currMonthTotalExpense - budgets).toLocaleString()
                   : 0}
               </p>
-              <p className="text-xs text-slate-500 mt-1">
-                {new Date().toLocaleString("default", {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
+              <p className="text-xs text-slate-500 mt-1">{currentMonthYear}</p>
             </article>
           </div>
           {/* ===== Income & Expense Summary ===== */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
-            <article className="bg-gradient-to-r from-emerald-50 to-white rounded-xl shadow-sm p-4 sm:p-5 border-l-4 border-emerald-500 flex items-center justify-between hover:shadow-md transition-shadow duration-200">
-              <div>
-                <h2 className="text-slate-600 text-sm sm:text-base font-medium mb-1">
-                  Total Income
-                </h2>
-                <p className="text-xl sm:text-3xl font-bold text-emerald-600">
-                  ₹{totalIncome.toLocaleString("en-IN")}
-                </p>
-              </div>
-              <div className="bg-emerald-100 p-2 sm:p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-600" />
-              </div>
-            </article>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight mb-4 sm:mb-6">
+            This Month’s Summary
+          </h2>
 
-            <article className="bg-gradient-to-r from-rose-50 to-white rounded-xl shadow-sm p-4 sm:p-5 border-l-4 border-rose-500 flex items-center justify-between hover:shadow-md transition-shadow duration-200">
-              <div>
-                <h2 className="text-slate-600 text-sm sm:text-base font-medium mb-1">
-                  Total Expense
-                </h2>
-                <p className="text-xl sm:text-3xl font-bold text-rose-600">
-                  ₹{totalExpense.toLocaleString("en-IN")}
-                </p>
-              </div>
-              <div className="bg-rose-100 p-2 sm:p-3 rounded-full">
-                <TrendingDown className="w-6 h-6 sm:w-8 sm:h-8 text-rose-600" />
-              </div>
-            </article>
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
+            <FinanceCard
+              title={`Income (${currentMonthYear})`}
+              amount={totalIncome}
+              type={"income"}
+            />
+            <FinanceCard
+              title={`Income (${currentMonthYear})`}
+              amount={totalExpense}
+              type={"expense"}
+            />
           </section>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight mb-4 sm:mb-6">
+            Overall Summary
+          </h2>
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
+            <FinanceCard
+              title={`Total Income`}
+              amount={totalIncome}
+              type={"income"}
+            />
+            <FinanceCard
+              title={` Total Expense`}
+              amount={totalExpense}
+              type={"expense"}
+            />
+          </section>
+
           {/* ===== Recent Transactions ===== */}
           <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h3 className="text-lg sm:text-2xl font-semibold text-slate-800 tracking-tight">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-600 tracking-tight">
               Recent Transactions
-            </h3>
+            </h2>
             <Link
               to="/dashboard/transactions"
               className="text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
