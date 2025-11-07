@@ -12,7 +12,10 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: function () {
+        // Password required only for local (non-Google) users
+        return this.provider === "local";
+      },
     },
     googleId: {
       type: String,
@@ -23,7 +26,7 @@ const userSchema = new Schema(
       type: String,
     },
     isVerified: { type: Boolean, default: false },
-    provider: { type: String, default: "local" },
+    provider: { type: String, enum: ["local", "google"], default: "local" },
   },
   { timestamps: true }
 );

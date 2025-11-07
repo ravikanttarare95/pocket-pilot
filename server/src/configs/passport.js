@@ -15,23 +15,23 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        const user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ googleId: profile?.id });
         if (!user) {
-          const user = await User.findOne({
-            email: profile?.email[0]?.value.toLowerCase(),
+          user = await User.findOne({
+            email: profile?.emails[0]?.value.toLowerCase(),
           });
           if (user) {
-            user.googleId = profile.id;
-            if (!user.avatar) {
-              user.avatar = profile.photos?.[0]?.value || null;
+            user.googleId = profile?.id;
+            if (!user.avtarUrl) {
+              user.avtarUrl = profile?.photos?.[0]?.value || null;
             }
             await user.save();
           } else {
             user = await User.create({
-              googleId: profile.id,
-              fullName: profile.displayName,
-              email: profile.emails?.[0]?.value.toLowerCase(),
-              avatar: profile.photos?.[0]?.value,
+              googleId: profile?.id,
+              fullName: profile?.displayName,
+              email: profile?.emails?.[0]?.value.toLowerCase(),
+              avtarUrl: profile?.photos?.[0]?.value,
               isVerified: true,
               provider: "google",
             });
@@ -44,3 +44,5 @@ passport.use(
     }
   )
 );
+
+export default passport;

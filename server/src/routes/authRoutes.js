@@ -7,8 +7,8 @@ dotenv.config();
 import passport from "passport";
 
 import jwt from "jsonwebtoken";
-import jwtCheck from "./../middlewares/jwtCheck";
-import User from "../models/User";
+import jwtCheck from "./../middlewares/jwtCheck.js";
+import User from "../models/User.js";
 
 router.get(
   "/",

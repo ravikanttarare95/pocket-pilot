@@ -9,7 +9,7 @@ import transactionRoutes from "./routes/transactionRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 
-import passport from "passport";
+import passport from "./configs/passport.js";
 
 const app = express();
 

@@ -16,6 +16,7 @@ import AddTrans from "./views/AddTrans.jsx";
 import EditTrans from "./views/EditTrans.jsx";
 import { TransactionsProvider } from "./context/TransactionsContext.jsx";
 import { BudgetsProvider } from "./context/BudgetsContext.jsx";
+import AuthSuccess from "./views/AuthSuccess.jsx";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -24,6 +25,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/auth-success" element={<AuthSuccess />} />
 
       {/* Nested Routes */}
 
