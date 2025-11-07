@@ -33,7 +33,7 @@ const Login = () => {
           "loggedInUser",
           JSON.stringify(response?.data?.user)
         );
-        localStorage.setItem("token", JSON.stringify(response?.data?.token));
+        localStorage.setItem("token", response?.data?.token);
         setFormData({
           email: "",
           password: "",

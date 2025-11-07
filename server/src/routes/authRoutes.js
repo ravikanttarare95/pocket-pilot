@@ -11,12 +11,12 @@ import jwtCheck from "./../middlewares/jwtCheck.js";
 import User from "../models/User.js";
 
 router.get(
-  "/",
+  "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 router.get(
-  "/callback",
+  "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
     try {
@@ -42,7 +42,9 @@ router.get("/me", jwtCheck, async (req, res) => {
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-    res.json({ success: true, user });
+    return res
+      .status(200)
+      .json({ success: true, user, message: "Login Successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Server error" });

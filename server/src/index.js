@@ -29,7 +29,7 @@ app.use("/api/transactions", transactionRoutes);
 
 app.use("/api/budgets", budgetRoutes);
 
-app.use("/auth/google", authRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 8080;
 
