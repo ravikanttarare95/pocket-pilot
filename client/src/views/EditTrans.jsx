@@ -35,9 +35,7 @@ function EditTrans() {
         `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
-            )}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -67,9 +65,7 @@ function EditTrans() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
-            )}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );

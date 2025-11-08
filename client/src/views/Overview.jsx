@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import DashboardTopBar from "./../components/GreetingBar";
-import { TrendingUp, TrendingDown } from "lucide-react";
 import TransactionCard from "./../components/TransactionCard";
 import { Link, useNavigate } from "react-router";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
@@ -19,6 +18,7 @@ import HeadingThree from "./../components/HeadingThree.jsx";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Overview() {
+  const navigate = useNavigate();
   const currentMonthYear = new Date().toLocaleString("default", {
     month: "long",
     year: "numeric",
@@ -72,6 +72,10 @@ function Overview() {
     cutout: "70%",
     responsive: true,
     maintainAspectRatio: false,
+  };
+
+  const navigateToEdit = (id) => {
+    navigate(`transactions/edit-trans/${id}`);
   };
 
   /* ===== Error State ===== */
@@ -191,6 +195,7 @@ function Overview() {
                   handleDelete={() => {
                     deleteTransaction(txn._id);
                   }}
+                  navigateEdit={(id) => navigateToEdit(id)}
                 />
               ))}
             </div>
