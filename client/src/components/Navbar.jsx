@@ -17,9 +17,8 @@ function Navbar() {
     localStorage.removeItem("loggedInUser");
     setUser(null);
     toast.success("Logout Successful");
-    setTimeout(() => {
-      navigate("/login");
-    }, 1000);
+
+    navigate("/login");
   };
 
   return (

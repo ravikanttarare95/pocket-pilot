@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import Navbar from "./../components/Navbar";
 import { getloggedInUser } from "./../utils";
 import Footer from "./../components/Footer";
+import ServerNoticeBanner from "./../components/ServerNoticeBanner";
 
 function App() {
   const [user, setUser] = useState(getloggedInUser() || null);
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col text-slate-900 font-serif ">
+     
       <AosInitializer />
       <Navbar />
 
@@ -49,7 +51,7 @@ function App() {
           a beautifully simple finance dashboard.
         </p>
       </section>
-
+ <ServerNoticeBanner />
       <section className="">
         <div
           data-aos="fade-up"

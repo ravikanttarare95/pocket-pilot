@@ -102,7 +102,7 @@ function Overview() {
           {/* ===== Current Balance & Overspend ===== */}
 
           <div className="flex flex-col max-sm:items-center md:flex-row md:justify-between gap-8 mb-8">
-            <div className="flex w-full flex-wrap items-center justify-between gap-4 bg-white px-6 py-5 rounded-2xl  shadow-md border border-slate-200">
+            <div className="flex w-full flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 rounded-2xl  shadow-md border border-slate-200">
               <article className="flex flex-col gap-1">
                 <HeadingThree title={"Current Balance"} />
 
