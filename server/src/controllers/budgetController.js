@@ -8,7 +8,7 @@ const getBudget = async (req, res) => {
     if (budget) {
       return res.status(200).json(budget);
     } else {
-      return res.status(404).json({ message: "Budget not found" });
+      return res.json({ message: "Budget not found" });
     }
   } catch (error) {
     res.status(500).json({ message: "Error fetching budget" });

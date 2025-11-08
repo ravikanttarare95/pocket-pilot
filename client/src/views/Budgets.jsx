@@ -77,7 +77,7 @@ function Budgets() {
               </p>
               <p>
                 <span className="font-semibold text-slate-900">Budget:</span> ₹
-                {budgets.toLocaleString("en-IN")}
+                {budgets?.toLocaleString("en-IN")}
               </p>
             </div>
 
