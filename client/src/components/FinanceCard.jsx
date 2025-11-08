@@ -17,7 +17,7 @@ function FinanceCard({ title, amount, type }) {
         </h2>
         <p
           className={`text-xl sm:text-3xl font-bold 4 ${
-            isIncome ? "text-green-600" : "text-rose-600"
+            isIncome ? "text-emerald-600" : "text-rose-600"
           }`}
         >
           ₹{amount.toLocaleString("en-IN")}

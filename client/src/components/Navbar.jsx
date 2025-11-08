@@ -53,11 +53,20 @@ function Navbar() {
               Dashboard
             </Link>
             <div className="flex items-center gap-3 sm:gap-4">
-              <img
-                src={user?.avtarUrl}
-                alt="Profile"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white shadow-md object-cover hover:scale-105 transition-transform duration-300"
-              />
+              {user?.avtarUrl ? (
+                <img
+                  src={user?.avtarUrl}
+                  alt="Profile"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white shadow-md object-cover hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-cyan-600 flex items-center justify-center border border-white shadow-md hover:scale-105 transition-transform duration-300">
+                  <p className="text-xl font-bold text-white">
+                    {user?.fullName?.charAt(0)?.toUpperCase()}
+                  </p>
+                </div>
+              )}
+
               <span className="hidden sm:block font-semibold text-white">
                 {user?.fullName?.split(" ")[0]}
               </span>
