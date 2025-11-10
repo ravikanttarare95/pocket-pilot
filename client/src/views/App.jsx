@@ -77,25 +77,15 @@ function App() {
       </section>
       <ServerNoticeBanner />
       <section className="">
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          className="mx-auto bg-gradient-to-br from-white to-white-100 max-w-7xl rounded-2xl shadow-lg py-8 sm:py-10 my-8 sm:my-10 px-4 sm:px-8 text-center"
-        >
+        <div className="mx-auto bg-gradient-to-br from-white to-white-100 max-w-7xl rounded-2xl shadow-lg py-8 sm:py-10 my-8 sm:my-10 px-4 sm:px-8 text-center">
           <h3
-            data-aos="flip-up"
-            data-aos-delay="100"
             className="text-2xl sm:text-3xl md:text-4xl text-cyan-600 font-semibold mb-6 sm:mb-8"
             style={{ fontFamily: '"Cormorant Upright", cursive' }}
           >
             What Makes Pocket Pilot Different?
           </h3>
 
-          <p
-            data-aos="fade-up"
-            data-aos-delay="200"
-            className="text-slate-700 mx-auto mb-10 sm:mb-14 text-base sm:text-lg md:text-xl leading-relaxed"
-          >
+          <p className="text-slate-700 mx-auto mb-10 sm:mb-14 text-base sm:text-lg md:text-xl leading-relaxed">
             Designed for real people, Pocket Pilot gives you full control of
             your money through simple tools and intelligent features - all in
             one secure place.
@@ -119,17 +109,12 @@ function App() {
 
       <section className="text-center py-8 sm:py-10 px-4">
         <h3
-          data-aos="fade-up"
           className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-slate-900"
           style={{ fontFamily: '"Cormorant Upright", cursive' }}
         >
           Your Financial Journey Starts Now
         </h3>
-        <p
-          data-aos="zoom-in"
-          data-aos-delay="200"
-          className="mx-auto mb-6 sm:mb-10 text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed"
-        >
+        <p className="mx-auto mb-6 sm:mb-10 text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed">
           Join thousands who’ve simplified their personal budgeting with Pocket
           Pilot. No ads. No hidden fees. Just clarity and control.
         </p>
