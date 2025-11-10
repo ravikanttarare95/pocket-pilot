@@ -5,7 +5,6 @@ const ServerNoticeBanner = () => {
 
   useEffect(() => {
     const bannerClosed = localStorage.getItem("serverNoticeClosed");
-    console.log(bannerClosed);
     if (!bannerClosed) {
       setShowBanner(true);
     }

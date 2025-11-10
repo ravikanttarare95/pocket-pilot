@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import AosInitializer from "../components/AosInitializer";
 import HeroImg from "./../assets/hero-img.png";
@@ -9,14 +9,23 @@ import Navbar from "./../components/Navbar";
 import { getloggedInUser } from "./../utils";
 import Footer from "./../components/Footer";
 import ServerNoticeBanner from "./../components/ServerNoticeBanner";
+import { TAG_LINES } from "./../configs/taglines";
 
 function App() {
   const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
+  const [taglineIndex, setTaglineIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIndex((prevIndex) => (prevIndex + 1) % TAG_LINES.length);
+    }, 3000);
+
+    return () => clearInterval(interval); // cleanup IMP
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col text-slate-900 font-serif ">
-     
       <AosInitializer />
       <Navbar />
 
@@ -39,7 +48,7 @@ function App() {
           className="text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-slate-900 leading-tight"
           style={{ fontFamily: '"Cormorant Upright", cursive' }}
         >
-          Take Control of Your Finances
+          {TAG_LINES[taglineIndex]}
         </h2>
         <p
           data-aos="fade-up"
@@ -51,7 +60,7 @@ function App() {
           a beautifully simple finance dashboard.
         </p>
       </section>
- <ServerNoticeBanner />
+      <ServerNoticeBanner />
       <section className="">
         <div
           data-aos="fade-up"

@@ -37,7 +37,7 @@ function Budgets() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
       <GreetingBar greetingBarTitle="Monthly Budget" />
 
-      <main className="px-3 sm:px-6 lg:px-12 py-10">
+      <main className="px-2 py-6 sm:px-6 lg:px-10">
         <HeadingOne title="Track Your Monthly Budget" />
 
         <section className="max-w-4xl mx-auto mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-200 transition-transform hover:scale-[1.01] duration-300">

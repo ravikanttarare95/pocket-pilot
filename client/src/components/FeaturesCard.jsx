@@ -4,7 +4,7 @@ function FeaturesCard({ featureText, featureIcon, colorObj }) {
   return (
     <div
       tabIndex={0} //VERY IMPORTANT --> makes the element focusable
-      className={` group bg-white w-full sm:w-[300px] md:w-[350px] rounded-2xl shadow-md p-5 border-t-3 ${colorObj.border} hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 flex items-center gap-4`}
+      className={` group bg-white w-full max-sm:max-w-[300px] sm:w-[310px] md:w-[350px] rounded-2xl shadow-md p-5 border-t-3 ${colorObj.border} hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 flex items-center gap-4`}
     >
       <div
         className={`w-12 h-12 flex items-center justify-center rounded-full ${colorObj.bg} ${colorObj.text} text-2xl shadow-sm ${colorObj.hoverBg} ${colorObj.focusBg} group-hover:text-white group-focus:text-white transition-colors duration-300 shrink-0`}
