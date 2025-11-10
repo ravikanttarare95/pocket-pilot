@@ -10,13 +10,28 @@ import { getloggedInUser } from "./../utils";
 import Footer from "./../components/Footer";
 import ServerNoticeBanner from "./../components/ServerNoticeBanner";
 import { TAG_LINES } from "./../configs/taglines";
+import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
   const [taglineIndex, setTaglineIndex] = useState(0);
 
+  const fetchHealth = async () => {
+    try {
+      const healthResponse = await axios.get(
+        `${import.meta.env.VITE_API_URL}/health`
+      );
+      if (healthResponse) {
+        console.log(healthResponse?.data?.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
+    fetchHealth();
     const interval = setInterval(() => {
       setTaglineIndex((prevIndex) => (prevIndex + 1) % TAG_LINES.length);
     }, 3000);
