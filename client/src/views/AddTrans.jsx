@@ -34,9 +34,7 @@ function AddTrans() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
-            )}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
