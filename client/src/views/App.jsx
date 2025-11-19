@@ -46,7 +46,7 @@ function App() {
 
       <section className="max-w-7xl mx-auto text-center py-8 sm:py-10 px-4 sm:px-6 flex-1">
         <div
-          data-aos="zoom-in"
+          data-aos="fade-down"
           data-aos-duration="1000"
           className="flex justify-center mb-8 sm:mb-12 max-w-[200px] sm:max-w-xs mx-auto"
         >
