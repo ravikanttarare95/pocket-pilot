@@ -19,7 +19,6 @@ function Transactions() {
     navigate(`edit-trans/${id}`);
   };
 
-  /* ===== Error State ===== */
   if (error)
     return (
       <>
@@ -27,8 +26,6 @@ function Transactions() {
         <ErrorState error={error} />
       </>
     );
-
-  /* ===== Loading State ===== */
 
   if (loading && !error)
     return (
