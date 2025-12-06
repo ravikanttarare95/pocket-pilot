@@ -6,11 +6,12 @@ const TransactionsContext = createContext();
 
 function TransactionsProvider({ children }) {
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchTransactions = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/transactions`,
         {
@@ -19,7 +20,11 @@ function TransactionsProvider({ children }) {
           },
         }
       );
-      setTransactions(response.data.data);
+      const sortedTrans = response.data.data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+
+      setTransactions(sortedTrans);
     } catch (err) {
       setError(err.message);
       console.error("Error fetching transactions:", err);

@@ -38,7 +38,7 @@ function Transactions() {
     return (
       <>
         <GreetingBar greetingBarTitle="Transactions" />
-        <main className="relative px-2 py-6 sm:px-6 lg:px-10">
+        <main className="relative px-2 sm:px-6 lg:px-10 py-6">
           <HeadingOne title={"All Transactions"} />
 
           <section className="space-y-3 sm:space-y-4 pb-10">
