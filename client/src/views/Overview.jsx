@@ -78,8 +78,6 @@ function Overview() {
     navigate(`transactions/edit-trans/${id}`);
   };
 
-  /* ===== Error State ===== */
-
   if (error)
     return (
       <>
@@ -87,8 +85,6 @@ function Overview() {
         <ErrorState error={error} />
       </>
     );
-
-  /* ===== Loading State ===== */
 
   if (loading && !error)
     return (
@@ -102,47 +98,42 @@ function Overview() {
     return (
       <>
         <DashboardTopBar greetingBarTitle="Overview" />
-        <main className="px-2 py-6 sm:px-6 lg:px-10 bg-slate-50 min-h-screen">
-          {/* ===== Current Balance & Overspend ===== */}
+        <main className="bg-slate-50 px-2 sm:px-6 lg:px-10 py-6 min-h-screen">
+          <div className="gap-6 grid grid-cols-1 lg:grid-cols-3 mb-10">
+            <article className="bg-gradient-to-r from-emerald-50 to-white shadow-md px-6 py-5 border border-slate-200 rounded-2xl w-full">
+              <HeadingThree title={"Current Balance"} />
+              <p className="font-extrabold text-slate-800 text-2xl sm:text-4xl">
+                ₹{currentBalance.toLocaleString("en-IN")}
+              </p>
+            </article>
 
-          <div className="flex flex-col max-sm:items-center md:flex-row md:justify-between gap-8 mb-8">
-            <div className="flex w-full flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 rounded-2xl  shadow-md border border-slate-200">
-              <article className="flex flex-col gap-1">
-                <HeadingThree title={"Current Balance"} />
-
-                <p className="text-2xl sm:text-4xl font-extrabold text-slate-800">
-                  ₹{currentBalance.toLocaleString("en-IN")}
-                </p>
-              </article>
-
-              <article className="flex flex-col ">
-                <HeadingThree title={`Overspend (${currentMonthYear})`} />
-
-                <p
-                  className={`text-xl sm:text-3xl font-bold ${
-                    currMonthTotalExpense > budgets
-                      ? "text-rose-600"
-                      : "text-slate-500"
-                  }`}
-                >
-                  ₹
-                  {currMonthTotalExpense > budgets
-                    ? (currMonthTotalExpense - budgets).toLocaleString()
-                    : 0}
-                </p>
-              </article>
+            <div className="flex flex-col justify-center items-center shadow-md p-4 border border-slate-200 rounded-2xl h-full min-h-[200px] overflow-hidden">
+              <div className="w-32 sm:w-40 h-32 sm:h-40">
+                <Doughnut data={chartData} options={chartOptions} />
+              </div>
+              <p className="mt-2 text-slate-500 text-xs">{currentMonthYear}</p>
             </div>
-            <div className="flex flex-col justify-center items-center shadow-md border border-slate-200 p-4 rounded-2xl w-60 h-60 md:w-50 md:h-50 px-10">
-              <Doughnut data={chartData} options={chartOptions} />
 
-              <p className="text-xs text-slate-500 mt-1">{currentMonthYear}</p>
-            </div>
+            <article className="bg-gradient-to-r from-rose-50 to-white shadow-md px-6 py-5 border border-slate-200 rounded-2xl w-full">
+              <HeadingThree title={`Overspend (${currentMonthYear})`} />
+              <p
+                className={`text-xl sm:text-3xl font-bold ${
+                  currMonthTotalExpense > budgets
+                    ? "text-rose-600"
+                    : "text-slate-500"
+                }`}
+              >
+                ₹
+                {currMonthTotalExpense > budgets
+                  ? (currMonthTotalExpense - budgets).toLocaleString()
+                  : 0}
+              </p>
+            </article>
           </div>
-          {/* ===== Income & Expense Summary ===== */}
 
           <HeadingTwo title={"This Month’s Summary"} />
 
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-10">
+          <section className="gap-5 sm:gap-6 grid grid-cols-1 md:grid-cols-2 mb-10">
             <FinanceCard
               title={`Income (${currentMonthYear})`}
               amount={currMonthTotalIncome}
@@ -157,7 +148,7 @@ function Overview() {
 
           <HeadingTwo title={"Overall Summary"} />
 
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-10">
+          <section className="gap-5 sm:gap-6 grid grid-cols-1 md:grid-cols-2 mb-10">
             <FinanceCard
               title={`Total Income`}
               amount={totalIncome}
@@ -170,13 +161,12 @@ function Overview() {
             />
           </section>
 
-          {/* ===== Recent Transactions ===== */}
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between items-center">
             <HeadingTwo title={"Recent Transactions"} />
 
             <Link
               to="/dashboard/transactions"
-              className="text-xs sm:text-sm font-medium text-cyan-600 hover:text-cyan-800 transition-colors"
+              className="font-medium text-cyan-600 hover:text-cyan-800 text-xs sm:text-sm transition-colors"
             >
               View All →
             </Link>
