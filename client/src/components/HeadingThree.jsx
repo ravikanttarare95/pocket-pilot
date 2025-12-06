@@ -1,8 +1,12 @@
 import React from "react";
 
-function HeadingThree({ title }) {
+function HeadingThree({ title, className }) {
   return (
-    <h3 className="text-slate-500 text-sm sm:text-base font-medium">{title}</h3>
+    <h3
+      className={`font-medium text-slate-500 text-sm sm:text-base ${className}`}
+    >
+      {title}
+    </h3>
   );
 }
 

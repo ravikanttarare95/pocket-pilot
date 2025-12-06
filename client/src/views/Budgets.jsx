@@ -10,38 +10,31 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 import ProfitImg from "./../assets/profit.png";
+import ProgressBar from "./../components/ProgressBar.jsx";
 
 function Budgets() {
   const { budgets, setBudgets, loading, error, saveBudgets } =
     useContext(BudgetsContext);
 
-  const { currMonthTotalIncome, currMonthTotalExpense } =
+  const { currMonthTotalIncome, currMonthTotalExpense, currentMonthYear } =
     useContext(TransactionsContext);
 
   const remaining = budgets - currMonthTotalExpense;
-  const percent = budgets
-    ? Math.min((currMonthTotalExpense / budgets) * 100, 100)
-    : 0;
 
   const handleSave = () => saveBudgets(budgets);
 
   if (loading) return <Loader message="Loading budgets..." />;
   if (error) return <ErrorState error={error} />;
 
-  const currentMonthYear = new Date().toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
+    <div className="bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 min-h-screen">
       <GreetingBar greetingBarTitle="Monthly Budget" />
 
-      <main className="px-2 py-6 sm:px-6 lg:px-10">
+      <main className="px-2 sm:px-6 lg:px-10 py-6">
         <HeadingOne title="Track Your Monthly Budget" />
 
-        <section className="max-w-4xl mx-auto mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-200 transition-transform hover:scale-[1.01] duration-300">
-          <div className="hidden lg:flex items-center justify-center">
+        <section className="gap-8 grid grid-cols-1 lg:grid-cols-2 bg-white shadow-lg mx-auto mt-8 p-6 sm:p-8 border border-slate-200 rounded-2xl max-w-4xl hover:scale-[1.01] transition-transform duration-300">
+          <div className="hidden lg:flex justify-center items-center">
             <img
               src={ProfitImg}
               alt="Profit Illustration"
@@ -51,26 +44,18 @@ function Budgets() {
 
           <div className="flex flex-col justify-between">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-cyan-100 text-cyan-700 rounded-full">
+              <div className="bg-cyan-100 p-3 rounded-full text-cyan-700">
                 <Wallet className="w-6 h-6" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-slate-800">
+              <h3 className="font-semibold text-slate-800 text-lg sm:text-xl">
                 Budget ({currentMonthYear})
               </h3>
             </div>
-
-            <div className="h-3 bg-gray-200 rounded-full overflow-hidden shadow-inner">
-              <div
-                className={`h-3 transition-all duration-700 ${
-                  currMonthTotalExpense > budgets
-                    ? "bg-gradient-to-r from-rose-400 to-rose-600"
-                    : "bg-gradient-to-r from-emerald-400 to-emerald-600"
-                }`}
-                style={{ width: `${percent}%` }}
-              ></div>
-            </div>
-
-            <div className="mt-5 flex flex-col sm:flex-row sm:justify-between text-sm text-slate-700 space-y-2 sm:space-y-0">
+            <ProgressBar
+              budgets={budgets}
+              currMonthTotalExpense={currMonthTotalExpense}
+            />
+            <div className="flex sm:flex-row flex-col sm:justify-between space-y-2 sm:space-y-0 mt-5 text-slate-700 text-sm">
               <p>
                 <span className="font-semibold text-slate-900">Spent:</span> ₹
                 {currMonthTotalExpense.toLocaleString("en-IN")}
@@ -80,7 +65,6 @@ function Budgets() {
                 {budgets?.toLocaleString("en-IN")}
               </p>
             </div>
-
             <p
               className={`mt-3 text-center font-medium ${
                 remaining >= 0 ? "text-emerald-600" : "text-rose-600"
@@ -89,7 +73,6 @@ function Budgets() {
               {remaining >= 0 ? "Remaining" : "Overspent"} ₹
               {Math.abs(remaining).toLocaleString("en-IN")}
             </p>
-
             <div className="mt-6">
               <Label
                 htmlFor="input-budget"
@@ -105,14 +88,12 @@ function Budgets() {
                 placeholder="Enter your total monthly budget"
               />
             </div>
-
             {currMonthTotalExpense > budgets && (
-              <div className="mt-5 flex items-center justify-center gap-2 text-rose-600 text-sm font-medium bg-rose-50 border border-rose-200 p-2 rounded-md animate-pulse">
+              <div className="flex justify-center items-center gap-2 bg-rose-50 mt-5 p-2 border border-rose-200 rounded-md font-medium text-rose-600 text-sm animate-pulse">
                 <AlertTriangle size={16} />
                 You’ve exceeded your monthly budget!
               </div>
             )}
-
             <Button
               btnTitle="Save Budget"
               btnVariant="primary"

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 const TransactionsContext = createContext();
 
 function TransactionsProvider({ children }) {
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,9 +34,25 @@ function TransactionsProvider({ children }) {
     }
   };
 
-  const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
+
+  const handleNextMonth = () => {
+    const next = new Date(currentDate);
+    next.setMonth(next.getMonth() + 1);
+    setCurrentDate(next);
+  };
+
+  const handlePreviousMonth = () => {
+    const prev = new Date(currentDate);
+    prev.setMonth(prev.getMonth() - 1);
+    setCurrentDate(prev);
+  };
+
+  const currentMonthYear = currentDate.toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
 
   const monthlyTransactions = transactions.filter((txn) => {
     const txnDate = new Date(txn.date);
@@ -107,6 +124,9 @@ function TransactionsProvider({ children }) {
         currMonthTotalIncome,
         currMonthTotalExpense,
         deleteTransaction,
+        currentMonthYear,
+        handlePreviousMonth,
+        handleNextMonth,
       }}
     >
       {children}
