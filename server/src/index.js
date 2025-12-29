@@ -11,11 +11,20 @@ import authRoutes from "./routes/authRoutes.js";
 
 import passport from "./configs/passport.js";
 
+import cookieParser from "cookie-parser";
+
+app.use(cookieParser());
+
 const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 
 app.use(passport.initialize());
 

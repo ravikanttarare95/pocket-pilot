@@ -1,7 +1,9 @@
 import User from "./../models/User.js";
-import bcrypt, { compare } from "bcrypt";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { generateAccessToken, generateRefreshToken } from "./../utils/token.js";
+
 dotenv.config();
 
 const userRegister = async (req, res) => {
@@ -109,17 +111,15 @@ const userLogin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      {
-        id: existingUser._id,
-        fullName: existingUser.fullName,
-        email: existingUser.email,
-      },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "1d",
-      }
-    );
+    const accessToken = generateAccessToken(existingUser);
+    const refreshToken = generateRefreshToken(existingUser);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       success: true,
@@ -129,7 +129,7 @@ const userLogin = async (req, res) => {
         fullName: existingUser.fullName,
         email: existingUser.email,
       },
-      token,
+      accessToken,
     });
   } catch (error) {
     return res.status(500).json({
