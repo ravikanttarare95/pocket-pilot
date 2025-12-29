@@ -13,11 +13,7 @@ import passport from "./configs/passport.js";
 
 import cookieParser from "cookie-parser";
 
-app.use(cookieParser());
-
 const app = express();
-
-app.use(express.json());
 
 app.use(
   cors({
@@ -25,6 +21,10 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(passport.initialize());
 
