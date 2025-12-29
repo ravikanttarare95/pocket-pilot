@@ -5,7 +5,7 @@ const API_URL = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.response.use(
+API_URL.interceptors.response.use(
   (res) => res,
   async (err) => {
     const originalRequest = err.config; //

@@ -17,41 +17,44 @@ import EditTrans from "./views/EditTrans.jsx";
 import { TransactionsProvider } from "./context/TransactionsContext.jsx";
 import { BudgetsProvider } from "./context/BudgetsContext.jsx";
 import AuthSuccess from "./views/AuthSuccess.jsx";
+import { AuthProvider } from "./context/UserAuthContext.jsx";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/auth-success" element={<AuthSuccess />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/auth-success" element={<AuthSuccess />} />
 
-      {/* Nested Routes */}
+        {/* Nested Routes */}
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <BudgetsProvider>
-              <TransactionsProvider>
-                <Dashboard />
-              </TransactionsProvider>
-            </BudgetsProvider>
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Overview />} />
-        <Route path="transactions" element={<Transactions />}>
-          <Route path="add-trans" element={<AddTrans />} />
-          <Route path="edit-trans/:id" element={<EditTrans />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <BudgetsProvider>
+                <TransactionsProvider>
+                  <Dashboard />
+                </TransactionsProvider>
+              </BudgetsProvider>
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Overview />} />
+          <Route path="transactions" element={<Transactions />}>
+            <Route path="add-trans" element={<AddTrans />} />
+            <Route path="edit-trans/:id" element={<EditTrans />} />
+          </Route>
+          <Route path="charts" element={<Charts />} />
+          <Route path="budgets" element={<Budgets />} />
         </Route>
-        <Route path="charts" element={<Charts />} />
-        <Route path="budgets" element={<Budgets />} />
-      </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    <Toaster position="top-center" />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster position="top-center" />
+    </AuthProvider>
   </BrowserRouter>
 );

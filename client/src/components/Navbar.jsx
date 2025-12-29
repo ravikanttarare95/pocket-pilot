@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "./Button";
 import BrandLogo from "./BrandLogo.jsx";
-import { getloggedInUser } from "./../utils.js";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { accessToken, setAccessToken } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -44,7 +45,7 @@ function Navbar() {
           ${isOpen ? "flex" : "hidden"}
         `}
       >
-        {user ? (
+        {accessToken ? (
           <>
             <Link
               to="/"
@@ -72,10 +73,10 @@ function Navbar() {
                   </p>
                 </div>
               )}
-
+{/* 
               <span className="hidden sm:block font-semibold text-white">
                 {user?.fullName?.split(" ")[0]}
-              </span>
+              </span> */}
               <button
                 className="flex items-center gap-2 text-md font-extrabold hover:text-cyan-300 transition-all duration-300 cursor-pointer"
                 onClick={handleLogout}
