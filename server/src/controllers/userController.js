@@ -138,4 +138,32 @@ const userLogin = async (req, res) => {
     });
   }
 };
-export { userRegister, userLogin };
+
+const refreshAccessToken = (req, res) => {
+  const refreshToken = req.cookies?.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      success: false,
+      message: "Refresh token not provided",
+    });
+  }
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({
+        success: false,
+        message: "Invalid or expired refresh token",
+      });
+    }
+
+    const newAccessToken = jwt.sign(
+      { id: decoded.id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "15m" }
+    );
+    return res.status(200).json({ success: true, accessToken: newAccessToken });
+  });
+};
+
+export { userRegister, userLogin, refreshAccessToken };
