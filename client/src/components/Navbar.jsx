@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import Logo from "./../../public/logo.svg";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "./Button";
 import BrandLogo from "./BrandLogo.jsx";
 import { getloggedInUser } from "./../utils.js";
 import toast from "react-hot-toast";
+import { API_URL } from "./../configs/axiosConfigs.js";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("loggedInUser");
-    setUser(null);
-    toast.success("Logout Successful");
-
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await API_URL.post("/api/users/logout");
+      setUser(null);
+      setAccessToken(null);
+      toast.success("Logout Successfull");
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.error("Logout failed:", error);
+      setUser(null);
+      setAccessToken(null);
+      toast.success("Logout Successfull");
+      navigate("/login", { replace: true });
+    }
   };
 
   return (

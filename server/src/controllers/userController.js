@@ -140,30 +140,59 @@ const userLogin = async (req, res) => {
 };
 
 const refreshAccessToken = (req, res) => {
-  const refreshToken = req.cookies?.refreshToken;
+  try {
+    const refreshToken = req.cookies?.refreshToken;
 
-  if (!refreshToken) {
-    return res.status(401).json({
-      success: false,
-      message: "Refresh token not provided",
-    });
-  }
-
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({
+    if (!refreshToken) {
+      return res.status(401).json({
         success: false,
-        message: "Invalid or expired refresh token",
+        message: "Refresh token not provided",
       });
     }
 
-    const newAccessToken = jwt.sign(
-      { id: decoded.id },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "15m" }
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      (err, decoded) => {
+        if (err) {
+          return res.status(403).json({
+            success: false,
+            message: "Invalid or expired refresh token",
+          });
+        }
+
+        const newAccessToken = jwt.sign(
+          { id: decoded.id },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: "15m" }
+        );
+
+        return res
+          .status(200)
+          .json({ success: true, accessToken: newAccessToken });
+      }
     );
-    return res.status(200).json({ success: true, accessToken: newAccessToken });
-  });
+  } catch (error) {
+    console.error("Error refreshing access token:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 };
 
-export { userRegister, userLogin, refreshAccessToken };
+const userLogout = (req, res) => {
+  try {
+    res.clearCookie("refreshToken");
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error during logout" });
+  }
+};
+
+export { userRegister, userLogin, refreshAccessToken, userLogout };
