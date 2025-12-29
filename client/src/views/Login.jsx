@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo.jsx";
 import { useNavigate, Link } from "react-router";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { getloggedInUser } from "./../utils.js";
+import { API_URL } from "./../configs/axiosConfigs.js";
 
 const Login = () => {
   const [user, setUser] = useState(getloggedInUser() || null);
@@ -22,22 +22,13 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/login`,
-        formData
-      );
+      const response = await API_URL.post("/api/users/login", formData);
 
       if (response?.data?.success) {
         toast.success(response?.data?.message || "Login Successful");
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify(response?.data?.user)
-        );
-        localStorage.setItem("token", response?.data?.token);
-        setFormData({
-          email: "",
-          password: "",
-        });
+
+        setUser(response?.data?.user);
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 1000);
