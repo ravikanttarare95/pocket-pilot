@@ -9,6 +9,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import jwtCheck from "./../middlewares/jwtCheck.js";
 import User from "../models/User.js";
+import { generateAccessToken, generateRefreshToken } from "./../utils/token.js";
 
 router.get(
   "/google",
@@ -20,12 +21,18 @@ router.get(
   passport.authenticate("google", { session: false }),
   (req, res) => {
     try {
-      const token = jwt.sign(
-        { id: req.user._id, email: req.user.email },
-        process.env.JWT_SECRET_KEY,
-        { expiresIn: "1d" }
+      const accessToken = generateAccessToken(req.user);
+      const refreshToken = generateRefreshToken(req.user);
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None", //
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
+      res.redirect(
+        `${process.env.CLIENT_URL}/auth-success?accessToken=${accessToken}`
       );
-      res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {
       res.redirect(`${process.env.CLIENT_URL}/login`);
     }

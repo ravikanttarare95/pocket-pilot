@@ -10,17 +10,21 @@ API_URL.interceptors.response.use(
   async (err) => {
     const originalRequest = err.config; //
 
+    if (originalRequest.url.includes("/api/users/refresh")) {
+      return Promise.reject(err);
+    }
+
     if (err.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const response = await api.post("/auth/refresh");
+        const response = await API_URL.post("/api/users/refresh");
         const newAccessToken = response?.data?.accessToken;
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest); //
-      } catch (_err) {
-        return Promise.reject(_err); //
+        return API_URL(originalRequest); // retry original request
+      } catch (refreshError) {
+        return Promise.reject(refreshError); //
       }
     }
 

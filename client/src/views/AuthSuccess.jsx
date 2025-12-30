@@ -17,7 +17,7 @@ function AuthSuccess() {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (response?.data?.success) {
-        setAccessToken("accessToken", accessToken);
+        setAccessToken(accessToken);
         setUser(response?.data?.user);
 
         toast.success(response?.data?.message);
@@ -39,7 +39,7 @@ function AuthSuccess() {
 
   useEffect(() => {
     handleAuth();
-  }, [token]);
+  }, [accessToken]);
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 text-gray-700">
       <div className="flex flex-col items-center gap-4">

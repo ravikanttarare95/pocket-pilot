@@ -42,7 +42,9 @@ const Signup = () => {
       const response = await API_URL.post(`/api/users/register`, formData);
       if (response) {
         toast.success(response?.data?.message);
-        navigate("/login", { replace: true });
+        setTimeout(() => {
+          navigate("/login", { replace: true });
+        }, 1000);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
