@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TRANS_CATEGORY_META } from "../constants/transCategories.js";
 import { EllipsisVertical, Trash, Pencil } from "lucide-react";
-import { useNavigate, useLocation } from "react-router";
 
 function TransactionCard({
   id,
@@ -13,8 +12,6 @@ function TransactionCard({
   handleDelete,
   navigateEdit,
 }) {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const CategoryMeta = TRANS_CATEGORY_META[category];
 

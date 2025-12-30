@@ -29,7 +29,7 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (user) return navigate("/dashboard");
+    if (user) return navigate("/dashboard", { replace: true });
   }, [user, navigate]); //
 
   const handleRegistration = async () => {

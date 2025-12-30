@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { getloggedInUser } from "./../utils";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function GreetingBar({ greetingBarTitle }) {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const hour = new Date().getHours();
   let greet = "";
   let bgColor = "";
@@ -29,9 +28,6 @@ function GreetingBar({ greetingBarTitle }) {
     bgColor = "bg-black";
     textColor = "text-slate-50";
   }
-  useEffect(() => {
-    setUser(getloggedInUser());
-  }, []);
 
   return (
     <header
@@ -40,7 +36,7 @@ function GreetingBar({ greetingBarTitle }) {
       <p className="tracking-wide">
         <span className="text-lg sm:text-xl ">{greet} </span>
         <span className="text-xl sm:text-2xl font-bold">
-          {user && user.fullName}
+          {user && user?.fullName}
         </span>
       </p>
       {greetingBarTitle && (

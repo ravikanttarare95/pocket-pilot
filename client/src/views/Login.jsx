@@ -14,9 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (!loading && accessToken) {
-      setTimeout(() => {
-        navigate("/dashboard", { replace: true });
-      }, 1000);
+      navigate("/dashboard", { replace: true });
     }
   }, [accessToken, loading]);
 
