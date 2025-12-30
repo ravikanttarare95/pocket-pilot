@@ -1,30 +1,29 @@
-import React from "react";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import toast from "react-hot-toast";
+import { useAuth } from "./../context/UserAuthContext.jsx";
+import { API_URL } from "./../configs/axiosConfigs.js";
 
 function AuthSuccess() {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
+  const accessToken = searchParams.get("accessToken");
   const navigate = useNavigate();
+  const { setUser, setAccessToken } = useAuth();
 
   const handleAuth = async () => {
-    if (!token) return;
+    if (!accessToken) return;
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/auth/me`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await API_URL.get(`/auth/me`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       if (response?.data?.success) {
-        localStorage.setItem("token", token);
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify(response?.data?.user)
-        );
+        setAccessToken("accessToken", accessToken);
+        setUser(response?.data?.user);
+
         toast.success(response?.data?.message);
+
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/dashboard", { replace: true });
         }, 1000);
       }
     } catch (error) {

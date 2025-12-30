@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Input from "./../components/Input";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo";
 import { useNavigate, Link } from "react-router";
 import Label from "./../components/Label";
-import axios from "axios";
 import toast from "react-hot-toast";
-import { getloggedInUser } from "./../utils.js";
+import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 const Signup = () => {
-  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -17,33 +16,41 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  const { user } = useAuth();
 
   const handleInputChange = (e) => {
     // const { id, value } = e.target;
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleRegistration = async () => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/register`,
-
-        formData
-      );
-      if (response) {
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.id]: e.target.value,
+    }));
   };
 
   useEffect(() => {
-    if (user) return navigate("/");
-  }, []);
+    if (user) return navigate("/dashboard");
+  }, [user, navigate]); //
+
+  const handleRegistration = async () => {
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await API_URL.post(`/api/users/register`, formData);
+      if (response) {
+        toast.success(response?.data?.message);
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex items-center justify-evenly min-h-screen p-3">
       <div className="hidden md:flex flex-col">
@@ -69,7 +76,7 @@ const Signup = () => {
           className="space-y-5"
         >
           <div>
-            <Label htmlFor="name" labelTitle="Full Name" />
+            <Label htmlFor="fullName" labelTitle="Full Name" />
             <Input
               type="text"
               id="fullName"
@@ -115,8 +122,9 @@ const Signup = () => {
           <Button
             type="submit"
             btnVariant="primary"
-            btnTitle={" Create Account"}
+            btnTitle={loading ? "Creating..." : "Create Account"}
             customStyle={"w-full"}
+            isDisabled={loading}
           />
         </form>
 

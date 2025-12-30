@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
 import Sidebar from "./../components/Sidebar.jsx";

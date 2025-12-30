@@ -84,14 +84,11 @@ function TransactionsProvider({ children }) {
     if (!result.isConfirmed) return;
 
     try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.delete(`/api/transactions/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response) {
         Swal.fire({
           title: "Deleted!",

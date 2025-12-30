@@ -110,7 +110,6 @@ function Charts() {
     ],
   };
 
-  /* ===== Error State ===== */
   if (error)
     return (
       <>
@@ -118,8 +117,6 @@ function Charts() {
         <ErrorState error={error} />
       </>
     );
-
-  /* ===== Loading State ===== */
 
   if (loading && !error)
     return (

@@ -41,12 +41,12 @@ function BudgetsProvider({ children }) {
 
   const saveBudgets = async (newBudgets) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/budgets`,
+      const response = await API_URL.post(
+        `/api/budgets`,
         { month: currentMonth, budgets: newBudgets },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );

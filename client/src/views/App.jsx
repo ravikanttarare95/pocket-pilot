@@ -6,22 +6,21 @@ import FEATURES from "../configs/features";
 import FeaturesCard from "../components/FeaturesCard";
 import Button from "../components/Button";
 import Navbar from "./../components/Navbar";
-import { getloggedInUser } from "./../utils";
 import Footer from "./../components/Footer";
 import ServerNoticeBanner from "./../components/ServerNoticeBanner";
 import { TAG_LINES } from "./../configs/taglines";
-import axios from "axios";
+import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function App() {
-  const [user, setUser] = useState(getloggedInUser() || null);
   const navigate = useNavigate();
   const [taglineIndex, setTaglineIndex] = useState(0);
 
+  const { accessToken } = useAuth();
+
   const fetchHealth = async () => {
     try {
-      const healthResponse = await axios.get(
-        `${import.meta.env.VITE_API_URL}/health`
-      );
+      const healthResponse = await API_URL.get(`/health`);
       if (healthResponse) {
         console.log(healthResponse?.data?.message);
       }
@@ -125,7 +124,7 @@ function App() {
             btnVariant={"primary"}
             size="lg"
             onBtnClick={() => {
-              if (!user) return navigate("/login");
+              if (!accessToken) return navigate("/login");
               navigate("/dashboard");
             }}
           />

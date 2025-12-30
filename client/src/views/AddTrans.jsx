@@ -4,9 +4,10 @@ import Label from "./../components/Label";
 import Button from "./../components/Button";
 import { useNavigate } from "react-router";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
+import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function AddTrans() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ function AddTrans() {
     time: new Date().toTimeString().slice(0, 5),
   });
 
+  const { accessToken } = useAuth();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -29,15 +32,11 @@ function AddTrans() {
 
   const postTransaction = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/transactions`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.post(`/api/transactions`, formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response) {
         toast.success(response.data.message, { id: "postTrans" });
 

@@ -7,6 +7,7 @@ function Button({
   btnVariant,
   customStyle = "",
   size = "md",
+  isDisabled,
 }) {
   const sizeClasses =
     size === "lg"
@@ -25,9 +26,12 @@ function Button({
   return (
     <button
       type={type}
-      className={`${customStyle} ${sizeClasses} ${variantClasses} 
-        cursor-pointer transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
+      className={`${customStyle} ${sizeClasses} ${variantClasses} ${
+        isDisabled &&
+        "!bg-gradient-to-b from-slate-300 to-slate-400 !text-white hover:!bg-slate-300"
+      } cursor-pointer transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
       onClick={onBtnClick}
+      disabled={isDisabled}
     >
       {btnTitle}
     </button>

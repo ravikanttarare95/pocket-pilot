@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
 import Button from "./../components/Button";
 import { useNavigate, useParams } from "react-router";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
+import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function EditTrans() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function EditTrans() {
     time: "",
   });
 
+  const { accessToken } = useAuth();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -31,14 +33,11 @@ function EditTrans() {
 
   const getTransactionById = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.get(`/api/transactions/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response) {
         const transaction = response?.data?.data;
         setFormData({
@@ -60,15 +59,11 @@ function EditTrans() {
 
   const UpdateTransaction = async () => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/transactions/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.put(`/api/transactions/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response) {
         toast.success(response.data.message, { id: "updateTrans" });
 
