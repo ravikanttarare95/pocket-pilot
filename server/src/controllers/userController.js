@@ -139,7 +139,7 @@ const userLogin = async (req, res) => {
   }
 };
 
-const refreshAccessToken = (req, res) => {
+const refreshAccessToken = async (req, res) => {
   try {
     const refreshToken = req.cookies?.refreshToken;
 
@@ -153,11 +153,22 @@ const refreshAccessToken = (req, res) => {
     jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
-      (err, decoded) => {
+      async (err, decoded) => {
         if (err) {
           return res.status(403).json({
             success: false,
             message: "Invalid or expired refresh token",
+          });
+        }
+
+        const user = await User.findById(decoded.id).select(
+          "_id fullName email avtarUrl"
+        );
+
+        if (!user) {
+          return res.status(401).json({
+            success: false,
+            message: "User not found",
           });
         }
 
@@ -169,7 +180,7 @@ const refreshAccessToken = (req, res) => {
 
         return res
           .status(200)
-          .json({ success: true, accessToken: newAccessToken });
+          .json({ success: true, accessToken: newAccessToken, user });
       }
     );
   } catch (error) {

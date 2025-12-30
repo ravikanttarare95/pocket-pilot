@@ -5,12 +5,21 @@ import { useNavigate, Link } from "react-router";
 import Input from "./../components/Input";
 import Label from "./../components/Label";
 import toast from "react-hot-toast";
-import { getloggedInUser } from "./../utils.js";
 import { API_URL } from "./../configs/axiosConfigs.js";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 const Login = () => {
-  const [user, setUser] = useState(getloggedInUser() || null);
+  const { accessToken, setAccessToken, loading, setUser } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && accessToken) {
+      setTimeout(() => {
+        navigate("/dashboard", { replace: true });
+      }, 1000);
+    }
+  }, [accessToken, loading]);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,10 +37,7 @@ const Login = () => {
         toast.success(response?.data?.message || "Login Successful");
 
         setUser(response?.data?.user);
-
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1000);
+        setAccessToken(response?.data?.accessToken);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || error?.message);
@@ -39,9 +45,9 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) return navigate("/");
-  }, []);
+  if (loading) {
+    return <p>Checking session...</p>;
+  }
 
   return (
     <div className="flex items-center justify-evenly min-h-screen p-3 gap-10">

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import Navbar from "./../components/Navbar.jsx";
-import { getloggedInUser } from "./../utils.js";
 import Sidebar from "./../components/Sidebar.jsx";
 import Footer from "./../components/Footer.jsx";
+import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function Dashboard() {
-  const navigate = useNavigate();
-  const [user, _] = useState(getloggedInUser() || null);
+  const { accessToken, loading } = useAuth();
 
-  useEffect(() => {
-    if (!user) return navigate("/login");
-  }, []);
+  if (loading) return <p>Checking session...</p>;
+
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,7 +23,7 @@ function Dashboard() {
           <Outlet />
         </main>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

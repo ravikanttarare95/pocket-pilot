@@ -11,12 +11,14 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const getNewAccessToken = async () => {
       try {
-        const response = await API_URL.post("/auth/refresh");
+        const response = await API_URL.post("/api/users/refresh");
         setAccessToken(response?.data?.accessToken);
+        setUser(response?.data?.user);
       } catch {
+        setAccessToken(null);
         setUser(null);
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
     getNewAccessToken();

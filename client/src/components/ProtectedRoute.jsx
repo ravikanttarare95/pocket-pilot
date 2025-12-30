@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
 import { useAuth } from "./../context/UserAuthContext.jsx";
 
 function ProtectedRoute({ children }) {
-  const navigate = useNavigate();
   const { accessToken, loading } = useAuth();
 
   if (loading) return <p>Checking session...</p>;
 
-  useEffect(() => {
-    if (!accessToken) return navigate("/login", { replace: true });
-  }, []);
+  if (!accessToken) return <Navigate to="/login" replace />;
+
   return accessToken ? children : null;
 }
 

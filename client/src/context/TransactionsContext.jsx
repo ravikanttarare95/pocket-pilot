@@ -1,10 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useAuth } from "./UserAuthContext";
+import { API_URL } from "./../configs/axiosConfigs.js";
 
 const TransactionsContext = createContext();
 
 function TransactionsProvider({ children }) {
+  const { accessToken } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,14 +16,11 @@ function TransactionsProvider({ children }) {
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/transactions`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.get(`/api/transactions`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const sortedTrans = response.data.data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       );

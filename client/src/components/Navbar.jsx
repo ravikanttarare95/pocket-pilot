@@ -10,7 +10,7 @@ import { useAuth } from "./../context/UserAuthContext.jsx";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { accessToken, setAccessToken } = useAuth();
+  const { user, setUser, accessToken, setAccessToken } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -73,10 +73,10 @@ function Navbar() {
                   </p>
                 </div>
               )}
-{/* 
+
               <span className="hidden sm:block font-semibold text-white">
                 {user?.fullName?.split(" ")[0]}
-              </span> */}
+              </span>
               <button
                 className="flex items-center gap-2 text-md font-extrabold hover:text-cyan-300 transition-all duration-300 cursor-pointer"
                 onClick={handleLogout}

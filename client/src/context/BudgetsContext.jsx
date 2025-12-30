@@ -1,10 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "./UserAuthContext";
+import { API_URL } from "./../configs/axiosConfigs.js";
 
 const BudgetsContext = createContext();
 
 function BudgetsProvider({ children }) {
+  const { accessToken } = useAuth();
   const [budgets, setBudgets] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); ///////////
@@ -14,14 +17,11 @@ function BudgetsProvider({ children }) {
   const fetchBudgets = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/budgets/${currentMonth}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API_URL.get(`/api/budgets/${currentMonth}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response) {
         setBudgets(response?.data?.budgets);
       } else {
