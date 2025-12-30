@@ -43,7 +43,7 @@ function App() {
       <AosInitializer />
       <Navbar />
 
-      <section className="max-w-7xl mx-auto text-center py-8 sm:py-10 md:py-20 px-4 sm:px-6 flex-1">
+      <section className="max-w-7xl mx-auto text-center pb-8 pt-4 sm:pb-10 sm:pt-6 md:pb-20 md:pt-10 px-4 sm:px-6 flex-1">
         <div
           data-aos="fade-right"
           data-aos-duration="1000"

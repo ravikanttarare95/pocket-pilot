@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Navigate } from "react-router";
 import { useAuth } from "./../context/UserAuthContext.jsx";
+import AuthLoading from "./authentication/AuthLoading.jsx";
 
 function ProtectedRoute({ children }) {
-  const { accessToken, loading } = useAuth();
+  const { accessToken, authLoading } = useAuth();
 
-  if (loading) return <p>Checking session...</p>;
+  if (authLoading) return <AuthLoading loadingDesc={"Verifying session..."} />;
 
   if (!accessToken) return <Navigate to="/login" replace />;
 

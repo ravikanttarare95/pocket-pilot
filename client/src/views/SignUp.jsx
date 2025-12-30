@@ -7,6 +7,7 @@ import Label from "./../components/Label";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
 import { useAuth } from "./../context/UserAuthContext.jsx";
+import AuthLoading from "./../components/authentication/AuthLoading.jsx";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Signup = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
 
   const handleInputChange = (e) => {
     // const { id, value } = e.target;
@@ -52,6 +53,8 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  if (authLoading) return <AuthLoading loadingDesc={"Verifying session..."} />;
 
   return (
     <div className="flex items-center justify-evenly min-h-screen p-3">
@@ -124,7 +127,16 @@ const Signup = () => {
           <Button
             type="submit"
             btnVariant="primary"
-            btnTitle={loading ? "Creating..." : "Create Account"}
+            btnTitle={
+              loading ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Creating account</span>
+                </>
+              ) : (
+                "Create Account"
+              )
+            }
             customStyle={"w-full"}
             isDisabled={loading}
           />

@@ -3,11 +3,12 @@ import Navbar from "./../components/Navbar.jsx";
 import Sidebar from "./../components/Sidebar.jsx";
 import Footer from "./../components/Footer.jsx";
 import { useAuth } from "./../context/UserAuthContext.jsx";
+import AuthLoading from "./../components/authentication/AuthLoading.jsx";
 
 function Dashboard() {
-  const { accessToken, loading } = useAuth();
+  const { accessToken, authLoading } = useAuth();
 
-  if (loading) return <p>Checking session...</p>;
+  if (authLoading) return <AuthLoading loadingDesc={"Verifying session..."} />;
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;

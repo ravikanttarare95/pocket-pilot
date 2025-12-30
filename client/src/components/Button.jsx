@@ -27,8 +27,9 @@ function Button({
     <button
       type={type}
       className={`${customStyle} ${sizeClasses} ${variantClasses} ${
-        isDisabled &&
-        "!bg-gradient-to-b from-slate-300 to-slate-400 !text-white hover:!bg-slate-300"
+        isDisabled
+          ? "!bg-gradient-to-b from-slate-500 to-slate-500 !text-white !opacity-70 animate-pulse !cursor-not-allowed hover:!bg-slate-500"
+          : ""
       } cursor-pointer transition-all duration-300 font-semibold flex justify-center items-center gap-2`}
       onClick={onBtnClick}
       disabled={isDisabled}

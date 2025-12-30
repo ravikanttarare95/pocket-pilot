@@ -7,21 +7,24 @@ import Label from "./../components/Label";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
 import { useAuth } from "./../context/UserAuthContext.jsx";
+import AuthLoading from "./../components/authentication/AuthLoading.jsx";
 
 const Login = () => {
-  const { accessToken, setAccessToken, loading, setUser } = useAuth();
+  const { accessToken, setAccessToken, authLoading, setUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && accessToken) {
+    if (!authLoading && accessToken) {
       navigate("/dashboard", { replace: true });
     }
-  }, [accessToken, loading]);
+  }, [accessToken, authLoading]);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -29,6 +32,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const response = await API_URL.post("/api/users/login", formData);
 
       if (response?.data?.success) {
@@ -40,11 +44,13 @@ const Login = () => {
     } catch (error) {
       toast.error(error?.response?.data?.message || error?.message);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) {
-    return <p>Checking session...</p>;
+  if (authLoading) {
+    return <AuthLoading loadingDesc={"Verifying session..."} />;
   }
 
   return (

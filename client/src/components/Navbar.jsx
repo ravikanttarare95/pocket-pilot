@@ -10,7 +10,7 @@ import { useAuth } from "./../context/UserAuthContext.jsx";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, setUser, accessToken, setAccessToken } = useAuth();
+  const { user, setUser, accessToken, setAccessToken, authLoading } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -45,7 +45,11 @@ function Navbar() {
           ${isOpen ? "flex" : "hidden"}
         `}
       >
-        {accessToken ? (
+        {authLoading ? (
+          <div className="flex items-center gap-3 text-slate-400 text-sm">
+            <span className="w-4 h-4 border-2 border-slate-400 border-t-transparent rounded-full animate-spin"></span>
+          </div>
+        ) : accessToken ? (
           <>
             <Link
               to="/"
