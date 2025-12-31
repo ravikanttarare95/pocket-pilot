@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Input from "./../components/authentication/Input.jsx";
 import Label from "./../components/authentication/Label.jsx";
 import Button from "./../components/Button";

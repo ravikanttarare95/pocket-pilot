@@ -1,5 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "./UserAuthContext";
 import { API_URL } from "./../configs/axiosConfigs.js";
@@ -10,12 +9,12 @@ function TransactionsProvider({ children }) {
   const { accessToken } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [transLoading, setTransLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchTransactions = async () => {
     try {
-      setLoading(true);
+      setTransLoading(true);
       const response = await API_URL.get(`/api/transactions`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -30,7 +29,7 @@ function TransactionsProvider({ children }) {
       setError(err.message);
       console.error("Error fetching transactions:", err);
     } finally {
-      setLoading(false);
+      setTransLoading(false);
     }
   };
 
@@ -115,7 +114,7 @@ function TransactionsProvider({ children }) {
     <TransactionsContext.Provider
       value={{
         transactions,
-        loading,
+        transLoading,
         error,
         fetchTransactions,
         currMonthTotalIncome,
