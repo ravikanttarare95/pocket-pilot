@@ -119,6 +119,7 @@ const userLogin = async (req, res) => {
       secure: true,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return res.status(200).json({
@@ -194,7 +195,12 @@ const refreshAccessToken = async (req, res) => {
 
 const userLogout = (req, res) => {
   try {
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
     return res
       .status(200)
       .json({ success: true, message: "Logged out successfully" });

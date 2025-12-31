@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate } from "react-router";
-import { useAuth } from "./../context/UserAuthContext.jsx";
-import AuthLoading from "./authentication/AuthLoading.jsx";
+import { useAuth } from "../../context/UserAuthContext.jsx";
+import AuthLoading from "../authentication/AuthLoading.jsx";
 
 function ProtectedRoute({ children }) {
   const { accessToken, authLoading } = useAuth();

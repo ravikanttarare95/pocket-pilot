@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Input from "./../components/Input";
-import Label from "./../components/Label";
+import Input from "./../components/authentication/Input.jsx"
+import Label from "./../components/authentication/Label.jsx";
 import Button from "./../components/Button";
 import { useNavigate, useParams } from "react-router";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";

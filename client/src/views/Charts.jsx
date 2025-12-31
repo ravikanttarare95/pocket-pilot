@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import GreetingBar from "./../components/GreetingBar";
+import GreetingBar from "./../components/dashboard/GreetingBar.jsx";
 import { TransactionsContext } from "./../context/TransactionsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
@@ -7,7 +7,7 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
 import { TRANS_CATEGORIES_SELECT } from "./../constants/transCategories.js";
-import PieChart from "./../components/PieChart.jsx";
+import PieChart from "./../components/dashboard/PieChart.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);

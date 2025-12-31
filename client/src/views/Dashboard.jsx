@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router";
-import Navbar from "./../components/Navbar.jsx";
-import Sidebar from "./../components/Sidebar.jsx";
-import Footer from "./../components/Footer.jsx";
+import Navbar from "./../components/containers/Navbar.jsx";
+import Sidebar from "./../components/containers/Sidebar.jsx";
+import Footer from "./../components/containers/Footer.jsx";
 import { useAuth } from "./../context/UserAuthContext.jsx";
 import AuthLoading from "./../components/authentication/AuthLoading.jsx";
 

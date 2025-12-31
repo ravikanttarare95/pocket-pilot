@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
-import Button from "./Button";
-import BrandLogo from "./BrandLogo.jsx";
+import Button from "../Button.jsx";
+import BrandLogo from "../BrandLogo.jsx";
 import toast from "react-hot-toast";
-import { API_URL } from "./../configs/axiosConfigs.js";
-import { useAuth } from "./../context/UserAuthContext.jsx";
+import { API_URL } from "../../configs/axiosConfigs.js";
+import { useAuth } from "../../context/UserAuthContext.jsx";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,10 +21,7 @@ function Navbar() {
       navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout failed:", error);
-      setUser(null);
-      setAccessToken(null);
-      toast.success("Logout Successfull");
-      navigate("/login", { replace: true });
+      toast.error("Something went wrong, Logout failed");
     }
   };
 

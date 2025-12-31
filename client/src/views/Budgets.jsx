@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import GreetingBar from "./../components/GreetingBar";
+import GreetingBar from "./../components/dashboard/GreetingBar.jsx";
 import { Wallet, AlertTriangle } from "lucide-react";
-import Label from "./../components/Label.jsx";
-import Input from "./../components/Input.jsx";
+import Label from "./../components/authentication/Label.jsx";
+import Input from "./../components/authentication/Input.jsx";
 import Button from "./../components/Button";
 import { BudgetsContext } from "./../context/BudgetsContext";
 import Loader from "./../components/Loader.jsx";
@@ -10,7 +10,7 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 import ProfitImg from "./../assets/profit.png";
-import ProgressBar from "./../components/ProgressBar.jsx";
+import ProgressBar from "./../components/dashboard/ProgressBar.jsx";
 
 function Budgets() {
   const { budgets, setBudgets, loading, error, saveBudgets } =

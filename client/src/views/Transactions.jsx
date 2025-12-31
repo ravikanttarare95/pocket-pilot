@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import GreetingBar from "./../components/GreetingBar";
-import TransactionCard from "./../components/TransactionCard";
+import GreetingBar from "./../components/dashboard/GreetingBar.jsx";
+import TransactionCard from "./../components/dashboard/TransactionCard.jsx";
 import Button from "./../components/Button";
 import { Plus, Wallet } from "lucide-react";
 import { useNavigate, Outlet } from "react-router";
 import { TransactionsContext } from "./../context/TransactionsContext";
 import Loader from "./../components/Loader.jsx";
 import ErrorState from "./../components/ErrorState.jsx";
-import NoTransactions from "./../components/NoTransactions.jsx";
+import NoTransactions from "./../components/dashboard/NoTransactions.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 
 function Transactions() {

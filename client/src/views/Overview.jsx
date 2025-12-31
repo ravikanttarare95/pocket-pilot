@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import DashboardTopBar from "./../components/GreetingBar";
-import TransactionCard from "./../components/TransactionCard";
+import { useState, useContext } from "react";
+import DashboardTopBar from "./../components/dashboard/GreetingBar.jsx";
+import TransactionCard from "./../components/dashboard/TransactionCard.jsx";
 import { Link, useNavigate } from "react-router";
 import { TransactionsContext } from "./../context/TransactionsContext.jsx";
 import { BudgetsContext } from "./../context/BudgetsContext.jsx";
@@ -10,12 +10,12 @@ import ErrorState from "./../components/ErrorState.jsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
-import NoTransactions from "./../components/NoTransactions.jsx";
-import FinanceCard from "./../components/FinanceCard.jsx";
+import NoTransactions from "./../components/dashboard/NoTransactions.jsx";
+import FinanceCard from "./../components/dashboard/FinanceCard.jsx";
 import HeadingTwo from "./../components/HeadingTwo.jsx";
 import HeadingThree from "./../components/HeadingThree.jsx";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
-import ProgressBar from "./../components/ProgressBar.jsx";
+import ProgressBar from "./../components/dashboard/ProgressBar.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

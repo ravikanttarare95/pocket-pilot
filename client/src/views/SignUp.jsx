@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Input from "./../components/Input";
+import Input from "./../components/authentication/Input.jsx";
 import Button from "./../components/Button";
 import BrandLogo from "./../components/BrandLogo";
 import { useNavigate, Link } from "react-router";
-import Label from "./../components/Label";
+import Label from "./../components/authentication/Label.jsx";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
 import { useAuth } from "./../context/UserAuthContext.jsx";

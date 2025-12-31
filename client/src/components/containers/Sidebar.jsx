@@ -5,7 +5,7 @@ import {
   HiMiniArrowLeftStartOnRectangle,
   HiMiniArrowRightStartOnRectangle,
 } from "react-icons/hi2";
-import { SIDEBAR_LINKS } from "./../configs/sidebarLinksData.js";
+import { SIDEBAR_LINKS } from "../../configs/sidebarLinksData.js";
 
 function Sidebar() {
   const [isClose, setIsClose] = useState(false);

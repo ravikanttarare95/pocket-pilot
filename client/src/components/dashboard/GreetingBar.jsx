@@ -1,4 +1,4 @@
-import { useAuth } from "./../context/UserAuthContext.jsx";
+import { useAuth } from "../../context/UserAuthContext.jsx";
 
 function GreetingBar({ greetingBarTitle }) {
   const { user } = useAuth();

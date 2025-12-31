@@ -1,11 +1,11 @@
 import React from "react";
-import BrandLogo from "./BrandLogo.jsx";
+import BrandLogo from "../BrandLogo.jsx";
 import { Link } from "react-router";
 import {
   SOCIAL_ICONS,
   QUICK_LINKS,
   CONTACT_INFO,
-} from "./../configs/footerConfigs.js";
+} from "../../configs/footerConfigs.js";
 
 function Footer() {
   return (

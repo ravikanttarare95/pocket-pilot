@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TRANS_CATEGORY_META } from "../constants/transCategories.js";
+import { TRANS_CATEGORY_META } from "../../constants/transCategories.js";
 import { EllipsisVertical, Trash, Pencil } from "lucide-react";
 
 function TransactionCard({
