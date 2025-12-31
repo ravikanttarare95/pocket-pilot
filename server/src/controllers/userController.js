@@ -92,7 +92,7 @@ const userLogin = async (req, res) => {
         message: "Email and Password required",
       });
     }
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }); ////////
     if (!existingUser) {
       return res.status(404).json({
         success: false,
@@ -116,7 +116,7 @@ const userLogin = async (req, res) => {
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: "/",
@@ -150,40 +150,44 @@ const refreshAccessToken = async (req, res) => {
         message: "Refresh token not provided",
       });
     }
+    let decodedRefreshToken;
+    try {
+      decodedRefreshToken = jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+    } catch (error) {
+      return res.status(403).json({
+        success: false,
+        message: "Invalid or expired refresh token",
+      });
+    }
 
-    jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-      async (err, decoded) => {
-        if (err) {
-          return res.status(403).json({
-            success: false,
-            message: "Invalid or expired refresh token",
-          });
-        }
+    const user = await User.findById(decodedRefreshToken.id).select(
+      "_id fullName email avtarUrl"
+    ); ///////
 
-        const user = await User.findById(decoded.id).select(
-          "_id fullName email avtarUrl"
-        );
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-        if (!user) {
-          return res.status(401).json({
-            success: false,
-            message: "User not found",
-          });
-        }
+    const newAccessToken = generateAccessToken(user);
+    const newRefreshToken = generateRefreshToken(user);
 
-        const newAccessToken = jwt.sign(
-          { id: decoded.id },
-          process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "15m" }
-        );
+    res.cookie("refreshToken", newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    });
 
-        return res
-          .status(200)
-          .json({ success: true, accessToken: newAccessToken, user });
-      }
-    );
+    return res
+      .status(200)
+      .json({ success: true, accessToken: newAccessToken, user });
   } catch (error) {
     console.error("Error refreshing access token:", error);
     return res.status(500).json({
