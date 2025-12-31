@@ -1,6 +1,6 @@
 import React from "react";
 
-function TransPagination() {
+function TransSkeleton() {
   return (
     <div className="relative flex justify-between items-center bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-4 pr-5 sm:pr-7 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="flex items-center justify-between gap-4 w-full">
@@ -37,4 +37,4 @@ function TransPagination() {
   );
 }
 
-export default TransPagination;
+export default TransSkeleton;
