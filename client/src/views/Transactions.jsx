@@ -61,7 +61,11 @@ function Transactions() {
           )}
           <div
             className={`sticky bottom-4 right-4 flex ${
-              transactions.length > 0 ? "justify-end" : "justify-center"
+              transLoading && !error
+                ? "justify-end"
+                : transactions.length > 0
+                ? "justify-end"
+                : "justify-center"
             } sm:bottom-6 sm:right-6`}
           >
             <Button

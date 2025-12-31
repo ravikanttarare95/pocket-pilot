@@ -9,14 +9,14 @@ const BudgetsContext = createContext();
 function BudgetsProvider({ children }) {
   const { accessToken } = useAuth();
   const [budgets, setBudgets] = useState();
-  const [loading, setLoading] = useState(true);
+  const [budgetLoading, setbudgetLoading] = useState(true);
   const [error, setError] = useState(null); ///////////
 
   const currentMonth = new Date().toISOString().slice(0, 7);
 
   const fetchBudgets = async () => {
     try {
-      setLoading(true);
+      setbudgetLoading(true);
       const response = await API_URL.get(`/api/budgets/${currentMonth}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -35,7 +35,7 @@ function BudgetsProvider({ children }) {
         setError(error.response?.data?.message || "Error fetching budgets");
       }
     } finally {
-      setLoading(false);
+      setbudgetLoading(false);
     }
   };
 
@@ -66,7 +66,7 @@ function BudgetsProvider({ children }) {
 
   return (
     <BudgetsContext.Provider
-      value={{ budgets, setBudgets, saveBudgets, loading, error }}
+      value={{ budgets, setBudgets, saveBudgets, budgetLoading, error }}
     >
       {children}
     </BudgetsContext.Provider>

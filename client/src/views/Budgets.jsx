@@ -13,7 +13,7 @@ import ProfitImg from "./../assets/profit.png";
 import ProgressBar from "./../components/dashboard/ProgressBar.jsx";
 
 function Budgets() {
-  const { budgets, setBudgets, loading, error, saveBudgets } =
+  const { budgets, setBudgets, budgetLoading, error, saveBudgets } =
     useContext(BudgetsContext);
 
   const { currMonthTotalIncome, currMonthTotalExpense, currentMonthYear } =
@@ -23,8 +23,20 @@ function Budgets() {
 
   const handleSave = () => saveBudgets(budgets);
 
-  if (loading) return <Loader message="Loading budgets..." />;
-  if (error) return <ErrorState error={error} />;
+  if (budgetLoading)
+    return (
+      <>
+        <GreetingBar greetingBarTitle="Monthly Budget" />
+        <Loader message="Loading budgets..." />
+      </>
+    );
+  if (error)
+    return (
+      <>
+        <GreetingBar greetingBarTitle="Monthly Budget" />
+        <ErrorState error={error} />
+      </>
+    );
 
   return (
     <div className="bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 min-h-screen">

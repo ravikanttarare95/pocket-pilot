@@ -25,7 +25,7 @@ function Overview() {
   const { budgets } = useContext(BudgetsContext);
   const {
     transactions,
-    loading,
+    transLoading,
     error,
     currMonthTotalIncome,
     currMonthTotalExpense,
@@ -91,7 +91,7 @@ function Overview() {
       </>
     );
 
-  if (loading && !error)
+  if (transLoading && !error)
     return (
       <>
         <DashboardTopBar greetingBarTitle="Overview" />
@@ -99,7 +99,7 @@ function Overview() {
       </>
     );
 
-  if (!loading && !error)
+  if (!transLoading && !error)
     return (
       <>
         <DashboardTopBar greetingBarTitle="Overview" />
