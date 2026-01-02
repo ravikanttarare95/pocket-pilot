@@ -11,6 +11,7 @@ import Navbar from "./../components/containers/Navbar.jsx";
 import { LogIn } from "lucide-react";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
+import ProfileInfoCompo from "../components/profile-components/ProfileInfoCompo.jsx";
 
 function Profile() {
   const navigate = useNavigate();
@@ -30,7 +31,6 @@ function Profile() {
     }
   };
 
-  const handleInputChange = () => {};
   return (
     <>
       <Navbar />
@@ -74,78 +74,7 @@ function Profile() {
         <div className="border-t border-gray-200 mb-8" />
 
         <div>
-          <HeadingTwo title="Personal Information" />
-
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-            <div>
-              <Label htmlFor="full-name" labelTitle="Full Name" />
-              <Input
-                type="text"
-                name="full-name"
-                id="full-name"
-                value={user?.fullName}
-                onInputChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="email-address" labelTitle="Email Address" />
-              <Input
-                type="text"
-                name="email-address"
-                id="email-address"
-                value={user?.email}
-                onInputChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="phone-number" labelTitle="Phone Number" />
-              <Input
-                type="text"
-                name="phone-number"
-                id="phone-number"
-                value={"d"}
-                onInputChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label htmlFor="gender" labelTitle="Gender" />
-              <Input
-                type="select"
-                name="gender"
-                id="gender"
-                value={"d"}
-                onInputChange={handleInputChange}
-              />
-              {/* <select>
-                <option value="male">Male</option>
-                <option value="male">Female</option>
-                <option value="male">Other</option>
-              </select> */}
-            </div>
-            <div>
-              <Label labelTitle="Date of Birth" />
-              <Input
-                type="date"
-                name="dob"
-                id="dob"
-                value={""}
-                onInputChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <Label labelTitle="Address" />
-              <Input
-                type="text"
-                name="address"
-                id="address"
-                value={"d"}
-                onInputChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <ProfileInfoCompo user={user} setUser={setUser} />
         </div>
 
         {/* Divider */}

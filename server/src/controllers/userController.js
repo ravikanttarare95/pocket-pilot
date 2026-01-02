@@ -164,7 +164,7 @@ const refreshAccessToken = async (req, res) => {
     }
 
     const user = await User.findById(decodedRefreshToken.id).select(
-      "_id fullName email avtarUrl"
+      "-password -googleId"
     ); ///////
 
     if (!user) {

@@ -18,7 +18,7 @@ function Button({
 
   const variantClasses =
     btnVariant === "primary"
-      ? "bg-gradient-to-b from-cyan-400 to-cyan-600 text-white [text-shadow:_0_1px_4px_rgba(0,0,0,0.4)]"
+      ? "border border-!transparent bg-gradient-to-b from-cyan-400 to-cyan-600 text-white [text-shadow:_0_1px_4px_rgba(0,0,0,0.4)]"
       : btnVariant === "secondary"
       ? "border border-slate-300 text-slate-600 shadow-xs hover:shadow-sm"
       : "bg-slate-200 text-slate-900 hover:bg-slate-300";
