@@ -25,6 +25,25 @@ const userSchema = new Schema(
     avtarUrl: {
       type: String,
     },
+    phoneNumber: {
+      type: String,
+      trim: true,
+    },
+
+    dateOfBirth: {
+      type: Date,
+    },
+
+    gender: {
+      type: String,
+      enum: ["male", "female", "other", "prefer_not_to_say"],
+      default: "prefer_not_to_say",
+    },
+
+    address: {
+      type: String,
+      trim: true,
+    },
     isVerified: { type: Boolean, default: false },
     provider: { type: String, enum: ["local", "google"], default: "local" },
   },

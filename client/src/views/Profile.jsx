@@ -57,7 +57,10 @@ function Profile() {
               </div>
             </div>
 
-            <button className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition">
+            <button
+              className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition cursor-pointer"
+              onClick={() => {}}
+            >
               <Camera size={26} className="text-white" />
             </button>
           </div>
