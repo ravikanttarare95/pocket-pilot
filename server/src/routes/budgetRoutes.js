@@ -4,7 +4,7 @@ import jwtCheck from "./../middlewares/jwtCheck.js";
 
 const router = express.Router();
 
-router.get("/:month", jwtCheck, getBudget);
+router.get("/:monthYear", jwtCheck, getBudget);
 router.post("/", jwtCheck, saveBudget);
 
 export default router;

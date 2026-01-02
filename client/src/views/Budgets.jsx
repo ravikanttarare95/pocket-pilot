@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import GreetingBar from "./../components/dashboard/GreetingBar.jsx";
 import { Wallet, AlertTriangle } from "lucide-react";
 import Label from "./../components/authentication/Label.jsx";

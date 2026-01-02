@@ -2,11 +2,15 @@ import Budget from "./../models/Budget.js";
 
 const getBudget = async (req, res) => {
   const { user } = req;
-  const { month } = req.params;
+  const { monthYear } = req.params;
   try {
-    const budget = await Budget.findOne({ userId: user.id, month });
+    const budget = await Budget.findOne({ userId: user.id, monthYear });
     if (budget) {
-      return res.status(200).json(budget);
+      return res.status(200).json({
+        success: true,
+        message: "Budget fetched successfully",
+        data: budget,
+      });
     } else {
       return res.json({ message: "Budget not found" });
     }
@@ -17,13 +21,13 @@ const getBudget = async (req, res) => {
 
 const saveBudget = async (req, res) => {
   const { user } = req;
-  const { month, budgets } = req.body;
+  const { monthYear, budgets } = req.body;
 
   try {
     let newBudget = await Budget.findOneAndUpdate(
-      { userId: user.id, month },
+      { userId: user.id, monthYear },
       { budgets },
-      { new: true, upsert: true }
+      { new: true, upsert: true } ////
     );
     if (newBudget) {
       res.json({

@@ -120,6 +120,7 @@ function TransactionsProvider({ children }) {
         currMonthTotalIncome,
         currMonthTotalExpense,
         deleteTransaction,
+        currentDate,
         currentMonthYear,
         handlePreviousMonth,
         handleNextMonth,

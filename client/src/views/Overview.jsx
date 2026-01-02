@@ -105,21 +105,21 @@ function Overview() {
         <DashboardTopBar greetingBarTitle="Overview" />
         <main className="bg-slate-50 px-2 sm:px-6 lg:px-10 py-6 min-h-screen">
           <div className="gap-6 grid grid-cols-1 lg:grid-cols-3 mb-10">
-            <article className="flex flex-col gap-0 sm:gap-1 bg-gradient-to-r from-emerald-50 to-white shadow-md p-2 px-6 py-5 border border-slate-200 rounded-2xl w-full">
+            <article className="flex flex-col gap-0 sm:gap-1 bg-gradient-to-r from-emerald-50 to-white shadow-md p-2 px-6 py-5 border border-slate-200 rounded-2xl w-full hover:scale-102 transition-all duration-300">
               <HeadingThree title={"Current Balance"} />
               <p className="font-extrabold text-slate-800 text-2xl sm:text-4xl">
                 ₹{currentBalance.toLocaleString("en-IN")}
               </p>
             </article>
 
-            <div className="flex flex-col justify-center items-center bg-gradient-to-br from-rose-50 via-white to-emerald-50 shadow-md p-4 border border-slate-200 rounded-2xl h-full min-h-[200px] overflow-hidden via">
+            <div className="flex flex-col justify-center items-center bg-gradient-to-br from-rose-50 via-white to-emerald-50 shadow-md p-4 border border-slate-200 rounded-2xl h-full min-h-[200px] overflow-hidden hover:scale-102 transition-all duration-300">
               <div className="w-32 sm:w-40 h-32 sm:h-40">
                 <Doughnut data={chartData} options={chartOptions} />
               </div>
               <p className="mt-2 text-slate-500 text-xs">{currentMonthYear}</p>
             </div>
 
-            <article className="flex flex-col justify-between gap-3 bg-gradient-to-br from-rose-50/60 to-white shadow-lg hover:shadow-xl p-6 sm:p-7 md:p-8 border border-rose-100 rounded-2xl w-full hover:scale-[1.01] transition-all duration-300 just-between ju jusbg-white">
+            <article className="flex flex-col justify-between gap-3 bg-gradient-to-r from-emerald-50 to-white shadow-md p-2 px-6 py-5 border border-slate-200 rounded-2xl w-full hover:scale-102 transition-all duration-300">
               <div className="flex flex-col gap-0 sm:gap-1">
                 <HeadingThree
                   title={`${

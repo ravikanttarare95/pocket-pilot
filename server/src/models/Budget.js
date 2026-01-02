@@ -7,7 +7,7 @@ const BudgetSchema = new Schema(
       ref: "User",
       required: true,
     },
-    month: {
+    monthYear: {
       type: String,
       required: true,
     },

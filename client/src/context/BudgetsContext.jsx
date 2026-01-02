@@ -1,29 +1,33 @@
-import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useState, useEffect, useContext } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "./UserAuthContext";
 import { API_URL } from "./../configs/axiosConfigs.js";
+import { TransactionsContext } from "./TransactionsContext.jsx";
 
 const BudgetsContext = createContext();
 
 function BudgetsProvider({ children }) {
   const { accessToken } = useAuth();
-  const [budgets, setBudgets] = useState();
+  const [budgets, setBudgets] = useState(0);
   const [budgetLoading, setbudgetLoading] = useState(true);
   const [error, setError] = useState(null); ///////////
+  const { currentDate } = useContext(TransactionsContext);
 
-  const currentMonth = new Date().toISOString().slice(0, 7);
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+
+  const currentMonthYear = `${year}-${month}`;
 
   const fetchBudgets = async () => {
     try {
       setbudgetLoading(true);
-      const response = await API_URL.get(`/api/budgets/${currentMonth}`, {
+      const response = await API_URL.get(`/api/budgets/${currentMonthYear}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      if (response) {
-        setBudgets(response?.data?.budgets);
+      if (response?.data?.data?.budgets) {
+        setBudgets(response.data.data.budgets);
       } else {
         setBudgets(0);
       }
@@ -43,7 +47,7 @@ function BudgetsProvider({ children }) {
     try {
       const response = await API_URL.post(
         `/api/budgets`,
-        { month: currentMonth, budgets: newBudgets },
+        { monthYear: currentMonthYear, budgets: newBudgets },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -52,7 +56,6 @@ function BudgetsProvider({ children }) {
       );
 
       if (response) {
-        setBudgets(response?.data?.data?.budgets);
         toast.success(response?.data?.message);
       }
     } catch (error) {
@@ -61,8 +64,9 @@ function BudgetsProvider({ children }) {
   };
 
   useEffect(() => {
+    if (!accessToken) return;
     fetchBudgets();
-  }, []);
+  }, [currentDate, accessToken]);
 
   return (
     <BudgetsContext.Provider

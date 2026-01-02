@@ -7,7 +7,7 @@ import Dashboard from "./views/Dashboard.jsx";
 import NotFound from "./views/NotFound.jsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Toaster } from "react-hot-toast";
-import ProtectedRoute from "./components/containers/ProtectedRoute.jsx"
+import ProtectedRoute from "./components/containers/ProtectedRoute.jsx";
 import Overview from "./views/Overview.jsx";
 import Transactions from "./views/Transactions.jsx";
 import Charts from "./views/Charts.jsx";
@@ -35,11 +35,11 @@ root.render(
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <BudgetsProvider>
-                <TransactionsProvider>
+              <TransactionsProvider>
+                <BudgetsProvider>
                   <Dashboard />
-                </TransactionsProvider>
-              </BudgetsProvider>
+                </BudgetsProvider>
+              </TransactionsProvider>
             </ProtectedRoute>
           }
         >
