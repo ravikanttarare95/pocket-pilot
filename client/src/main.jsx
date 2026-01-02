@@ -18,6 +18,7 @@ import { TransactionsProvider } from "./context/TransactionsContext.jsx";
 import { BudgetsProvider } from "./context/BudgetsContext.jsx";
 import AuthSuccess from "./views/AuthSuccess.jsx";
 import { AuthProvider } from "./context/UserAuthContext.jsx";
+import Profile from "./views/Profile.jsx";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -28,6 +29,15 @@ root.render(
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth-success" element={<AuthSuccess />} />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Nested Routes */}
 

@@ -3,27 +3,13 @@ import { Link, useNavigate } from "react-router";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Button from "../Button.jsx";
 import BrandLogo from "../BrandLogo.jsx";
-import toast from "react-hot-toast";
-import { API_URL } from "../../configs/axiosConfigs.js";
+
 import { useAuth } from "../../context/UserAuthContext.jsx";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, setUser, accessToken, setAccessToken, authLoading } = useAuth();
-
-  const handleLogout = async () => {
-    try {
-      await API_URL.post("/api/users/logout");
-      setUser(null);
-      setAccessToken(null);
-      toast.success("Logout Successfull");
-      navigate("/login", { replace: true });
-    } catch (error) {
-      console.error("Logout failed:", error);
-      toast.error("Something went wrong, Logout failed");
-    }
-  };
+  const { user, accessToken, authLoading } = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 bg-slate-900 text-white shadow-md px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-around gap-4 w-full">
@@ -61,30 +47,25 @@ function Navbar() {
               Dashboard
             </Link>
             <div className="flex items-center gap-3 sm:gap-4">
-              {user?.avtarUrl ? (
-                <img
-                  src={user?.avtarUrl}
-                  alt="Profile"
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white shadow-md object-cover hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-cyan-600 flex items-center justify-center border border-white shadow-md hover:scale-105 transition-transform duration-300">
-                  <p className="text-xl font-bold text-white">
-                    {user?.fullName?.charAt(0)?.toUpperCase()}
-                  </p>
-                </div>
-              )}
+              <Link to="/profile" className="flex items-center gap-2 sm:gap-2">
+                {user?.avtarUrl ? (
+                  <img
+                    src={user?.avtarUrl}
+                    alt="Profile"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white shadow-md object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-cyan-600 flex items-center justify-center border border-white shadow-md hover:scale-105 transition-transform duration-300">
+                    <p className="text-xl font-bold text-white">
+                      {user?.fullName?.charAt(0)?.toUpperCase()}
+                    </p>
+                  </div>
+                )}
 
-              <span className="hidden sm:block font-semibold text-white">
-                {user?.fullName?.split(" ")[0]}
-              </span>
-              <button
-                className="flex items-center gap-2 text-md font-extrabold hover:text-cyan-300 transition-all duration-300 cursor-pointer"
-                onClick={handleLogout}
-              >
-                <LogIn className="w-5 h-5" />
-                <span>Logout</span>
-              </button>
+                <span className="hidden sm:block font-semibold text-white">
+                  {user?.fullName?.split(" ")[0]}
+                </span>
+              </Link>
             </div>
           </>
         ) : (
