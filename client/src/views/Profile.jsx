@@ -15,7 +15,7 @@ import ProfileInfoCompo from "../components/profile-components/ProfileInfoCompo.
 
 function Profile() {
   const navigate = useNavigate();
-  const { user, setUser, accessToken, setAccessToken, authLoading } = useAuth();
+  const { user, setUser, accessToken, setAccessToken } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
 
   const handleLogout = async () => {
@@ -73,9 +73,11 @@ function Profile() {
 
         <div className="border-t border-gray-200 mb-8" />
 
-        <div>
-          <ProfileInfoCompo user={user} setUser={setUser} />
-        </div>
+        <ProfileInfoCompo
+          user={user}
+          setUser={setUser}
+          accessToken={accessToken}
+        />
 
         {/* Divider */}
         <div className="border-t border-gray-200 my-10" />

@@ -5,10 +5,63 @@ import Button from "./../Button.jsx";
 import ProfileInfoPara from "./ProfileInfoPara.jsx";
 import HeadingTwo from "./../HeadingTwo.jsx";
 import { UserRoundPen, Save } from "lucide-react";
+import { API_URL } from "./../../configs/axiosConfigs.js";
+import toast from "react-hot-toast";
 
-function ProfileInfoCompo({ user, setUser }) {
+function ProfileInfoCompo({ user, accessToken }) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
-  const handleInputChange = () => {};
+
+  const [profileData, setProfileData] = useState({
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    gender: user?.gender || "",
+    dateOfBirth: new Date(user?.dateOfBirth).toISOString().split("T")[0] || "",
+    address: user?.address || "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setProfileData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const updateProfileInfo = async () => {
+    try {
+      const response = await API_URL.put(
+        "/api/users",
+        {
+          fullName: profileData?.fullName,
+          email: profileData?.email,
+          phoneNumber: profileData?.phoneNumber,
+          gender: profileData?.gender,
+          dateOfBirth: profileData?.dateOfBirth,
+          address: profileData?.address,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response?.data) {
+        return toast.success(
+          response?.data?.message || "Profile updated successfully"
+        );
+      }
+    } catch (error) {
+      console.error("Update profile failed:", error);
+
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Failed to update profile";
+
+      return toast.error(errorMessage);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-between">
@@ -26,7 +79,7 @@ function ProfileInfoCompo({ user, setUser }) {
             size="sm"
             btnVariant="primary"
             onBtnClick={() => {
-              setIsProfileEditing(false);
+              updateProfileInfo();
             }}
           />
         ) : (
@@ -52,9 +105,9 @@ function ProfileInfoCompo({ user, setUser }) {
             <Label htmlFor="full-name" labelTitle="Full Name" />
             <Input
               type="text"
-              name="full-name"
+              name="fullName"
               id="full-name"
-              value={user?.fullName}
+              value={profileData?.fullName}
               onInputChange={handleInputChange}
             />
           </div>
@@ -62,9 +115,9 @@ function ProfileInfoCompo({ user, setUser }) {
             <Label htmlFor="email-address" labelTitle="Email Address" />
             <Input
               type="text"
-              name="email-address"
+              name="email"
               id="email-address"
-              value={user?.email}
+              value={profileData?.email}
               onInputChange={handleInputChange}
             />
           </div>
@@ -72,34 +125,36 @@ function ProfileInfoCompo({ user, setUser }) {
             <Label htmlFor="phone-number" labelTitle="Phone Number" />
             <Input
               type="text"
-              name="phone-number"
+              name="phoneNumber"
               id="phone-number"
-              value={user?.phoneNumber}
+              value={profileData?.phoneNumber}
               onInputChange={handleInputChange}
             />
           </div>
           <div>
             <Label htmlFor="gender" labelTitle="Gender" />
-            <Input
-              type="select"
+            <select
               name="gender"
-              id="gender"
-              value={user?.gender}
-              onInputChange={handleInputChange}
-            />
-            {/* <select>
-                <option value="male">Male</option>
-                <option value="male">Female</option>
-                <option value="male">Other</option>
-              </select> */}
+              value={profileData.gender}
+              onChange={handleInputChange}
+              className=" w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
+            >
+              <option value="" disabled>
+                Select gender
+              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer_not_to_say">Prefer not to say</option>
+            </select>
           </div>
           <div>
             <Label labelTitle="Date of Birth" />
             <Input
               type="date"
-              name="dob"
+              name="dateOfBirth"
               id="dob"
-              value={new Date(user?.dateOfBirth).toISOString().split("T")[0]}
+              value={profileData?.dateOfBirth}
               onInputChange={handleInputChange}
             />
           </div>
@@ -109,7 +164,7 @@ function ProfileInfoCompo({ user, setUser }) {
               type="text"
               name="address"
               id="address"
-              value={user?.address}
+              value={profileData?.address}
               onInputChange={handleInputChange}
             />
           </div>
