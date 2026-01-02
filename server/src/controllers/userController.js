@@ -216,4 +216,32 @@ const userLogout = (req, res) => {
   }
 };
 
-export { userRegister, userLogin, refreshAccessToken, userLogout };
+const updateProfile = async (req, res) => {
+  try {
+    const userID = req.user.id;
+    const { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address } =
+      req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      { _id: userID },
+      { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address },
+      { new: true, runValidators: true }
+    ).select("-password -googleId");
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Profile update failed" });
+  }
+};
+
+export {
+  userRegister,
+  userLogin,
+  refreshAccessToken,
+  userLogout,
+  updateProfile,
+};

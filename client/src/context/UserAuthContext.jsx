@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
       try {
         const response = await API_URL.post("/api/users/refresh");
         setAccessToken(response?.data?.accessToken);
+        console.log(response?.data?.accessToken);
         setUser(response?.data?.user);
       } catch {
         setAccessToken(null);

@@ -8,7 +8,7 @@ const jwtCheck = (req, res, next) => {
   if (!authorization) {
     return res.status(401).json({
       success: false,
-      message: "Authentication token missing",
+      message: "Authorization token missing",
     });
   }
   try {
@@ -20,7 +20,7 @@ const jwtCheck = (req, res, next) => {
   } catch (error) {
     return res.status(401).json({
       success: false,
-      message: "Invalid token. Authentication failed.",
+      message: "Invalid token. You are not Authorized.",
     });
   }
 };
