@@ -14,7 +14,8 @@ import ChangePasswordCompo from "./../components/profile-components/ChangePasswo
 function Profile() {
   const navigate = useNavigate();
   const { user, setUser, accessToken, setAccessToken } = useAuth();
-  const [showChangePassword, setShowChangePassword] = useState(false);console.log(accessToken);
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  console.log(accessToken);
 
   const handleLogout = async () => {
     try {
@@ -106,6 +107,7 @@ function Profile() {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs px-4">
             <ChangePasswordCompo
               setShowChangePassword={setShowChangePassword}
+              accessToken={accessToken}
             />
           </div>
         )}
