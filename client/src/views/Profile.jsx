@@ -30,6 +30,8 @@ function Profile() {
     }
   };
 
+  const updateProfilePhoto = () => {};
+
   return (
     <>
       <Navbar />
@@ -41,26 +43,31 @@ function Profile() {
           </p>
         </div>
       </div>
-
       {/* ============ */}
+
       <div className="max-w-3xl mx-auto md:my-6 p-6 sm:p-8 bg-white border border-gray-200 md:rounded-2xl shadow-sm">
         <div className="flex max-[400px]:flex-col items-center gap-6 mb-10">
-          <div className="relative group">
-            <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-indigo-400 to-cyan-500 p-[3px]">
-              <div className="w-full h-full rounded-full bg-white overflow-hidden">
-                <img
-                  src={user?.avatarUrl}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
+          <div className="relative group w-32 h-32 flex items-center justify-center">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-pink-400 via-violet-400 to-cyan-100 p-[4px]">
+              <div className="w-full h-full rounded-full bg-white p-[4px]">
+                <div className="w-full h-full rounded-full overflow-hidden">
+                  <img
+                    src={user?.avatarUrl}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
 
             <button
-              className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition cursor-pointer"
-              onClick={() => {}}
+              onClick={updateProfilePhoto}
+              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-cyan-400 flex items-center justify-center shadow-sm group transition"
             >
-              <Camera size={26} className="text-white" />
+              <Camera
+                size={20}
+                className="text-white group-hover:scale-110 duration-300"
+              />
             </button>
           </div>
 
