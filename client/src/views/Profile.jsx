@@ -1,4 +1,7 @@
 import { useState } from "react";
+import ProfileImg from "./../assets/profile.png";
+import UserMaleImg from "./../assets/profile-male.png";
+import UserFemaleImg from "./../assets/profile-female.png";
 import Button from "./../components/Button.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 import { useAuth } from "./../context/UserAuthContext.jsx";
@@ -48,11 +51,17 @@ function Profile() {
       <div className="max-w-3xl mx-auto md:my-6 p-6 sm:p-8 bg-white border border-gray-200 md:rounded-2xl shadow-sm">
         <div className="flex max-[400px]:flex-col items-center gap-6 mb-10">
           <div className="relative group w-32 h-32 flex items-center justify-center">
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-pink-400 via-violet-400 to-cyan-100 p-[4px]">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-pink-400 via-violet-400 to-cyan-200 p-[4px]">
               <div className="w-full h-full rounded-full bg-white p-[4px]">
                 <div className="w-full h-full rounded-full overflow-hidden">
                   <img
-                    src={user?.avatarUrl}
+                    src={
+                      user?.avatarUrl || user?.gender === "male"
+                        ? UserMaleImg
+                        : user?.gender === "female"
+                        ? UserFemaleImg
+                        : ProfileImg
+                    }
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
@@ -62,7 +71,7 @@ function Profile() {
 
             <button
               onClick={updateProfilePhoto}
-              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-cyan-400 flex items-center justify-center shadow-sm group transition"
+              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-sm group transition"
             >
               <Camera
                 size={20}
