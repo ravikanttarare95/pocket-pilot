@@ -81,7 +81,11 @@ const Signup = () => {
           className="space-y-5"
         >
           <div>
-            <Label htmlFor="fullName" labelTitle="Full Name" />
+            <Label
+              htmlFor="fullName"
+              labelTitle="Full Name"
+              isMandatory={true}
+            />
             <Input
               type="text"
               id="fullName"
@@ -92,7 +96,11 @@ const Signup = () => {
           </div>
 
           <div>
-            <Label htmlFor="email" labelTitle="Email Address" />
+            <Label
+              htmlFor="email"
+              labelTitle="Email Address"
+              isMandatory={true}
+            />
             <Input
               type="email"
               id="email"
@@ -103,7 +111,11 @@ const Signup = () => {
           </div>
 
           <div>
-            <Label htmlFor="password" labelTitle="Password" />
+            <Label
+              htmlFor="password"
+              labelTitle="Password"
+              isMandatory={true}
+            />
             <Input
               type="password"
               id="password"
@@ -114,7 +126,11 @@ const Signup = () => {
           </div>
 
           <div>
-            <Label htmlFor="confirmPassword" labelTitle="Confirm Password" />
+            <Label
+              htmlFor="confirmPassword"
+              labelTitle="Confirm Password"
+              isMandatory={true}
+            />
             <Input
               type="password"
               id="confirmPassword"

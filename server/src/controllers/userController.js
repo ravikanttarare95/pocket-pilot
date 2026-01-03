@@ -222,6 +222,23 @@ const updateProfile = async (req, res) => {
     const { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address } =
       req.body;
 
+    if (!fullName) {
+      return res.status(400).json({
+        success: false,
+        message: "Full Name is Mandaory",
+      });
+    }
+
+    const fullNameRegex = /^[A-Z][a-zA-Z'-]{1,49}(?: [A-Z][a-zA-Z'-]{1,49})*$/;
+
+    if (!fullNameRegex.test(fullName)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Please enter your full name using only letters, spaces, apostrophes, or hyphens, with each name starting with a capital letter and between 2 and 50 characters long",
+      });
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       { _id: userID },
       { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address },

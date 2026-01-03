@@ -79,7 +79,11 @@ const Login = () => {
           }}
         >
           <div>
-            <Label htmlFor="email" labelTitle={"Email Address"} />
+            <Label
+              htmlFor="email"
+              labelTitle={"Email Address"}
+              isMandatory={true}
+            />
             <Input
               type="email"
               id="email"
@@ -90,7 +94,11 @@ const Login = () => {
           </div>
 
           <div>
-            <Label htmlFor="password" labelTitle={"Password"} />
+            <Label
+              htmlFor="password"
+              labelTitle={"Password"}
+              isMandatory={true}
+            />
             <Input
               type="password"
               id={"password"}

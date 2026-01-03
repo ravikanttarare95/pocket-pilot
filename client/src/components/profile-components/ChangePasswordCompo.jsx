@@ -90,18 +90,27 @@ function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
       </div>
 
       <div>
-        <Label htmlFor="old-password" labelTitle="Old Password" />
+        <Label
+          htmlFor="old-password"
+          labelTitle="Old Password"
+          isMandatory={true}
+        />
         <Input
           name="oldPassword"
           type="password"
           id="old-password"
+          isRequired={true}
           value={passwordData?.oldPassword}
           onInputChange={handleInputChange}
         />
       </div>
 
       <div>
-        <Label htmlFor="new-password" labelTitle="New Password" />
+        <Label
+          htmlFor="new-password"
+          labelTitle="New Password"
+          isMandatory={true}
+        />
         <Input
           name="newPassword"
           type="password"
@@ -115,6 +124,7 @@ function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
         <Label
           htmlFor="confirm-new-password"
           labelTitle="Confirm New Password"
+          isMandatory={true}
         />
         <Input
           name="confirmNewPassword"

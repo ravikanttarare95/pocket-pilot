@@ -107,7 +107,11 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
       {isProfileEditing ? (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
-            <Label htmlFor="full-name" labelTitle="Full Name" />
+            <Label
+              htmlFor="full-name"
+              labelTitle="Full Name"
+              isMandatory={true}
+            />
             <Input
               type="text"
               name="fullName"
@@ -118,7 +122,7 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
           </div>
 
           <div>
-            <Label labelTitle="Email Address" />
+            <Label labelTitle="Email Address" isMandatory={true} />
             <ProfileInfoPara info={user?.email ? user?.email : "--"} />
           </div>
 
