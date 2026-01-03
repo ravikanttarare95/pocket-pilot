@@ -238,10 +238,76 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const updatePassword = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Old password and new password are required",
+      });
+    }
+
+    const existingUser = await User.findById(userId).select("+password");
+
+    if (!existingUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    if (existingUser.provider === "google") {
+      return res.status(400).json({
+        success: false,
+        message: "Password change is not available for Google accounts",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, existingUser.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Old password is incorrect" });
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Please enter a password between 8-20 characters that includes at least one uppercase letter, one lowercase letter, one number, and one special character (@, $, !, %, *, ?, &)",
+      });
+    }
+
+    const isSame = await bcrypt.compare(newPassword, existingUser.password);
+
+    if (isSame) {
+      return res.status(400).json({
+        success: false,
+        message: "New password must be different from old password",
+      });
+    }
+
+    existingUser.password = await bcrypt.hash(newPassword, 10);
+
+    await existingUser.save();
+
+    res.json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export {
   userRegister,
   userLogin,
   refreshAccessToken,
   userLogout,
   updateProfile,
+  updatePassword,
 };

@@ -5,6 +5,7 @@ import {
   refreshAccessToken,
   userLogout,
   updateProfile,
+  updatePassword,
 } from "./../controllers/userController.js";
 
 import jwtCheck from "./../middlewares/jwtCheck.js";
@@ -17,5 +18,6 @@ router.post("/register", userRegister);
 router.post("/login", userLogin);
 router.post("/refresh", refreshAccessToken);
 router.post("/logout", userLogout);
+router.put("/change-password", jwtCheck, updatePassword);
 
 export default router;
