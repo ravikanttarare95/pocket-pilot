@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import imagekitRouter from "./routes/imagekitRoutes.js";
 
 import passport from "./configs/passport.js";
 
@@ -39,6 +40,8 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/budgets", budgetRoutes);
 
 app.use("/auth", authRoutes);
+
+app.use("/api/imagekit", imagekitRouter);
 
 const PORT = process.env.PORT || 8080;
 
