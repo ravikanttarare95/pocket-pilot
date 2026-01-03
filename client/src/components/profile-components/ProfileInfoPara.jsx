@@ -1,7 +1,9 @@
 import React from "react";
 
-function ProfileInfoPara({ info }) {
-  return <p className="py-2 border border-transparent ">{info}</p>;
+function ProfileInfoPara({ info, customStyle }) {
+  return (
+    <p className={`py-2 border border-transparent ${customStyle}`}>{info}</p>
+  );
 }
 
 export default ProfileInfoPara;

@@ -8,7 +8,7 @@ import { UserRoundPen, Save } from "lucide-react";
 import { API_URL } from "./../../configs/axiosConfigs.js";
 import toast from "react-hot-toast";
 
-function ProfileInfoCompo({ user, accessToken }) {
+function ProfileInfoCompo({ user, setUser, accessToken }) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   const [profileData, setProfileData] = useState({
@@ -16,7 +16,9 @@ function ProfileInfoCompo({ user, accessToken }) {
     email: user?.email || "",
     phoneNumber: user?.phoneNumber || "",
     gender: user?.gender || "",
-    dateOfBirth: new Date(user?.dateOfBirth).toISOString().split("T")[0] || "",
+    dateOfBirth: user?.dateOfBirth
+      ? new Date(user?.dateOfBirth).toISOString().split("T")[0]
+      : "",
     address: user?.address || "",
   });
 
@@ -45,7 +47,10 @@ function ProfileInfoCompo({ user, accessToken }) {
         }
       );
 
-      if (response?.data) {
+      if (response?.data?.success) {
+        console.log(response?.data);
+        setUser(response?.data?.user);
+        setIsProfileEditing(false);
         return toast.success(
           response?.data?.message || "Profile updated successfully"
         );
@@ -73,7 +78,7 @@ function ProfileInfoCompo({ user, accessToken }) {
             btnTitle={
               <>
                 <Save size={18} />
-                Save
+                <span className="max-[400px]:hidden block">Save</span>
               </>
             }
             size="sm"
@@ -88,7 +93,7 @@ function ProfileInfoCompo({ user, accessToken }) {
             btnTitle={
               <>
                 <UserRoundPen size={18} />
-                Edit
+                <span className="max-[400px]:hidden block">Edit</span>
               </>
             }
             size="sm"
@@ -135,6 +140,7 @@ function ProfileInfoCompo({ user, accessToken }) {
             <Label htmlFor="gender" labelTitle="Gender" />
             <select
               name="gender"
+              id="gender"
               value={profileData.gender}
               onChange={handleInputChange}
               className=" w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-2 outline-cyan-400"
@@ -149,7 +155,7 @@ function ProfileInfoCompo({ user, accessToken }) {
             </select>
           </div>
           <div>
-            <Label labelTitle="Date of Birth" />
+            <Label htmlFor="dob" labelTitle="Date of Birth" />
             <Input
               type="date"
               name="dateOfBirth"
@@ -159,7 +165,7 @@ function ProfileInfoCompo({ user, accessToken }) {
             />
           </div>
           <div>
-            <Label labelTitle="Address" />
+            <Label htmlFor="address" labelTitle="Address" />
             <Input
               type="text"
               name="address"
@@ -172,30 +178,39 @@ function ProfileInfoCompo({ user, accessToken }) {
       ) : (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
-            <Label htmlFor="full-name" labelTitle="Full Name" />
-            <ProfileInfoPara info={user?.fullName} />
+            <Label labelTitle="Full Name" />
+            <ProfileInfoPara info={user?.fullName ? user?.fullName : "--"} />
           </div>
           <div>
-            <Label htmlFor="email-address" labelTitle="Email Address" />
-            <ProfileInfoPara info={user?.email} />
+            <Label labelTitle="Email Address" />
+            <ProfileInfoPara info={user?.email ? user?.email : "--"} />
           </div>
           <div>
-            <Label htmlFor="phone-number" labelTitle="Phone Number" />
-            <ProfileInfoPara info={user?.phoneNumber} />
+            <Label labelTitle="Phone Number" />
+            <ProfileInfoPara
+              info={user?.phoneNumber ? user?.phoneNumber : "--"}
+            />
           </div>
           <div>
-            <Label htmlFor="gender" labelTitle="Gender" />
-            <ProfileInfoPara info={user?.gender} />
+            <Label labelTitle="Gender" />
+            <ProfileInfoPara
+              info={user?.gender ? user?.gender : "--"}
+              customStyle="capitalize"
+            />
           </div>
           <div>
             <Label labelTitle="Date of Birth" />
             <ProfileInfoPara
-              info={new Date(user?.dateOfBirth).toISOString().split("T")[0]}
+              info={
+                user?.dateOfBirth
+                  ? new Date(user?.dateOfBirth).toISOString().split("T")[0]
+                  : "--"
+              }
             />
           </div>
           <div>
             <Label labelTitle="Address" />
-            <ProfileInfoPara info={user?.address} />
+            <ProfileInfoPara info={user?.address ? user?.address : "--"} />
           </div>
         </div>
       )}

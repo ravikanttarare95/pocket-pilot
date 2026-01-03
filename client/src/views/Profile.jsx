@@ -45,7 +45,7 @@ function Profile() {
 
       {/* ============ */}
       <div className="max-w-3xl mx-auto md:my-6 p-6 sm:p-8 bg-white border border-gray-200 md:rounded-2xl shadow-sm">
-        <div className="flex items-center gap-4 sm:gap-6 mb-10">
+        <div className="flex max-[400px]:flex-col items-center gap-6 mb-10">
           <div className="relative group">
             <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-indigo-400 to-cyan-500 p-[3px]">
               <div className="w-full h-full rounded-full bg-white overflow-hidden">
