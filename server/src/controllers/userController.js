@@ -267,7 +267,9 @@ const updatePassword = async (req, res) => {
 
     const isMatch = await bcrypt.compare(oldPassword, existingUser.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Old password is incorrect" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Old password is incorrect" });
     }
 
     const passwordRegex =
