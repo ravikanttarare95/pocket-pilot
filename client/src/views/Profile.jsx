@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ProfileImg from "./../assets/profile.png";
 import UserMaleImg from "./../assets/profile-male.png";
 import UserFemaleImg from "./../assets/profile-female.png";
@@ -13,12 +13,14 @@ import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
 import ProfileInfoCompo from "./../components/profile-components/ProfileInfoCompo.jsx";
 import ChangePasswordCompo from "./../components/profile-components/ChangePasswordCompo.jsx";
+import { IKContext, IKUpload } from "imagekitio-react";
 
 function Profile() {
+  const uploadImageRef = useRef(null);
   const navigate = useNavigate();
   const { user, setUser, accessToken, setAccessToken } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
-  console.log(accessToken);
+  // const [userPhotoUrl, setUserPhotoUrl] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -33,7 +35,57 @@ function Profile() {
     }
   };
 
-  const updateProfilePhoto = () => {};
+  const imagekitAuthenticator = async () => {
+    const response = await API_URL.get(`/api/imagekit/auth`);
+
+    if (response) {
+      return response?.data;
+    }
+  };
+
+  const onUploadProgress = (evt) => {
+    console.log(evt);
+    toast.loading("Image Uploading...", { id: "img-uploading" });
+  };
+  const onError = (err) => {
+    console.log(typeof err);
+    toast.error("Error uploading image");
+  };
+
+  const onSuccess = async (res) => {
+    try {
+      if (!res?.url) return;
+      console.log(res?.url);
+      const response = await API_URL.put(
+        "/api/users/change-profile-image",
+        {
+          avtarUrl: res?.url,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response?.data?.success) {
+        console.log("Profile image updated:", response.data.data.avtarUrl);
+        toast.dismiss("img-uploading");
+
+        toast.success(response.data.message || "Image updated");
+      }
+    } catch (error) {
+      console.error("Update profile image error:", error);
+
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong while updating profile image";
+
+      toast.dismiss("img-uploading");
+      toast.error(errorMessage);
+    }
+  };
 
   return (
     <>
@@ -56,7 +108,7 @@ function Profile() {
                 <div className="w-full h-full rounded-full overflow-hidden">
                   <img
                     src={
-                      user?.avatarUrl || user?.gender === "male"
+                      user?.avtarUrl || user?.gender === "male"
                         ? UserMaleImg
                         : user?.gender === "female"
                         ? UserFemaleImg
@@ -70,8 +122,10 @@ function Profile() {
             </div>
 
             <button
-              onClick={updateProfilePhoto}
-              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-sm group transition"
+              onClick={() => {
+                uploadImageRef.current.click();
+              }}
+              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-md group transition"
             >
               <Camera
                 size={20}
@@ -79,6 +133,21 @@ function Profile() {
               />
             </button>
           </div>
+          <IKContext
+            publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}
+            urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
+            authenticator={imagekitAuthenticator}
+          >
+            <IKUpload
+              ref={uploadImageRef}
+              onError={onError}
+              onSuccess={onSuccess}
+              onUploadProgress={onUploadProgress}
+              useUniqueFileName={true}
+              checks={`"file.size" < "1mb"`}
+              className="hidden"
+            />
+          </IKContext>
 
           <div>
             <HeadingOne title={user?.fullName} customStyle={"!mb-3"} />

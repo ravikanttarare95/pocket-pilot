@@ -219,8 +219,7 @@ const userLogout = (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const userID = req.user.id;
-    const { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address } =
-      req.body;
+    const { fullName, gender, phoneNumber, dateOfBirth, address } = req.body;
 
     if (!fullName) {
       return res.status(400).json({
@@ -241,7 +240,7 @@ const updateProfile = async (req, res) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       { _id: userID },
-      { fullName, avatarUrl, gender, phoneNumber, dateOfBirth, address },
+      { fullName, gender, phoneNumber, dateOfBirth, address },
       { new: true, runValidators: true }
     ).select("-password -googleId");
 
@@ -322,6 +321,47 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const updatePhoto = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { avtarUrl } = req.body;
+
+    if (!avtarUrl) {
+      return res.status(400).json({
+        success: false,
+        message: "avtarUrl is required",
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { avtarUrl },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile photo updated successfully",
+      data: {
+        avtarUrl: updatedUser.avtarUrl,
+      },
+    });
+  } catch (error) {
+    console.error("Update avatar error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update profile photo",
+    });
+  }
+};
 export {
   userRegister,
   userLogin,
@@ -329,4 +369,5 @@ export {
   userLogout,
   updateProfile,
   updatePassword,
+  updatePhoto,
 };
