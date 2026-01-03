@@ -323,10 +323,10 @@ const updatePassword = async (req, res) => {
 
 const updatePhoto = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { avtarUrl } = req.body;
 
-    if (!avtarUrl) {
+    if (avtarUrl === undefined) {
       return res.status(400).json({
         success: false,
         message: "avtarUrl is required",
@@ -335,7 +335,7 @@ const updatePhoto = async (req, res) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { avtarUrl },
+      { avtarUrl: avtarUrl || "" },
       { new: true, runValidators: true }
     ).select("-password");
 
@@ -348,7 +348,9 @@ const updatePhoto = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Profile photo updated successfully",
+      message: avtarUrl
+        ? "Profile photo updated successfully"
+        : "Profile photo removed successfully",
       data: {
         avtarUrl: updatedUser.avtarUrl,
       },
@@ -362,6 +364,7 @@ const updatePhoto = async (req, res) => {
     });
   }
 };
+
 export {
   userRegister,
   userLogin,

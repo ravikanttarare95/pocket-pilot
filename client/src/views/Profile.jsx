@@ -21,6 +21,7 @@ function Profile() {
   const { user, setUser, accessToken, setAccessToken } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
   // const [userPhotoUrl, setUserPhotoUrl] = useState("");
+  const [showPhotoMenu, setShowPhotoMenu] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -69,7 +70,11 @@ function Profile() {
       );
 
       if (response?.data?.success) {
-        console.log("Profile image updated:", response.data.data.avtarUrl);
+        setUser((prev) => ({
+          ...prev,
+          avtarUrl: response?.data?.data,
+        }));
+
         toast.dismiss("img-uploading");
 
         toast.success(response.data.message || "Image updated");
@@ -87,19 +92,34 @@ function Profile() {
     }
   };
 
+  const removeProfilePhoto = async () => {
+    try {
+      const response = await API_URL.put(
+        "/api/users/change-profile-image",
+        { avtarUrl: "" },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response?.data?.success) {
+        setUser((prev) => ({
+          ...prev,
+          avtarUrl: "",
+        }));
+        toast.success("Profile photo removed");
+      }
+    } catch (error) {
+      console.error("Remove photo error:", error);
+      toast.error("Failed to remove profile photo");
+    }
+  };
+
   return (
     <>
       <Navbar />
-      {/* ============ */}
-      <div className="sticky top-0 z-40 bg-amber-50 border-b border-amber-200">
-        <div className="max-w-3xl mx-auto px-4 py-2 text-center">
-          <p className="text-sm font-medium text-amber-700">
-            ⚠️ This page is under maintenance. Some features may be unavailable.
-          </p>
-        </div>
-      </div>
-      {/* ============ */}
-
       <div className="max-w-3xl mx-auto md:my-6 p-6 sm:p-8 bg-white border border-gray-200 md:rounded-2xl shadow-sm">
         <div className="flex max-[400px]:flex-col items-center gap-6 mb-10">
           <div className="relative group w-32 h-32 flex items-center justify-center">
@@ -108,7 +128,9 @@ function Profile() {
                 <div className="w-full h-full rounded-full overflow-hidden">
                   <img
                     src={
-                      user?.avtarUrl || user?.gender === "male"
+                      user?.avtarUrl
+                        ? user?.avtarUrl
+                        : user?.gender === "male"
                         ? UserMaleImg
                         : user?.gender === "female"
                         ? UserFemaleImg
@@ -121,17 +143,53 @@ function Profile() {
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                uploadImageRef.current.click();
-              }}
-              className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-md group transition"
-            >
-              <Camera
-                size={20}
-                className="text-white group-hover:scale-110 duration-300"
-              />
-            </button>
+            <div className="relative">
+              <button
+                type="button"
+                aria-label="Change profile photo"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPhotoMenu((prev) => !prev);
+                }}
+                className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-md transition"
+              >
+                <Camera
+                  size={20}
+                  className="text-white hover:scale-110 duration-300"
+                />
+              </button>
+
+              {showPhotoMenu && (
+                <div
+                  className="absolute right-6 -bottom-20 w-20 rounded-md overflow-hidden z-50"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Button
+                    type="button"
+                    btnTitle="Update"
+                    size="sm"
+                    btnVariant="primary"
+                    onBtnClick={() => {
+                      setShowPhotoMenu(false);
+                      uploadImageRef.current?.click();
+                    }}
+                    customStyle="!w-full !font-light"
+                  />
+
+                  <Button
+                    type="button"
+                    btnTitle="Remove"
+                    size="sm"
+                    btnVariant="secondary"
+                    onBtnClick={() => {
+                      setShowPhotoMenu(false);
+                      removeProfilePhoto();
+                    }}
+                    customStyle="!w-full !font-light !bg-white !text-rose-400 !border-rose-200"
+                  />
+                </div>
+              )}
+            </div>
           </div>
           <IKContext
             publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}
