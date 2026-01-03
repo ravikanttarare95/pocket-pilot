@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "./../components/Button.jsx";
-import HeadingTwo from "./../components/HeadingTwo.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 import { useAuth } from "./../context/UserAuthContext.jsx";
 import { Camera } from "lucide-react";
 import { useNavigate } from "react-router";
-import Input from "./../components/authentication/Input.jsx";
-import Label from "./../components/authentication/Label.jsx";
 import Navbar from "./../components/containers/Navbar.jsx";
 import { LogIn } from "lucide-react";
 import toast from "react-hot-toast";
 import { API_URL } from "./../configs/axiosConfigs.js";
-import ProfileInfoCompo from "../components/profile-components/ProfileInfoCompo.jsx";
+import ProfileInfoCompo from "./../components/profile-components/ProfileInfoCompo.jsx";
+import ChangePasswordCompo from "./../components/profile-components/ChangePasswordCompo.jsx";
 
 function Profile() {
   const navigate = useNavigate();
@@ -106,45 +104,9 @@ function Profile() {
 
         {showChangePassword && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs px-4">
-            <div className="w-full max-w-md bg-white rounded-2xl p-6 sm:p-8 space-y-5 shadow-lg">
-              <HeadingTwo title="Change Password" />
-
-              <div>
-                <Label
-                  htmlFor="current-password"
-                  labelTitle="Current Password"
-                />
-                <Input type="password" id="current-password" />
-              </div>
-
-              <div>
-                <Label htmlFor="new-password" labelTitle="New Password" />
-                <Input type="password" id="new-password" />
-              </div>
-
-              <div>
-                <Label
-                  htmlFor="confirm-new-password"
-                  labelTitle="Confirm New Password"
-                />
-                <Input type="password" id="confirm-new-password" />
-              </div>
-
-              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
-                <Button
-                  btnTitle="Cancel"
-                  btnVariant="secondary"
-                  size="md"
-                  onBtnClick={() => setShowChangePassword(false)}
-                  customStyle="w-full sm:w-auto !border-rose-300 hover:!border-rose-400 !text-rose-400 hover:!text-rose-500 transition"
-                />
-                <Button
-                  btnTitle="Update Password"
-                  btnVariant="primary"
-                  size="md"
-                />
-              </div>
-            </div>
+            <ChangePasswordCompo
+              setShowChangePassword={setShowChangePassword}
+            />
           </div>
         )}
       </div>

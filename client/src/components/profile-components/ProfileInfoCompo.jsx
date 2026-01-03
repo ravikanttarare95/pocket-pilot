@@ -116,16 +116,12 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
               onInputChange={handleInputChange}
             />
           </div>
+
           <div>
-            <Label htmlFor="email-address" labelTitle="Email Address" />
-            <Input
-              type="text"
-              name="email"
-              id="email-address"
-              value={profileData?.email}
-              onInputChange={handleInputChange}
-            />
+            <Label labelTitle="Email Address" />
+            <ProfileInfoPara info={user?.email ? user?.email : "--"} />
           </div>
+
           <div>
             <Label htmlFor="phone-number" labelTitle="Phone Number" />
             <Input
