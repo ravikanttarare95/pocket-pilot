@@ -6,7 +6,6 @@ dotenv.config();
 
 import passport from "passport";
 
-import jwt from "jsonwebtoken";
 import jwtCheck from "./../middlewares/jwtCheck.js";
 import User from "../models/User.js";
 import { generateAccessToken, generateRefreshToken } from "./../utils/token.js";
@@ -26,7 +25,7 @@ router.get(
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // "None" = cross-site, requires HTTPS // Lax in dev //
+        sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", // "None" = cross-site, requires HTTPS // Lax in dev //
         maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/",
       });
