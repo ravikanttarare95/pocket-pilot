@@ -13,8 +13,19 @@ const AuthProvider = ({ children }) => {
       try {
         const response = await API_URL.post("/api/users/refresh");
         if (response?.data?.success) {
-          setAccessToken(response?.data?.accessToken);
-          setUser(response?.data?.user);
+          const accessToken = response?.data?.accessToken;
+          setAccessToken(accessToken);
+          if (response?.data?.success) {
+            const userRes = await API_URL.get("/auth/me", {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            });
+
+            if (userRes?.data?.success) {
+              setUser(userRes.data.user);
+            } else {
+              toast.error("Failed to fetch user info");
+            }
+          }
         }
       } catch {
         console.log("No active session");

@@ -12,7 +12,7 @@ function AuthSuccess() {
   const { setUser, setAccessToken } = useAuth();
 
   const handleAuth = async () => {
-    if (!accessToken) return;
+    if (!accessToken) return; //////////////
     try {
       const response = await API_URL.get(`/auth/me`, {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -21,9 +21,8 @@ function AuthSuccess() {
         setAccessToken(accessToken);
         setUser(response?.data?.user);
 
-        toast.success(response?.data?.message);
-
         setTimeout(() => {
+          toast.success("Login Successful");
           navigate("/dashboard", { replace: true });
         }, 1000);
       }

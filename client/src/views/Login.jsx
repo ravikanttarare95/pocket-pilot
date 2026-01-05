@@ -33,13 +33,23 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const response = await API_URL.post("/api/users/login", formData);
+      const loginRes = await API_URL.post("/api/users/login", formData);
 
-      if (response?.data?.success) {
-        toast.success(response?.data?.message || "Login Successful");
+      if (loginRes?.data?.success) {
+        const accessToken = loginRes?.data?.accessToken;
+        setAccessToken(accessToken); ////
 
-        setUser(response?.data?.user);
-        setAccessToken(response?.data?.accessToken);
+        const userRes = await API_URL.get("/auth/me", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        if (userRes?.data?.success) {
+          setUser(userRes.data.user);
+          toast.success("Login successful");
+          navigate("/dashboard", { replace: true });
+        } else {
+          toast.error("Failed to fetch user info");
+        }
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || error?.message);

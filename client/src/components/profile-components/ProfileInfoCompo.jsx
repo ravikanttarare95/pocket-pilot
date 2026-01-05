@@ -48,7 +48,16 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
       );
 
       if (response?.data?.success) {
-        setUser(response?.data?.user);
+        const userRes = await API_URL.get("/auth/me", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        if (userRes?.data?.success) {
+          setUser(userRes.data.user);
+        } else {
+          toast.error("Failed to fetch user info");
+        }
+
         setIsProfileEditing(false);
         return toast.success(
           response?.data?.message || "Profile updated successfully"

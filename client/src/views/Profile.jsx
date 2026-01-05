@@ -69,11 +69,20 @@ function Profile() {
       );
 
       if (response?.data?.success) {
-        setUser(response?.data.user);
+        if (response?.data?.success) {
+          const userRes = await API_URL.get("/auth/me", {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
 
-        toast.dismiss("img-uploading");
+          if (userRes?.data?.success) {
+            setUser(userRes.data.user);
+          } else {
+            toast.error("Failed to fetch user info");
+          }
 
-        toast.success(response.data.message || "Image updated");
+          toast.dismiss("img-uploading");
+          toast.success(response?.data?.message || "Image updated");
+        }
       }
     } catch (error) {
       console.error("Update profile image error:", error);

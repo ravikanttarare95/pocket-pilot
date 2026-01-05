@@ -36,17 +36,17 @@ router.get(
 
 router.get("/me", jwtCheck, async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.user.id }).select(
-      "_id fullName email avtarUrl"
+    const userId = req.user.id;
+
+    const user = await User.findById(userId).select(
+      "_id fullName email avtarUrl provider isVerified phoneNumber gender dateOfBirth address createdAt updatedAt"
     );
     if (!user) {
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-    return res
-      .status(200)
-      .json({ success: true, user, message: "Login Successful" });
+    return res.status(200).json({ success: true, user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Server error" });

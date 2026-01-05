@@ -93,14 +93,14 @@ const userLogin = async (req, res) => {
         message: "Email and Password required",
       });
     }
-    const existingUser = await User.findOne({ email }); ////////
+    const existingUser = await User.findOne({ email }).select("+password"); ////////
     if (!existingUser) {
       return res.status(404).json({
         success: false,
         message: "User not found or invalid email",
       });
     }
-
+    console.log(existingUser.password);
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
@@ -119,12 +119,6 @@ const userLogin = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Login successful",
-      user: {
-        id: existingUser._id,
-        fullName: existingUser.fullName,
-        email: existingUser.email,
-      },
       accessToken,
     });
   } catch (error) {
@@ -159,7 +153,7 @@ const refreshAccessToken = async (req, res) => {
     }
 
     const user = await User.findById(decodedRefreshToken.id).select(
-      "-password -googleId"
+      "_id email fullName"
     ); ///////
 
     if (!user) {
@@ -174,9 +168,7 @@ const refreshAccessToken = async (req, res) => {
 
     res.cookie("refreshToken", newRefreshToken, refreshCookieOptions);
 
-    return res
-      .status(200)
-      .json({ success: true, accessToken: newAccessToken, user });
+    return res.status(200).json({ success: true, accessToken: newAccessToken });
   } catch (error) {
     console.error("Error refreshing access token:", error);
     res.status(401).json({ message: "Session expired" });
@@ -227,12 +219,18 @@ const updateProfile = async (req, res) => {
       userID,
       { fullName, gender, phoneNumber, dateOfBirth, address },
       { new: true, runValidators: true }
-    ).select("-password -googleId");
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     return res.status(200).json({
       success: true,
       message: "Profile updated successfully",
-      user: updatedUser,
     });
   } catch (error) {
     res.status(500).json({ message: "Profile update failed" });
@@ -322,7 +320,7 @@ const updatePhoto = async (req, res) => {
       userId,
       { avtarUrl: avtarUrl || "" },
       { new: true, runValidators: true }
-    ).select("-password");
+    );
 
     if (!updatedUser) {
       return res.status(404).json({
@@ -336,7 +334,6 @@ const updatePhoto = async (req, res) => {
       message: avtarUrl
         ? "Profile photo updated successfully"
         : "Profile photo removed successfully",
-      user: updatedUser,
     });
   } catch (error) {
     console.error("Update avatar error:", error);
