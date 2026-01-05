@@ -224,7 +224,7 @@ const updateProfile = async (req, res) => {
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      { _id: userID },
+      userID,
       { fullName, gender, phoneNumber, dateOfBirth, address },
       { new: true, runValidators: true }
     ).select("-password -googleId");
@@ -336,9 +336,7 @@ const updatePhoto = async (req, res) => {
       message: avtarUrl
         ? "Profile photo updated successfully"
         : "Profile photo removed successfully",
-      data: {
-        avtarUrl: updatedUser.avtarUrl,
-      },
+      user: updatedUser,
     });
   } catch (error) {
     console.error("Update avatar error:", error);

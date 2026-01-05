@@ -20,7 +20,6 @@ function Profile() {
   const navigate = useNavigate();
   const { user, setUser, accessToken, setAccessToken } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
-  // const [userPhotoUrl, setUserPhotoUrl] = useState("");
   const [showPhotoMenu, setShowPhotoMenu] = useState(false);
 
   const handleLogout = async () => {
@@ -70,10 +69,7 @@ function Profile() {
       );
 
       if (response?.data?.success) {
-        setUser((prev) => ({
-          ...prev,
-          avtarUrl: response?.data?.data,
-        }));
+        setUser(response?.data.user);
 
         toast.dismiss("img-uploading");
 

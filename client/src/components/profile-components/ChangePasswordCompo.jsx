@@ -8,6 +8,12 @@ import { API_URL } from "./../../configs/axiosConfigs.js";
 import toast from "react-hot-toast";
 
 function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
+  const TOAST_ID = {
+    VALIDATION: "change-password-validation",
+    SUCCESS: "change-password-success",
+    ERROR: "change-password-error",
+  };
+
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -31,15 +37,21 @@ function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
     const { oldPassword, newPassword, confirmNewPassword } = passwordData;
 
     if (!oldPassword || !newPassword || !confirmNewPassword) {
-      return toast.error("All fields are required");
+      return toast.error("All fields are required", {
+        id: TOAST_ID.VALIDATION,
+      });
     }
 
     if (newPassword.length < 8) {
-      return toast.error("Password must be at least 8 characters");
+      return toast.error("Password must be at least 8 characters", {
+        id: TOAST_ID.VALIDATION,
+      });
     }
 
     if (newPassword !== confirmNewPassword) {
-      return toast.error("New password and confirm password do not match");
+      return toast.error("New password and confirm password do not match", {
+        id: TOAST_ID.VALIDATION,
+      });
     }
 
     try {
@@ -57,7 +69,8 @@ function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
 
       if (response?.data?.success) {
         toast.success(
-          response?.data?.message || "Password updated successfully"
+          response?.data?.message || "Password updated successfully",
+          { id: TOAST_ID.SUCCESS }
         );
         setPasswordData({
           oldPassword: "",
@@ -72,7 +85,8 @@ function ChangePasswordCompo({ setShowChangePassword, accessToken }) {
       return toast.error(
         error?.response?.data?.message ||
           error?.message ||
-          "Failed to update password"
+          "Failed to update password",
+        { id: TOAST_ID.ERROR }
       );
     } finally {
       setLoading(false);

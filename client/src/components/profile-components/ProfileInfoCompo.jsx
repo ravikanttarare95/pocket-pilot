@@ -15,7 +15,7 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
     fullName: user?.fullName || "",
     email: user?.email || "",
     phoneNumber: user?.phoneNumber || "",
-    gender: user?.gender || "",
+    gender: user?.gender || "prefer_not_to_say",
     dateOfBirth: user?.dateOfBirth
       ? new Date(user?.dateOfBirth).toISOString().split("T")[0]
       : "",
@@ -48,7 +48,6 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
       );
 
       if (response?.data?.success) {
-        console.log(response?.data);
         setUser(response?.data?.user);
         setIsProfileEditing(false);
         return toast.success(
