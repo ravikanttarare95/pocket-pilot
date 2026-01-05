@@ -25,7 +25,7 @@ router.get(
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", // "None" = cross-site, requires HTTPS // Lax in dev //
+        sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", ////
         maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/",
       });

@@ -12,9 +12,12 @@ const AuthProvider = ({ children }) => {
     const getNewAccessToken = async () => {
       try {
         const response = await API_URL.post("/api/users/refresh");
-        setAccessToken(response?.data?.accessToken);
-        setUser(response?.data?.user);
+        if (response?.data?.success) {
+          setAccessToken(response?.data?.accessToken);
+          setUser(response?.data?.user);
+        }
       } catch {
+        console.error("Refresh token failed:", error);
         setAccessToken(null);
         setUser(null);
       } finally {
