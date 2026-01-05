@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { generateAccessToken, generateRefreshToken } from "./../utils/token.js";
+import { refreshCookieOptions } from "./../configs/cookieOptions.js";
 
 dotenv.config();
 
@@ -114,13 +115,7 @@ const userLogin = async (req, res) => {
     const accessToken = generateAccessToken(existingUser);
     const refreshToken = generateRefreshToken(existingUser);
 
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", ///
-      sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", ///
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: "/",
-    });
+    res.cookie("refreshToken", refreshToken, refreshCookieOptions);
 
     return res.status(200).json({
       success: true,
@@ -177,19 +172,14 @@ const refreshAccessToken = async (req, res) => {
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken(user);
 
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: "/",
-    });
+    res.cookie("refreshToken", newRefreshToken, refreshCookieOptions);
 
     return res
       .status(200)
       .json({ success: true, accessToken: newAccessToken, user });
   } catch (error) {
     console.error("Error refreshing access token:", error);
+    res.status(401).json({ message: "Session expired" });
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -199,12 +189,7 @@ const refreshAccessToken = async (req, res) => {
 
 const userLogout = (req, res) => {
   try {
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", ///
-      sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", ///
-      path: "/",
-    });
+    res.clearCookie("refreshToken", refreshCookieOptions);
     return res
       .status(200)
       .json({ success: true, message: "Logged out successfully" });

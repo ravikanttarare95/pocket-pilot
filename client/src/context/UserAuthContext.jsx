@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
           setUser(response?.data?.user);
         }
       } catch {
-        console.error("Refresh token failed:", error);
+        console.log("No active session");
         setAccessToken(null);
         setUser(null);
       } finally {

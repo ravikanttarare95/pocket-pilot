@@ -8,6 +8,7 @@ import passport from "passport";
 
 import jwtCheck from "./../middlewares/jwtCheck.js";
 import User from "../models/User.js";
+import { refreshCookieOptions } from "./../configs/cookieOptions.js";
 import { generateAccessToken, generateRefreshToken } from "./../utils/token.js";
 
 router.get(
@@ -22,13 +23,7 @@ router.get(
     try {
       const accessToken = generateAccessToken(req.user);
       const refreshToken = generateRefreshToken(req.user);
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", ////
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        path: "/",
-      });
+      res.cookie("refreshToken", refreshToken, refreshCookieOptions);
 
       res.redirect(
         `${process.env.CLIENT_URL}/auth-success?accessToken=${accessToken}`
