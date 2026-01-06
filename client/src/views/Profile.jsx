@@ -14,6 +14,7 @@ import { API_URL } from "./../configs/axiosConfigs.js";
 import ProfileInfoCompo from "./../components/profile-components/ProfileInfoCompo.jsx";
 import ChangePasswordCompo from "./../components/profile-components/ChangePasswordCompo.jsx";
 import { IKContext, IKUpload } from "imagekitio-react";
+import Swal from "sweetalert2";
 
 function Profile() {
   const uploadImageRef = useRef(null);
@@ -91,6 +92,18 @@ function Profile() {
   };
 
   const removeProfilePhoto = async () => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#10B981",
+      cancelButtonColor: "#F43F5E",
+      confirmButtonText: "Yes, remove it!",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       const response = await API_URL.put(
         "/api/users/change-profile-image",
@@ -107,7 +120,11 @@ function Profile() {
           ...prev,
           avtarUrl: "",
         }));
-        toast.success("Profile photo removed");
+        Swal.fire({
+          title: "Deleted!",
+          text: "Profile photo removed",
+          icon: "success",
+        });
       }
     } catch (error) {
       console.error("Remove photo error:", error);
