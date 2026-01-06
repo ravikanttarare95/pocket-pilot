@@ -8,24 +8,30 @@ const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
+  const refreshUser = async (token = accessToken) => {
+    if (!token) return false;
+    try {
+      const userRes = await API_URL.get("/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (userRes?.data?.success) {
+        setUser(userRes.data.user);
+      }
+    } catch (error) {
+      console.error("refreshUser failed", error);
+      setUser(null);
+    }
+  };
+
   useEffect(() => {
     const getNewAccessToken = async () => {
       try {
         const response = await API_URL.post("/api/users/refresh");
         if (response?.data?.success) {
-          const accessToken = response?.data?.accessToken;
-          setAccessToken(accessToken);
-          if (response?.data?.success) {
-            const userRes = await API_URL.get("/auth/me", {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            });
-
-            if (userRes?.data?.success) {
-              setUser(userRes.data.user);
-            } else {
-              toast.error("Failed to fetch user info");
-            }
-          }
+          const token = response?.data?.accessToken;
+          setAccessToken(token);
+          await refreshUser(token);
         }
       } catch {
         console.log("No active session");
@@ -40,7 +46,14 @@ const AuthProvider = ({ children }) => {
 
   return (
     <UserAuthContext.Provider
-      value={{ user, setUser, accessToken, setAccessToken, authLoading }}
+      value={{
+        user,
+        setUser,
+        accessToken,
+        setAccessToken,
+        authLoading,
+        refreshUser,
+      }}
     >
       {children}
     </UserAuthContext.Provider>

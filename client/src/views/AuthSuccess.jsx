@@ -9,18 +9,14 @@ function AuthSuccess() {
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get("accessToken");
   const navigate = useNavigate();
-  const { setUser, setAccessToken } = useAuth();
+  const { setUser, setAccessToken, refreshUser } = useAuth();
 
   const handleAuth = async () => {
     if (!accessToken) return; //////////////
     try {
-      const response = await API_URL.get(`/auth/me`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      if (response?.data?.success) {
-        setAccessToken(accessToken);
-        setUser(response?.data?.user);
-
+      setAccessToken(accessToken);
+      const success = await refreshUser(accessToken);
+      if (!success) {
         setTimeout(() => {
           toast.success("Login Successful");
           navigate("/dashboard", { replace: true });

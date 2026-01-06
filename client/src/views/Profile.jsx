@@ -5,7 +5,7 @@ import UserFemaleImg from "./../assets/profile-female.png";
 import Button from "./../components/Button.jsx";
 import HeadingOne from "./../components/HeadingOne.jsx";
 import { useAuth } from "./../context/UserAuthContext.jsx";
-import { Camera } from "lucide-react";
+import { Camera, X } from "lucide-react";
 import { useNavigate } from "react-router";
 import Navbar from "./../components/containers/Navbar.jsx";
 import { LogIn } from "lucide-react";
@@ -18,7 +18,7 @@ import { IKContext, IKUpload } from "imagekitio-react";
 function Profile() {
   const uploadImageRef = useRef(null);
   const navigate = useNavigate();
-  const { user, setUser, accessToken, setAccessToken } = useAuth();
+  const { user, setUser, accessToken, setAccessToken, refreshUser } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showPhotoMenu, setShowPhotoMenu] = useState(false);
 
@@ -55,7 +55,6 @@ function Profile() {
   const onSuccess = async (res) => {
     try {
       if (!res?.url) return;
-      console.log(res?.url);
       const response = await API_URL.put(
         "/api/users/change-profile-image",
         {
@@ -69,20 +68,13 @@ function Profile() {
       );
 
       if (response?.data?.success) {
-        if (response?.data?.success) {
-          const userRes = await API_URL.get("/auth/me", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          });
+        setUser((prev) => ({
+          ...prev,
+          avtarUrl: response.data.userAvtarUrl,
+        }));
 
-          if (userRes?.data?.success) {
-            setUser(userRes.data.user);
-          } else {
-            toast.error("Failed to fetch user info");
-          }
-
-          toast.dismiss("img-uploading");
-          toast.success(response?.data?.message || "Image updated");
-        }
+        toast.dismiss("img-uploading");
+        toast.success(response?.data?.message || "Image updated");
       }
     } catch (error) {
       console.error("Update profile image error:", error);
@@ -158,10 +150,17 @@ function Profile() {
                 }}
                 className="absolute cursor-pointer bottom-2 -right-1 w-10 h-10 border-3 border-white rounded-full bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center shadow-md transition"
               >
-                <Camera
-                  size={20}
-                  className="text-white hover:scale-110 duration-300"
-                />
+                {showPhotoMenu ? (
+                  <X
+                    size={22}
+                    className="text-white transition-transform duration-300 hover:scale-110"
+                  />
+                ) : (
+                  <Camera
+                    size={20}
+                    className="text-white transition-transform duration-300 hover:scale-110"
+                  />
+                )}
               </button>
 
               {showPhotoMenu && (
@@ -224,6 +223,7 @@ function Profile() {
           user={user}
           setUser={setUser}
           accessToken={accessToken}
+          refreshUser={refreshUser}
         />
 
         {/* Divider */}

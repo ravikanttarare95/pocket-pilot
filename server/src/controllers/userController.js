@@ -320,7 +320,7 @@ const updatePhoto = async (req, res) => {
       userId,
       { avtarUrl: avtarUrl || "" },
       { new: true, runValidators: true }
-    );
+    ).select("avtarUrl");
 
     if (!updatedUser) {
       return res.status(404).json({
@@ -334,6 +334,7 @@ const updatePhoto = async (req, res) => {
       message: avtarUrl
         ? "Profile photo updated successfully"
         : "Profile photo removed successfully",
+      userAvtarUrl: updatedUser.avtarUrl,
     });
   } catch (error) {
     console.error("Update avatar error:", error);

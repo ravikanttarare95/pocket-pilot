@@ -8,7 +8,7 @@ import { UserRoundPen, Save } from "lucide-react";
 import { API_URL } from "./../../configs/axiosConfigs.js";
 import toast from "react-hot-toast";
 
-function ProfileInfoCompo({ user, setUser, accessToken }) {
+function ProfileInfoCompo({ user, setUser, accessToken, refreshUser }) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   const [profileData, setProfileData] = useState({
@@ -48,15 +48,7 @@ function ProfileInfoCompo({ user, setUser, accessToken }) {
       );
 
       if (response?.data?.success) {
-        const userRes = await API_URL.get("/auth/me", {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-
-        if (userRes?.data?.success) {
-          setUser(userRes.data.user);
-        } else {
-          toast.error("Failed to fetch user info");
-        }
+        await refreshUser(accessToken);
 
         setIsProfileEditing(false);
         return toast.success(
