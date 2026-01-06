@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ProfileImg from "./../assets/profile.png";
 import UserMaleImg from "./../assets/profile-male.png";
 import UserFemaleImg from "./../assets/profile-female.png";
@@ -21,6 +21,7 @@ function Profile() {
   const { user, setUser, accessToken, setAccessToken, refreshUser } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showPhotoMenu, setShowPhotoMenu] = useState(false);
+  const photoMenuRef = useRef(null);
 
   const handleLogout = async () => {
     try {
@@ -114,6 +115,24 @@ function Profile() {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        showPhotoMenu &&
+        photoMenuRef.current &&
+        !photoMenuRef.current.contains(event.target)
+      ) {
+        setShowPhotoMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPhotoMenu]);
+
   return (
     <>
       <Navbar />
@@ -165,6 +184,7 @@ function Profile() {
 
               {showPhotoMenu && (
                 <div
+                  ref={photoMenuRef}
                   className="absolute right-6 -bottom-20 w-20 rounded-md overflow-hidden z-50"
                   onClick={(e) => e.stopPropagation()}
                 >
